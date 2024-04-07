@@ -15,6 +15,8 @@ Please see the /docs for more information and getting started on the project.
 
 - **Backend**: Admin Backend with User / Group / Auth Management
 
+- **Localisation**: Working translation with language switcher, currently only EN & DE are supported, see /docs
+
 - **Secure Sign-off**: Facilitates a safe sign-off process to guard user privacy and deter unauthorized access.
 
 ## Screenshots
