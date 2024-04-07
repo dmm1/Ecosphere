@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-07 22:26+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\djangoappsettings\settings.py:125
+msgid "English"
+msgstr ""
+
+#: .\djangoappsettings\settings.py:126
+msgid "German"
+msgstr ""
+
+#: .\ecospherecrm\templates\home\index.html:18
+msgid "Username"
+msgstr ""
+
+#: .\ecospherecrm\templates\home\index.html:21
+msgid "Password"
+msgstr ""
+
+#: .\ecospherecrm\templates\home\index.html:23
+msgid "Log In"
+msgstr ""
+
+#: .\ecospherecrm\templates\user\dashboard.html:6
+msgid "Dashboard"
+msgstr ""
+
+#: .\ecospherecrm\templates\user\dashboard.html:7
+msgid "Welcome to your Dashboard!"
+msgstr ""
+
+#: .\ecospherecrm\views.py:16
+msgid "Invalid login credentials"
+msgstr ""
