@@ -1,8 +1,27 @@
 {% load i18n %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Your other navigation items here -->
-
+  <a class="navbar-brand" href="{% url 'index' %}">Ecosphere CRM</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}">{% trans 'Startseite' %}</a>
+      </li>
+      {% if user.is_staff %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'admin' %}">{% trans 'Admin' %}</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {% get_current_language as LANGUAGE_CODE %}
@@ -12,13 +31,13 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       {% get_available_languages as LANGUAGES %}
       {% for code, name in LANGUAGES %}
+      {% endfor %}
         <form action="{% url 'set_language' %}" method="post">
           {% csrf_token %}
           <input name="next" type="hidden" value="{{ request.path }}">
           <input name="language" type="hidden" value="{{ code }}">
           <button type="submit" class="dropdown-item">{{ name }}</button>
         </form>
-      {% endfor %}
     </div>
   </div>
 </nav>
