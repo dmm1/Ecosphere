@@ -1,1 +1,0 @@
-django-crispy-forms  # For better form rendering
