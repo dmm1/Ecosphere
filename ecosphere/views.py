@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 import json
+from django.db.models import Sum
 
 def set_language(request):
     lang_code = request.GET.get('lang')
@@ -35,6 +36,7 @@ def index(request):
     elif request.user.is_authenticated:
         return redirect('/user/dashboard/')
     return render(request, 'home/index.html')
+
 def logout_view(request):
     logout(request)
     return redirect('/')
@@ -46,8 +48,11 @@ def dashboard(request):
 def admin_view(request):
     return render(request, 'admin/index.html')
 
+from django.db.models import Sum
+
 @login_required
 def customers(request):
     customers = Customer.objects.all()
-    return render(request, 'customers/customers_index.html', {'customers': customers})
+    total_potential = customers.aggregate(Sum('Potential'))['Potential__sum']
+    return render(request, 'customers/customers_index.html', {'customers': customers, 'total_potential': total_potential})
 

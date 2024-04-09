@@ -2,13 +2,17 @@
 {% load static %}
 
 {% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">Customers</h1>
+  <h2>Total Potential: {{ total_potential }}</h2>
+</div>
   <div class="container mt-5">
-    <h1 class="mb-4">Customers</h1>
+  
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>GPID</th>
           <th>Name</th>
-          <th>Bid</th>
           <th>Date of Creation</th>
           <th>Potential</th>
           <!-- Remove the Actions column -->
@@ -17,8 +21,9 @@
       <tbody>
         {% for customer in customers %}
          <tr data-id="{{ customer.id }}">
+          <td class="bid">{{ customer.bid }}</td>
      <td class="name">{{ customer.name }}</td>
-<td class="bid">{{ customer.bid }}</td>
+
 <td class="date_of_creation">{{ customer.date_of_creation }}</td>
 <td class="Potential">{{ customer.Potential }}</td>
 <!-- Remove the buttons from the table -->
