@@ -13,5 +13,5 @@ urlpatterns = [
     path('admin/', views.admin_view, name='admin'),
     path('user/dashboard/', views.dashboard, name='dashboard'),
     path('customers/', views.customers, name='customers'),
-
+    path('customers_index', views.customers_index, name='customers_index'),
 ]

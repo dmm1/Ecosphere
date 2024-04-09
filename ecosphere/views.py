@@ -12,6 +12,7 @@ from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 import json
 from django.db.models import Sum
+from django.http import JsonResponse
 
 def set_language(request):
     lang_code = request.GET.get('lang')
@@ -40,6 +41,7 @@ def index(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
 @login_required
 def dashboard(request):
     return render(request, 'user/dashboard.html')
@@ -56,3 +58,22 @@ def customers(request):
     total_potential = customers.aggregate(Sum('Potential'))['Potential__sum']
     return render(request, 'customers/customers_index.html', {'customers': customers, 'total_potential': total_potential})
 
+@login_required
+def set_customer(request, user_id, customer_id):
+    user = get_object_or_404(User, id=user_id)
+    customer = get_object_or_404(Customer, id=customer_id)
+    user.userprofile.customer = customer
+    user.userprofile.save()
+    return redirect('/customers/')
+
+from django.http import JsonResponse
+
+@login_required
+def customers_index(request):
+    show_all = request.GET.get('show_all', 'false') == 'true'
+    if show_all:
+        customers = Customer.objects.all()
+    else:
+        customers = request.user.customer_set.all()
+    total_potential = customers.aggregate(Sum('Potential'))['Potential__sum']
+    return JsonResponse({'customers': list(customers.values()), 'total_potential': total_potential})

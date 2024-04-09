@@ -7,8 +7,11 @@
   <h2>Total Potential: {{ total_potential }}</h2>
 </div>
   <div class="container mt-5">
-  
-    <table class="table table-striped">
+    <label>
+      Show all customers
+      <input type="checkbox" id="show-all-switch">
+  </label>
+    <table class="table table-striped" id="customers-table">
       <thead>
         <tr>
           <th>GPID</th>
@@ -36,5 +39,33 @@
       </tbody>
     </table>
   </div>
-<!-- Remove the JavaScript code -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('show-all-switch').addEventListener('change', function() {
+    fetch('/customers_index?show_all=' + this.checked)
+      .then(response => response.json())
+      .then(data => {
+        var table = document.getElementById('customers-table');
+        // Clear the table
+        while (table.rows.length > 1) {
+          table.deleteRow(1);
+        }
+        // Add new rows
+        data.customers.forEach(function(customer) {
+          var row = table.insertRow(-1);
+          row.setAttribute('data-id', customer.id);
+          ['bid', 'name', 'date_of_creation', 'Potential'].forEach(function(field) {
+            var cell = row.insertCell(-1);
+            cell.textContent = customer[field];
+            cell.className = field;
+          });
+        });
+        // Update total potential
+        document.querySelector('.container h2').textContent = 'Total Potential: ' + data.total_potential;
+      });
+  });
+});
+</script>
+
 {% endblock %}
