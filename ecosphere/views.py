@@ -1,9 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import translation
 from django.utils.translation import gettext as _
+from .models import Customer
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.utils.decorators import method_decorator
+import json
 
 def set_language(request):
     lang_code = request.GET.get('lang')
@@ -38,3 +45,9 @@ def dashboard(request):
 @login_required
 def admin_view(request):
     return render(request, 'admin/index.html')
+
+@login_required
+def customers(request):
+    customers = Customer.objects.all()
+    return render(request, 'customers/customers_index.html', {'customers': customers})
+
