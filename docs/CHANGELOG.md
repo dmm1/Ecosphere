@@ -14,3 +14,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Logout Functionality.
 - Minor bug fixes and performance improvements.
 - Migration for Customer model.
+
+## [0.0.2] - 2023-10-04
+### Added
+- Update User Model
+- Implement Customer Model
+- Add Views
+- Style Ademin
+- Minor bug fixes and performance improvements.
+- Migrations for Customer model.

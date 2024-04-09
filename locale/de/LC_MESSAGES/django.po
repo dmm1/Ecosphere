@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-07 22:26+0200\n"
+"POT-Creation-Date: 2024-04-10 00:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,34 +17,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: .\djangoappsettings\settings.py:125
+
+#: .\core\settings.py:126
 msgid "English"
 msgstr "Englisch"
 
-#: .\djangoappsettings\settings.py:126
+#: .\core\settings.py:127
 msgid "German"
 msgstr "Deutsch"
 
-#: .\ecospherecrm\templates\home\index.html:18
+#: .\ecosphere\templates\home\index.html:19
 msgid "Username"
 msgstr "Benutzername"
 
-#: .\ecospherecrm\templates\home\index.html:21
+#: .\ecosphere\templates\home\index.html:22
 msgid "Password"
 msgstr "Passwort"
 
-#: .\ecospherecrm\templates\home\index.html:23
+#: .\ecosphere\templates\home\index.html:24
 msgid "Log In"
 msgstr "Login"
 
-#: .\ecospherecrm\templates\user\dashboard.html:6
+#: .\ecosphere\templates\user\dashboard.html:6
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: .\ecospherecrm\templates\user\dashboard.html:7
+#: .\ecosphere\templates\user\dashboard.html:7
 msgid "Welcome to your Dashboard!"
 msgstr "Willkommen auf deinem Dashboard!"
 
-#: .\ecospherecrm\views.py:16
+#: .\ecosphere\templates\user\top_navigation.html:12
+msgid "Home"
+msgstr "Startseite"
+
+#: .\ecosphere\templates\user\top_navigation.html:15
+msgid "Customers"
+msgstr "Kunden"
+
+#: .\ecosphere\templates\user\top_navigation.html:19
+msgid "Admin"
+msgstr "Admin"
+
+#: .\ecosphere\templates\user\top_navigation.html:23
+msgid "Logout"
+msgstr "Logout"
+
+#: .\ecosphere\views.py:36
 msgid "Invalid login credentials"
 msgstr "Fehlerhafte Anmeldeinformationen"
