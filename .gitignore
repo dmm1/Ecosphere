@@ -167,3 +167,7 @@ cython_debug/
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
 /.idea/runConfigurations/main.xml
+ecosphere/migrations/0001_initial.py
+ecosphere/migrations/0002_alter_customer_id.py
+ecosphere/migrations/0003_customer_bid.py
+ecosphere/migrations/0004_alter_customer_id.py

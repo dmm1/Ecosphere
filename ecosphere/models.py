@@ -10,6 +10,6 @@ class Customer(models.Model):
     Potential = models.IntegerField()
 
 
-from django.db import models
+
 
 # Create your models here.
