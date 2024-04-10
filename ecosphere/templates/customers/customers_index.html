@@ -1,71 +1,101 @@
-{% extends "base.html" %}
-{% load static %}
+<!-- templates/customers/customers_index.html -->
 
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% block customers_index_css %}
+{% endblock %}
 {% block content %}
-<div class="container mt-5">
-  <h1 class="mb-4">Customers</h1>
-  <h2>Total Potential: {{ total_potential }}</h2>
-</div>
-  <div class="container mt-5">
-    <label>
-      Show all customers
-      <input type="checkbox" id="show-all-switch">
-  </label>
-    <table class="table table-striped" id="customers-table">
-      <thead>
-        <tr>
-          <th>GPID</th>
-          <th>Name</th>
-          <th>Date of Creation</th>
-          <th>Potential</th>
-          <!-- Remove the Actions column -->
-        </tr>
-      </thead>
-      <tbody>
-        {% for customer in customers %}
-         <tr data-id="{{ customer.id }}">
-          <td class="bid">{{ customer.bid }}</td>
-     <td class="name">{{ customer.name }}</td>
 
-<td class="date_of_creation">{{ customer.date_of_creation }}</td>
-<td class="Potential">{{ customer.Potential }}</td>
-<!-- Remove the buttons from the table -->
-          </tr>
-        {% empty %}
-        {% endfor %}
-          <tr>
-            <td colspan="4">No customers available.</td>
-          </tr>
-      </tbody>
-    </table>
-  </div>
+    {% csrf_token %}
 
+    <div class="container mt-5">
+      <h1 class="mb-4">Customers</h1>
+        <h2>Total Potential: </h2>
+        
+        <label>
+            Show All Customers
+            <input type="checkbox" id="toggle-button">
+        </label>
+    </div>
+    <div class="container mt-5"></div>
+        <table class="table table-striped" id="customers-table">
+            <thead>
+                <tr>
+                    <th>Bid</th>
+                    <th>Name</th>
+                    <th>Date of Creation</th>
+                    <th>Potential</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('show-all-switch').addEventListener('change', function() {
-    fetch('/customers_index?show_all=' + this.checked)
-      .then(response => response.json())
-      .then(data => {
-        var table = document.getElementById('customers-table');
-        // Clear the table
-        while (table.rows.length > 1) {
-          table.deleteRow(1);
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+const customerTable = document.getElementById('customers-table');
+const toggleButton = document.getElementById('toggle-button');
+let showAll = false;
+let customers = [];
+
+// Event listener for toggle button
+toggleButton.addEventListener('click', () => {
+    showAll = !showAll;
+    fetchCustomers();
+});
+
+// Fetch customers data from the server
+const fetchCustomers = () => {
+    const url = `/customers_index?show_all=${showAll}`;
+    fetch(url, {
+        headers: {
+            'X-CSRFToken': csrftoken
         }
-        // Add new rows
-        data.customers.forEach(function(customer) {
-          var row = table.insertRow(-1);
-          row.setAttribute('data-id', customer.id);
-          ['bid', 'name', 'date_of_creation', 'Potential'].forEach(function(field) {
-            var cell = row.insertCell(-1);
+    })
+    .then(response => response.json())
+    .then(data => {
+        customers = data.customers;
+        populateTable(customers);
+        document.querySelector('.container h2').textContent = 'Total Potential: ' + (Number(data.total_potential) || 0);
+    });
+};
+
+// Populate the customer table
+const populateTable = (customers) => {
+    // Clear the table
+    while (customerTable.rows.length > 1) {
+        customerTable.deleteRow(1);
+    }
+
+    // Add new rows
+    customers.forEach(function(customer) {
+        const row = customerTable.insertRow(-1);
+        row.setAttribute('data-id', customer.id);
+        ['bid', 'name', 'date_of_creation', 'Potential'].forEach(function(field) {
+            const cell = row.insertCell(-1);
             cell.textContent = customer[field];
             cell.className = field;
-          });
         });
-        // Update total potential
-        document.querySelector('.container h2').textContent = 'Total Potential: ' + data.total_potential;
-      });
-  });
-});
-</script>
+    });
+};
+
+// Filter customers based on show/hide all
+const filterCustomers = (searchTerm) => {
+    const filteredCustomers = customers.filter(customer =>
+        showAll || customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    populateTable(filteredCustomers);
+    const totalPotential = filteredCustomers.reduce((total, customer) => {
+        const potential = parseFloat(customer.potential);
+        return total + (isNaN(potential) ? 0 : potential);
+    }, 0);
+    document.querySelector('.container h2').textContent = `Total Potential: ${totalPotential.toFixed(2)}`;
+};
+
+// Initial fetch of customers data
+fetchCustomers();
+
+        </script>
+          
 
 {% endblock %}

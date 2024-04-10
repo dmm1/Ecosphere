@@ -13,6 +13,11 @@ from django.utils.decorators import method_decorator
 import json
 from django.db.models import Sum
 from django.http import JsonResponse
+from .serializers import CustomerSerializer
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
+
 
 def set_language(request):
     lang_code = request.GET.get('lang')
@@ -77,3 +82,19 @@ def customers_index(request):
         customers = request.user.customer_set.all()
     total_potential = customers.aggregate(Sum('Potential'))['Potential__sum']
     return JsonResponse({'customers': list(customers.values()), 'total_potential': total_potential})
+
+class CustomerListView(generics.ListAPIView):
+    serializer_class = CustomerSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        show_all = self.request.query_params.get('show_all', False)
+
+        if show_all:
+            queryset = Customer.objects.all()
+        else:
+            queryset = Customer.objects.filter(user=user)
+
+        return queryset
+    
