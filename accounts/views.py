@@ -37,7 +37,7 @@ def login_view(request):
     return render(request, 'ecosphere/index.html', {'error_message': error_message})
 def logout_view(request):
     logout(request)
-    return redirect('ecosphere:index')
+    return redirect('accounts:index')
 
 
 # Create your views here.

@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from .models import Customer, Opportunity
 from .forms import OpportunityForm, CustomerForm
 
+
 def dashboard(request):
     return render(request, 'dashboard.html')
+
 
 @login_required
 def customer_list(request):

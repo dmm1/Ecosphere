@@ -7,8 +7,8 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('', include('ecosphere.urls', namespace='ecosphere')),
-    path('', include('accounts.urls', namespace='accounts')),
+    path('i18n/', include('django.conf.urls.i18n')),
+path('', include('accounts.urls', namespace='accounts')),
     path('', include('crm.urls', namespace='crm')),
 )
 
