@@ -45,10 +45,8 @@ to be added _soon_
 Future updates will focus on enhancing the user interface for a more engaging and efficient experience. Anticipated upgrades include:
 
 - **Account Management**: Users can update their personal account details.
-- Choose between Bootstrap or Tailwinds
 - Introducing a search function for pinpointing specific customer entries.
 - Applying pagination for orderly display of customer records.
-- Establishing user roles and permissions for refined access control.
 - Adding a password reset feature for user convenience.
 - Incorporating email notifications for real-time alerts and communications.
 - Make the registration page optional for the Admin, allow or deny new Registrations.
