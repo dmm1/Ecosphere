@@ -9,7 +9,7 @@ This will take _some_ time to build but i am sure it will be worth it in the end
 
 Please see the /docs for more information and getting started on the project.
 
-## Capabilities Version 0.0.1
+## Capabilities Version 0.0.2
 
 - **Login**: Enables registered users to securely access their accounts with their email and password.
 
@@ -18,6 +18,12 @@ Please see the /docs for more information and getting started on the project.
 - **Localisation**: Working translation with language switcher, currently only EN & DE are supported, see /docs
 
 - **Secure Sign-off**: Facilitates a safe sign-off process to guard user privacy and deter unauthorized access.
+
+- **User Profile**: Basic Implementation
+
+- **Customers**: Basic Implementation, related to Users
+
+- **Opportunitys**: Basic Implementation, related to Customers and Users
 
 ## Screenshots
 

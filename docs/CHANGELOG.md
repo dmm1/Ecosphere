@@ -23,3 +23,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Style Ademin
 - Minor bug fixes and performance improvements.
 - Migrations for Customer model.
+
+## [0.0.3] - 2023-15-04
+### Added
+- Update User Model
+- Implement new Customer Model
+- Implement new Opportunitys
+- Implement new Profile
+- Implement new Login Page
+- Implement Login-Image (AI created)
+
