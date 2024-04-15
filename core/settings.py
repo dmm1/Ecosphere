@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'bootstrap5',
     'accounts.apps.AccountsConfig',
     'crm.apps.CrmConfig',
-    'ecosphere.apps.EcosphereConfig',
 ]
 
 MIDDLEWARE = [

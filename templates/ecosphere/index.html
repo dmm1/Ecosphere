@@ -1,4 +1,4 @@
-<!-- templates/home/index.html -->
+<!-- templates/ecosphere/index.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,108 +10,9 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
-    <style>body {
-        font-family: "Karla", sans-serif;
-        background-color: #fff;
-        min-height: 100vh; }
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-      .brand-wrapper {
-        padding-top: 7px;
-        padding-bottom: 8px; }
-        .brand-wrapper .logo {
-          height: 25px; }
-
-      .login-section-wrapper {
-        display: -webkit-box;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-                flex-direction: column;
-        padding: 68px 180px;
-        background-color: #fff; }
-        @media (max-width: 991px) {
-          .login-section-wrapper {
-            padding-left: 50px;
-            padding-right: 50px; } }
-        @media (max-width: 575px) {
-          .login-section-wrapper {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            min-height: 100vh; } }
-
-      .login-wrapper {
-        width: 300px;
-        max-width: 100%;
-        padding-top: 24px;
-        padding-bottom: 24px; }
-        @media (max-width: 575px) {
-          .login-wrapper {
-            width: 100%; } }
-        .login-wrapper label {
-          font-size: 14px;
-          font-weight: bold;
-          color: #b0adad; }
-        .login-wrapper .form-control {
-          border: none;
-          border-bottom: 1px solid #e7e7e7;
-          border-radius: 0;
-          padding: 9px 5px;
-          min-height: 40px;
-          font-size: 18px;
-          font-weight: normal; }
-          .login-wrapper .form-control::-webkit-input-placeholder {
-            color: #b0adad; }
-          .login-wrapper .form-control::-moz-placeholder {
-            color: #b0adad; }
-          .login-wrapper .form-control:-ms-input-placeholder {
-            color: #b0adad; }
-          .login-wrapper .form-control::-ms-input-placeholder {
-            color: #b0adad; }
-          .login-wrapper .form-control::placeholder {
-            color: #b0adad; }
-        .login-wrapper .login-btn {
-          padding: 8px 20px;
-          background-color: #fdbb28;
-          border-radius: 0;
-          font-size: 22px;
-          font-weight: bold;
-          color: #ffffff;
-          margin-bottom: 14px; }
-          .login-wrapper .login-btn:hover {
-            border: 1px solid #fdbb28;
-            background-color: #fff;
-            color: #fdbb28; }
-        .login-wrapper a.forgot-password-link {
-          color: #080808;
-          font-size: 14px;
-          text-decoration: underline;
-          display: inline-block;
-          margin-bottom: 54px; }
-          @media (max-width: 575px) {
-            .login-wrapper a.forgot-password-link {
-              margin-bottom: 16px; } }
-        .login-wrapper-footer-text {
-          font-size: 16px;
-          color: #000;
-          margin-bottom: 0; }
-
-      .login-title {
-        font-size: 34px;
-        color: #000;
-        font-weight: bold;
-        margin-bottom: 25px; }
-
-      .login-img {
-        width: 128%;
-        height: 100vh;
-        max-width: 125%;
-        max-height: 100%;
-        -o-object-fit: cover;
-           object-fit: cover;
-        -o-object-position: left;
-           object-position: left; }
-
-     </style>
 </head>
 
 {% load i18n %}
@@ -123,9 +24,12 @@
       <div class="row">
         <div class="col-sm-6 login-section-wrapper">
           <div class="login-wrapper my-auto">
+              {% if error_message %}
+                <div class="alert alert-danger">{{ error_message }}</div>
+              {% endif %}
             <h1 class="login-title">Welcome to Ecosphere CRM</h1>
             <p class="lead">Your journey starts here. Log in to discover more.</p>
-            <form method="post" class="ui.form">
+            <form method="post" action="{% url 'accounts:login' %}" class="ui.form">
                 {% csrf_token %}
               <div class="form-group">
                 <input type="text" name="username" class="form-control" placeholder="{% trans 'Username' %}" required>

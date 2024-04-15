@@ -5,4 +5,5 @@ app_name = 'ecosphere'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('', views.login_view, name='login'),
 ]
