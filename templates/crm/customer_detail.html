@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Customer Details" %}</h1>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ customer.name }}</h5>
+                    <p class="card-text">{% trans "Email:" %} {{ customer.email }}</p>
+                    <a href="{% url 'crm:customer_update' customer.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
+                    <a href="{% url 'crm:customer_delete' customer.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>User Profile</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label for="bio">Bio:</label>
+        <textarea id="bio" name="bio">{{ user_profile.bio }}</textarea>
+    </div>
+    <div>
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" id="phone_number" name="phone_number" value="{{ user_profile.phone_number }}">
+    </div>
+    <div>
+        <label for="profile_picture">Profile Picture:</label>
+        <input type="file" id="profile_picture" name="profile_picture">
+    </div>
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Opportunities" %}</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "Customer" %}</th>
+                        <th>{% trans "Amount" %}</th>
+                        <th>{% trans "Probability" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for opportunity in opportunities %}
+                    <tr>
+                        <td><a href="{% url 'crm:opportunity_detail' opportunity.id %}">{{ opportunity.name }}</a></td>
+                        <td>{{ opportunity.customer.name }}</td>
+                        <td>{{ opportunity.amount }}</td>
+                        <td>{{ opportunity.probability }}%</td>
+                        <td>{{ opportunity.status }}</td>
+                        <td>
+                            <a href="{% url 'crm:opportunity_update' opportunity.id %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>
+                            <a href="{% url 'crm:opportunity_delete' opportunity.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url 'crm:opportunity_create' %}" class="btn btn-primary">{% trans "Create Opportunity" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

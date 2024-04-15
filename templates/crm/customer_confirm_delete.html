@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Delete Customer" %}</h1>
+            <p>{% trans "Are you sure you want to delete the customer?" %}</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+                <a href="{% url 'crm:customer_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

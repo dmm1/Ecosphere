@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Dashboard" %}</h1>
+            <p>{% trans "Quicklinks" %}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{% trans "Customers" %}</h5>
+                    <p class="card-text">{% trans "View and manage your customers." %}</p>
+                    <a href="{% url 'crm:customer_list' %}" class="btn btn-primary">{% trans "Go to Customers" %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{% trans "Opportunities" %}</h5>
+                    <p class="card-text">{% trans "View and manage your sales opportunities." %}</p>
+                    <a href="{% url 'crm:opportunity_list' %}" class="btn btn-primary">{% trans "Go to Opportunities" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

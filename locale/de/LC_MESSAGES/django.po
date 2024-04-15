@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-10 00:34+0200\n"
+"POT-Creation-Date: 2024-04-15 00:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,164 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\templates\crm\customer_confirm_delete.html:8
+msgid "Delete Customer"
+msgstr "Kunden löschen"
 
-#: .\core\settings.py:126
-msgid "English"
-msgstr "Englisch"
+#: .\templates\crm\customer_confirm_delete.html:9
+msgid "Are you sure you want to delete the customer?"
+msgstr ""
 
-#: .\core\settings.py:127
-msgid "German"
-msgstr "Deutsch"
+#: .\templates\crm\customer_confirm_delete.html:12
+#: .\templates\crm\customer_detail.html:14
+#: .\templates\crm\customer_list.html:24
+#: .\templates\crm\opportunity_confirm_delete.html:12
+#: .\templates\crm\opportunity_detail.html:20
+#: .\templates\crm\opportunity_list.html:30
+msgid "Delete"
+msgstr "löschen"
 
-#: .\ecosphere\templates\home\index.html:19
-msgid "Username"
-msgstr "Benutzername"
+#: .\templates\crm\customer_confirm_delete.html:13
+#: .\templates\crm\opportunity_confirm_delete.html:13
+msgid "Cancel"
+msgstr "abbrechen"
 
-#: .\ecosphere\templates\home\index.html:22
-msgid "Password"
-msgstr "Passwort"
+#: .\templates\crm\customer_detail.html:8
+msgid "Customer Details"
+msgstr "Kundendetails"
 
-#: .\ecosphere\templates\home\index.html:24
-msgid "Log In"
-msgstr "Login"
+#: .\templates\crm\customer_detail.html:12
+msgid "Email:"
+msgstr ""
 
-#: .\ecosphere\templates\user\dashboard.html:6
-msgid "Dashboard"
-msgstr "Dashboard"
+#: .\templates\crm\customer_detail.html:13
+#: .\templates\crm\customer_list.html:23
+#: .\templates\crm\opportunity_detail.html:19
+#: .\templates\crm\opportunity_list.html:29
+msgid "Edit"
+msgstr "bearbeiten"
 
-#: .\ecosphere\templates\user\dashboard.html:7
-msgid "Welcome to your Dashboard!"
-msgstr "Willkommen auf deinem Dashboard!"
+#: .\templates\crm\customer_form.html:8
+msgid "Edit Customer"
+msgstr "Kunden bearbeiten"
 
-#: .\ecosphere\templates\user\top_navigation.html:12
-msgid "Home"
-msgstr "Startseite"
+#: .\templates\crm\customer_form.html:8 .\templates\crm\customer_list.html:30
+msgid "Create Customer"
+msgstr "Kunden erstellen"
 
-#: .\ecosphere\templates\user\top_navigation.html:15
+#: .\templates\crm\customer_form.html:12
+#: .\templates\crm\opportunity_form.html:12
+msgid "Save"
+msgstr "speichern"
+
+#: .\templates\crm\customer_list.html:8 .\templates\dashboard.html:16
 msgid "Customers"
 msgstr "Kunden"
 
-#: .\ecosphere\templates\user\top_navigation.html:19
-msgid "Admin"
-msgstr "Admin"
+#: .\templates\crm\customer_list.html:12
+#: .\templates\crm\opportunity_list.html:12
+msgid "Name"
+msgstr "Name"
 
-#: .\ecosphere\templates\user\top_navigation.html:23
-msgid "Logout"
-msgstr "Logout"
+#: .\templates\crm\customer_list.html:13
+msgid "Email"
+msgstr "Email"
 
-#: .\ecosphere\views.py:36
-msgid "Invalid login credentials"
-msgstr "Fehlerhafte Anmeldeinformationen"
+#: .\templates\crm\customer_list.html:14
+#: .\templates\crm\opportunity_list.html:17
+msgid "Actions"
+msgstr "Aktionen"
+
+#: .\templates\crm\opportunity_confirm_delete.html:8
+msgid "Delete Opportunity"
+msgstr "Opportunity löschen"
+
+#: .\templates\crm\opportunity_confirm_delete.html:9
+msgid "Are you sure you want to delete the opportunity?"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:8
+msgid "Opportunity Details"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:12
+msgid "Customer:"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:13
+msgid "Amount:"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:14
+msgid "Probability:"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:15
+msgid "Status:"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:16
+msgid "Created at:"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:17
+msgid "Updated at:"
+msgstr ""
+
+#: .\templates\crm\opportunity_detail.html:18
+msgid "Assigned to:"
+msgstr ""
+
+#: .\templates\crm\opportunity_form.html:8
+msgid "Edit Opportunity"
+msgstr ""
+
+#: .\templates\crm\opportunity_form.html:8
+#: .\templates\crm\opportunity_list.html:36
+msgid "Create Opportunity"
+msgstr ""
+
+#: .\templates\crm\opportunity_list.html:8 .\templates\dashboard.html:25
+#: .\templates\navigation.html:14
+msgid "Opportunities"
+msgstr ""
+
+#: .\templates\crm\opportunity_list.html:13
+msgid "Customer"
+msgstr ""
+
+#: .\templates\crm\opportunity_list.html:14
+msgid "Amount"
+msgstr ""
+
+#: .\templates\crm\opportunity_list.html:15
+msgid "Probability"
+msgstr ""
+
+#: .\templates\crm\opportunity_list.html:16
+msgid "Status"
+msgstr ""
+
+#: .\templates\dashboard.html:8
+msgid "Dashboard"
+msgstr ""
+
+#: .\templates\dashboard.html:9
+msgid "Quicklinks"
+msgstr ""
+
+#: .\templates\dashboard.html:17
+msgid "View and manage your customers."
+msgstr ""
+
+#: .\templates\dashboard.html:18
+msgid "Go to Customers"
+msgstr ""
+
+#: .\templates\dashboard.html:26
+msgid "View and manage your sales opportunities."
+msgstr ""
+
+#: .\templates\dashboard.html:27
+msgid "Go to Opportunities"
+msgstr ""

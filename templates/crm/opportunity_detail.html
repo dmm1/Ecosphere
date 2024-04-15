@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Opportunity Details" %}</h1>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ opportunity.name }}</h5>
+                    <p class="card-text">{% trans "Customer:" %} {{ opportunity.customer.name }}</p>
+                    <p class="card-text">{% trans "Amount:" %} {{ opportunity.amount }}</p>
+                    <p class="card-text">{% trans "Probability:" %} {{ opportunity.probability }}%</p>
+                    <p class="card-text">{% trans "Status:" %} {{ opportunity.status }}</p>
+                    <p class="card-text">{% trans "Created at:" %} {{ opportunity.created_at }}</p>
+                    <p class="card-text">{% trans "Updated at:" %} {{ opportunity.updated_at }}</p>
+                    <p class="card-text">{% trans "Assigned to:" %} {{ opportunity.assigned_to.username }}</p>
+                    <a href="{% url 'crm:opportunity_update' opportunity.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
+                    <a href="{% url 'crm:opportunity_delete' opportunity.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

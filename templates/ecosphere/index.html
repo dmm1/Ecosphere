@@ -14,13 +14,13 @@
         font-family: "Karla", sans-serif;
         background-color: #fff;
         min-height: 100vh; }
-      
+
       .brand-wrapper {
         padding-top: 7px;
         padding-bottom: 8px; }
         .brand-wrapper .logo {
           height: 25px; }
-      
+
       .login-section-wrapper {
         display: -webkit-box;
         display: flex;
@@ -38,7 +38,7 @@
             padding-top: 20px;
             padding-bottom: 20px;
             min-height: 100vh; } }
-      
+
       .login-wrapper {
         width: 300px;
         max-width: 100%;
@@ -94,23 +94,23 @@
           font-size: 16px;
           color: #000;
           margin-bottom: 0; }
-      
+
       .login-title {
         font-size: 34px;
         color: #000;
         font-weight: bold;
         margin-bottom: 25px; }
-      
+
       .login-img {
         width: 128%;
         height: 100vh;
         max-width: 125%;
-        max-height: 100%; 
+        max-height: 100%;
         -o-object-fit: cover;
            object-fit: cover;
         -o-object-position: left;
            object-position: left; }
-            
+
      </style>
 </head>
 
@@ -137,7 +137,7 @@
             </form>
             <a href="/" class="forgot-password-link">Forgot password?</a>
             <p class="login-wrapper-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>
-          </div>
+          </div> {% url 'accounts:login' %} | Lang Switcher
         </div>
         <div class="col-sm-6 px-0 d-none d-sm-block">
             {% load static %}
