@@ -9,7 +9,7 @@ This will take _some_ time to build but i am sure it will be worth it in the end
 
 Please see the /docs for more information and getting started on the project.
 
-## Capabilities Version 0.0.2
+## Capabilities Version 0.0.3
 
 - **Login**: Enables registered users to securely access their accounts with their email and password.
 
