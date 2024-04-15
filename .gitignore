@@ -172,3 +172,4 @@ ecosphere/migrations/0002_alter_customer_id.py
 ecosphere/migrations/0003_customer_bid.py
 ecosphere/migrations/0004_alter_customer_id.py
 /.idea/workspace.xml
+/.vscode/
