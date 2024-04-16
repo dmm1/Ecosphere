@@ -11,6 +11,7 @@
                     <tr>
                         <th>{% trans "Name" %}</th>
                         <th>{% trans "Email" %}</th>
+                        <th>{% trans "Phone" %}</th>
                         <th>{% trans "Actions" %}</th>
                     </tr>
                 </thead>
@@ -19,6 +20,7 @@
                     <tr>
                         <td><a href="{% url 'crm:customer_detail' customer.id %}">{{ customer.name }}</a></td>
                         <td>{{ customer.email }}</td>
+                        <td>{{ customer.phone }}</td>
                         <td>
                             <a href="{% url 'crm:customer_update' customer.id %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>
                             <a href="{% url 'crm:customer_delete' customer.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
