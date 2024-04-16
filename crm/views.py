@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate
 from .models import Customer, Opportunity
 from .forms import OpportunityForm, CustomerForm
 
 
+@login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
 

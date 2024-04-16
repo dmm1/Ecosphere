@@ -123,3 +123,14 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'auth.User'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SESSION_CACHE_ALIAS = 'default'
+SESSION_COOKIE_AGE = 3600  # Session expires after 1 hour (in seconds)
+SESSION_SAVE_EVERY_REQUEST = False # experimental turn to FALSE in production
+SESSION_COOKIE_DOMAIN = None # experimental turn on in production: SESSION_COOKIE_DOMAIN = '.yourdomain.com'
+ESSION_COOKIE_NAME = 'ecosphere_sessionid'
+SESSION_COOKIE_SECURE = False # experimental turn on in production
+CSRF_COOKIE_NAME = 'ecosphere_csrftoken'
+CSRF_COOKIE_SECURE = False # experimental turn on in production
+CSRF_HEADER_NAME = 'HTTP_ECOSPHERE_CSRFTOKEN'

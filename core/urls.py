@@ -1,14 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib.auth.decorators import login_required
+from accounts.views import login_view, profile_view
+from crm.views import dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('', login_required(dashboard), name='dashboard'),
 ]
 
 urlpatterns += i18n_patterns(
-    path('i18n/', include('django.conf.urls.i18n')),
-path('', include('accounts.urls', namespace='accounts')),
+    path('accounts/login/', login_view, name='login'),
+    path('accounts/profile/', login_required(profile_view), name='profile'),
+    path('', include('accounts.urls', namespace='accounts')),
     path('', include('crm.urls', namespace='crm')),
 )
-

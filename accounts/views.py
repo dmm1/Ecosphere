@@ -1,15 +1,23 @@
-# ecosphere\accounts\views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-from django.urls import reverse
-from django.shortcuts import redirect
 
-def index(request):
-    return render(request, 'ecosphere/index.html')
+def login_view(request):
+    error_message = None
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect the user to the appropriate page after login
+            return redirect('crm:dashboard')  # or any other URL you want to redirect to
+        else:
+            error_message = 'Invalid username or password'
+    return render(request, 'accounts/login.html', {'error_message': error_message})
+
 @login_required
 def profile_view(request):
     user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
@@ -23,21 +31,6 @@ def profile_view(request):
 
     return render(request, 'accounts/profile.html', {'user_profile': user_profile})
 
-def login_view(request):
-    error_message = None
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)  # Use the imported authenticate function
-        if user is not None:
-            login(request, user)
-            return redirect('crm:dashboard')
-        else:
-            error_message = 'Invalid username or password'
-    return render(request, 'ecosphere/index.html', {'error_message': error_message})
 def logout_view(request):
     logout(request)
-    return redirect('accounts:index')
-
-
-# Create your views here.
+    return redirect('accounts:login')
