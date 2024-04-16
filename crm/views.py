@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
 from .models import Customer, Opportunity
 from .forms import OpportunityForm, CustomerForm
-
+from django.core.paginator import Paginator
 
 @login_required
 def dashboard(request):
@@ -13,12 +13,22 @@ def dashboard(request):
 
 @login_required
 def customer_list(request):
-    show_all = request.GET.get('show_all', 'false') == 'true'
+    show_all = str(request.session.get('show_all', False)).lower()
+    if 'show_all' in request.GET:
+        show_all = str(request.GET.get('show_all', 'false')).lower() == 'true'
+        request.session['show_all'] = show_all
+
     if show_all:
-        customers = Customer.objects.all()  # Display all customers, regardless of user
+        customers = Customer.objects.all().order_by('name')  # Order by name
     else:
-        customers = request.user.customers.all()  # Display only the logged-in user's customers
-    return render(request, 'crm/customer_list.html', {'customers': customers, 'show_all': show_all})
+        customers = Customer.objects.filter(user=request.user).order_by('name')  # Order by name
+
+    paginator = Paginator(customers, 10)  # Show 10 customers per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'crm/customer_list.html', {'page_obj': page_obj, 'show_all': show_all})
+
 @login_required
 def customer_detail(request, pk):
     customer = get_object_or_404(Customer, pk=pk)

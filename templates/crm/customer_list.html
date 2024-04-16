@@ -6,11 +6,12 @@
     <div class="row">
         <div class="col-12">
             <h1>{% trans "Customers" %}</h1>
-            {% if show_all %}
-                <a href="{% url 'crm:customer_list' %}" class="btn btn-primary">My Customers</a>
+             {% if show_all %}
+                <a href="?show_all=false" class="btn btn-primary">My Customers</a>
             {% else %}
-                <a href="{% url 'crm:customer_list' %}?show_all=true" class="btn btn-primary">All Customers</a>
-            {% endif %} <table class="table">
+                <a href="?show_all=true" class="btn btn-primary">All Customers</a>
+            {% endif %}
+            <table class="table">
                 <thead>
                     <tr>
                         <th>{% trans "Name" %}</th>
@@ -20,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for customer in customers %}
+                    {% for customer in page_obj %}
                     <tr>
                         <td><a href="{% url 'crm:customer_detail' customer.id %}">{{ customer.name }}</a></td>
                         <td>{{ customer.email }}</td>
@@ -30,9 +31,34 @@
                             <a href="{% url 'crm:customer_delete' customer.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
                         </td>
                     </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No customers found.</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
+           <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1&show_all={{ show_all }}">First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&show_all={{ show_all }}">Previous</a></li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+                        </li>
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&show_all={{ show_all }}">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&show_all={{ show_all }}">Last</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
             <a href="{% url 'crm:customer_create' %}" class="btn btn-primary">{% trans "Create Customer" %}</a>
         </div>
     </div>
