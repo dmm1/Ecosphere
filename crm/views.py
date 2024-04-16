@@ -13,9 +13,12 @@ def dashboard(request):
 
 @login_required
 def customer_list(request):
-    customers = request.user.customers.all()
-    return render(request, 'crm/customer_list.html', {'customers': customers})
-
+    show_all = request.GET.get('show_all', 'false') == 'true'
+    if show_all:
+        customers = Customer.objects.all()  # Display all customers, regardless of user
+    else:
+        customers = request.user.customers.all()  # Display only the logged-in user's customers
+    return render(request, 'crm/customer_list.html', {'customers': customers, 'show_all': show_all})
 @login_required
 def customer_detail(request, pk):
     customer = get_object_or_404(Customer, pk=pk)

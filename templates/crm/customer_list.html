@@ -6,7 +6,11 @@
     <div class="row">
         <div class="col-12">
             <h1>{% trans "Customers" %}</h1>
-            <table class="table">
+            {% if show_all %}
+                <a href="{% url 'crm:customer_list' %}" class="btn btn-primary">My Customers</a>
+            {% else %}
+                <a href="{% url 'crm:customer_list' %}?show_all=true" class="btn btn-primary">All Customers</a>
+            {% endif %} <table class="table">
                 <thead>
                     <tr>
                         <th>{% trans "Name" %}</th>
