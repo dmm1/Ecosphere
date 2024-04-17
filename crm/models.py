@@ -33,7 +33,7 @@ class Customer(models.Model):
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=20)
     primary_role = models.CharField(_("Primary Role"), max_length=100, choices=PRIMARY_ROLE_CHOICES, default='customer')
-    secondary_role = models.CharField(_("Secondary Role"), max_length=100, choices=SECONDARY_ROLE_CHOICES, default='customer')
+    secondary_role = models.CharField(_("Secondary Role"), max_length=100, choices=SECONDARY_ROLE_CHOICES, default='merchant')
     industry = models.CharField(max_length=50, choices=INDUSTRY_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
