@@ -1,22 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>User Profile</h1>
-
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div>
-        <label for="bio">Bio:</label>
-        <textarea id="bio" name="bio">{{ user_profile.bio }}</textarea>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Account Information</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Groups:</strong> {% for group in user.groups.all %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                    <p><strong>Forename:</strong> {{ user.profile.forename }}</p>
+                    <p><strong>Surname:</strong> {{ user.profile.surname }}</p>
+                    <p><strong>Email:</strong> {{ user.profile.email_address }}</p>
+                    <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+                    <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Login Information</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Last Login:</strong> {{ user.last_login }}</p>
+                    <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="phone_number">Phone Number:</label>
-        <input type="text" id="phone_number" name="phone_number" value="{{ user_profile.phone_number }}">
-    </div>
-    <div>
-        <label for="profile_picture">Profile Picture:</label>
-        <input type="file" id="profile_picture" name="profile_picture">
-    </div>
-    <button type="submit">Save</button>
-</form>
+</div>
 {% endblock %}
