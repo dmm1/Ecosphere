@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecosphere CRM</title>
+    <title>{% block title %}Ecosphere{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
@@ -27,20 +27,20 @@
               {% if error_message %}
                 <div class="alert alert-danger">{{ error_message }}</div>
               {% endif %}
-            <h1 class="login-title">{% trans 'Welcome to Ecosphere CRM' %}</h1>
-            <p class="lead">{% trans 'Your journey starts here. Log in to discover more.' %}</p>
+            <h1 class="login-title">{% trans "Welcome to Ecosphere CRM" %}</h1>
+            <p class="lead">{% trans "Your journey starts here. Log in to discover more." %}</p>
             <form method="post" action="{% url 'accounts:login' %}" class="ui.form">
                 {% csrf_token %}
               <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="{% trans 'Username' %}" required>
+                <input type="text" name="username" class="form-control" placeholder="{% trans "Username" %}" required>
               </div>
               <div class="form-group mb-4">
-                <input type="password" name="password" class="form-control" placeholder="{% trans 'Password' %}" required>
+                <input type="password" name="password" class="form-control" placeholder="{% trans "Password" %}" required>
               </div>
-              <button type="submit" name="login" id="login" class="btn btn-block login-btn form-control" >{% trans 'Log In' %}</button>
+              <button type="submit" name="login" id="login" class="btn btn-block login-btn form-control" >{% trans "Log In" %}</button>
             </form>
-            <a href="/" class="forgot-password-link">{% trans 'Forgot password?' %}</a>
-            <p class="login-wrapper-footer-text">{% trans 'Don't have an account?' %} <a href="#!" class="text-reset">{% trans 'Register here' %}</a></p>
+            <a href="/" class="forgot-password-link">{% trans "Forgot password?" %}</a>
+            <p class="login-wrapper-footer-text">{% trans "Don't have an account?" %} <a href="#!" class="text-reset">{% trans "Register here" %}</a></p>
           </div>
         </div>
         <div class="col-sm-6 px-0 d-none d-sm-block">
