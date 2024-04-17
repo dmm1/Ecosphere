@@ -13,7 +13,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
     path('', login_required(dashboard), name='dashboard'),
-    path('accounts/', include('accounts.urls')),
 ]
 
 urlpatterns += i18n_patterns(
