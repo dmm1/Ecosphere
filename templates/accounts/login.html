@@ -27,8 +27,8 @@
               {% if error_message %}
                 <div class="alert alert-danger">{{ error_message }}</div>
               {% endif %}
-            <h1 class="login-title">Welcome to Ecosphere CRM</h1>
-            <p class="lead">Your journey starts here. Log in to discover more.</p>
+            <h1 class="login-title">{% trans 'Welcome to Ecosphere CRM' %}</h1>
+            <p class="lead">{% trans 'Your journey starts here. Log in to discover more.' %}</p>
             <form method="post" action="{% url 'accounts:login' %}" class="ui.form">
                 {% csrf_token %}
               <div class="form-group">
@@ -39,8 +39,8 @@
               </div>
               <button type="submit" name="login" id="login" class="btn btn-block login-btn form-control" >{% trans 'Log In' %}</button>
             </form>
-            <a href="/" class="forgot-password-link">Forgot password?</a>
-            <p class="login-wrapper-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>
+            <a href="/" class="forgot-password-link">{% trans 'Forgot password?' %}</a>
+            <p class="login-wrapper-footer-text">{% trans 'Don't have an account?' %} <a href="#!" class="text-reset">{% trans 'Register here' %}</a></p>
           </div>
         </div>
         <div class="col-sm-6 px-0 d-none d-sm-block">
