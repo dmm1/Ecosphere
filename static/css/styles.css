@@ -111,6 +111,13 @@
   src: url('/static/fonts/karla-v31-latin-800italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+.profile-picture-profile {
+    width: 240px;  /* Adjust as needed */
+    height: 240px;  /* Adjust as needed */
+    border-radius: 50%;  /* This makes the image round */
+    object-fit: cover;  /* This will ensure the image covers the whole area */
+}
+
 body {
         font-family: "Karla", sans-serif;
         background-color: #fff;
