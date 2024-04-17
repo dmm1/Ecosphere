@@ -12,9 +12,9 @@
                 </a>
             </div>
             {% if show_all %}
-                <a href="?show_all=false" class="btn btn-info">Show only my Customers</a>
+                <a href="?show_all=false" class="btn btn-info">{% trans "Show only my Customers" %}</a>
              {% else %}
-                <a href="?show_all=true" class="btn btn-warning">Show All Customers</a>
+                <a href="?show_all=true" class="btn btn-warning">{% trans "Show All Customers" %}</a>
              {% endif %}
             <table class="table">
                 <thead>
@@ -38,7 +38,7 @@
                     </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="4">No customers found.</td>
+                            <td colspan="4">{% trans "No customers found." %}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -47,19 +47,19 @@
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         {% if page_obj.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page=1&show_all={{ show_all }}">First</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&show_all={{ show_all }}">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=1&show_all={{ show_all }}">{% trans "First" %}</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&show_all={{ show_all }}">{% trans "Previous" %}</a></li>
                         {% endif %}
 
                         <li class="page-item disabled">
                             <span class="page-link">
-                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
                             </span>
                         </li>
 
                         {% if page_obj.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&show_all={{ show_all }}">Next</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&show_all={{ show_all }}">Last</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&show_all={{ show_all }}">{% trans "Next" %}</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&show_all={{ show_all }}">{% trans "Last" %}</a></li>
                         {% endif %}
                     </ul>
                 </nav>
