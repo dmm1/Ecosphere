@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
+from .forms import ProfilePictureForm
 
 def login_view(request):
     error_message = None
@@ -40,6 +41,18 @@ def upload_profile_picture(request):
         return redirect('accounts:profile')
     else:
         return redirect('accounts:profile')
+
+
+@login_required
+def change_profile_picture(request):
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:profile')
+    else:
+        form = ProfilePictureForm(instance=request.user.profile)
+    return render(request, 'accounts/change_profile_picture.html', {'form': form})
 
 def logout_view(request):
     logout(request)
