@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 class Customer(models.Model):
     INDUSTRY_CHOICES = [
@@ -14,9 +15,25 @@ class Customer(models.Model):
         ('Agriculture', 'Agriculture'),
         ('Energy', 'Energy'),
     ]
+
+    PRIMARY_ROLE_CHOICES = [
+        ('customer', 'Customer'),
+        ('merchant', 'Merchant'),
+        ('partner', 'Partner'),
+    ]
+
+    SECONDARY_ROLE_CHOICES = [
+        ('customer', 'Customer'),
+        ('merchant', 'Merchant'),
+        ('partner', 'Partner'),
+        ('-', '-'),
+    ]
+
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=20)
+    primary_role = models.CharField(_("Primary Role"), max_length=100, choices=PRIMARY_ROLE_CHOICES, default='customer')
+    secondary_role = models.CharField(_("Secondary Role"), max_length=100, choices=SECONDARY_ROLE_CHOICES, default='customer')
     industry = models.CharField(max_length=50, choices=INDUSTRY_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

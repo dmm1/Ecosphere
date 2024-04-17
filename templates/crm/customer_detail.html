@@ -9,9 +9,11 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ customer.name }}</h5>
-                    <p class="card-text">{% trans "Industry" %} {{ customer.industry }}</p>
-                    <p class="card-text">{% trans "Email:" %} {{ customer.email }}</p>
-                    <p class="card-text">{% trans "Phone:" %} {{ customer.phone }}</p>
+                    <p class="card-text"><strong>{% trans "Industry:" %}</strong> {{ customer.industry }}</p>
+                    <p class="card-text"><strong>{% trans "Primary Role:" %}</strong> {{ customer.primary_role }}</p>
+                    <p class="card-text"><strong>{% trans "Secondary Role:" %}</strong> {{ customer.secondary_role }}</p>
+                    <p class="card-text"><strong>{% trans "Email:" %}</strong> {{ customer.email }}</p>
+                    <p class="card-text"><strong>{% trans "Phone:" %}</strong> {{ customer.phone }}</p>
                     <a href="{% url 'crm:customer_update' customer.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
                     <a href="{% url 'crm:customer_delete' customer.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
                 </div>

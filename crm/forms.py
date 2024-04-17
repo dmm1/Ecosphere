@@ -14,4 +14,4 @@ class OpportunityForm(forms.ModelForm):
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['name', 'email', 'phone', 'industry']
+        fields = ['name', 'email', 'phone', 'industry', 'primary_role', 'secondary_role']
