@@ -29,6 +29,7 @@ def profile_view(request):
         user_profile.profile_picture = request.FILES.get('profile_picture')
         user_profile.user.first_name = request.POST.get('first_name')
         user_profile.user.last_name = request.POST.get('last_name')
+        user_profile.user.email = request.POST.get('email')
         user_profile.user.save()
         user_profile.save()
         return redirect('accounts:profile')

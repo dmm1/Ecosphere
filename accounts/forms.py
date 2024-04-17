@@ -19,12 +19,13 @@ class ProfilePictureForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['email_address', 'bio', 'phone_number']
+        fields = ['bio', 'phone_number']
 
 class UserProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
+    email = forms.CharField(max_length=30)
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name',)
+        fields = ('first_name', 'last_name', 'email',)
