@@ -9,6 +9,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ customer.name }}</h5>
+                    <p class="card-text">{% trans "Industry" %} {{ customer.industry }}</p>
                     <p class="card-text">{% trans "Email:" %} {{ customer.email }}</p>
                     <p class="card-text">{% trans "Phone:" %} {{ customer.phone }}</p>
                     <a href="{% url 'crm:customer_update' customer.id %}" class="btn btn-primary">{% trans "Edit" %}</a>

@@ -2,9 +2,22 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Customer(models.Model):
+    INDUSTRY_CHOICES = [
+        ('Manufacturing', 'Manufacturing'),
+        ('Retail', 'Retail'),
+        ('Healthcare', 'Healthcare'),
+        ('Technology', 'Technology'),
+        ('Finance', 'Finance'),
+        ('Education', 'Education'),
+        ('Construction', 'Construction'),
+        ('Transportation', 'Transportation'),
+        ('Agriculture', 'Agriculture'),
+        ('Energy', 'Energy'),
+    ]
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=20)
+    industry = models.CharField(max_length=50, choices=INDUSTRY_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customers')
