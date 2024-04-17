@@ -134,3 +134,6 @@ SESSION_COOKIE_SECURE = False # experimental turn on in production
 CSRF_COOKIE_NAME = 'ecosphere_csrftoken'
 CSRF_COOKIE_SECURE = False # experimental turn on in production
 CSRF_HEADER_NAME = 'HTTP_ECOSPHERE_CSRFTOKEN'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

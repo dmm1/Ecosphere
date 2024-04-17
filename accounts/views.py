@@ -31,6 +31,16 @@ def profile_view(request):
 
     return render(request, 'accounts/profile.html', {'user_profile': user_profile})
 
+@login_required
+def upload_profile_picture(request):
+    if request.method == 'POST':
+        profile = UserProfile.objects.get(user=request.user)
+        profile.profile_picture = request.FILES['profile_picture']
+        profile.save()
+        return redirect('accounts:profile')
+    else:
+        return redirect('accounts:profile')
+
 def logout_view(request):
     logout(request)
     return redirect('accounts:login')
