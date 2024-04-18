@@ -16,7 +16,7 @@
              {% else %}
                 <a href="?show_all=true" class="btn btn-warning">{% trans "Show All Businesspartners" %}</a>
              {% endif %}
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>{% trans "Name" %}</th>
@@ -33,8 +33,8 @@
                         <td><a href="{% url 'crm:businesspartner_detail' businesspartner.id %}">{{ businesspartner.name }}</a></td>
                         <td>{{ businesspartner.email }}</td>
                         <td>{{ businesspartner.phone }}</td>
-                        <td>{{ businesspartner.get_primary_role_display }}</td>
-                        <td>{{ businesspartner.get_secondary_role_display }}</td>
+                        <td>{{ businesspartner.primary_role }}</td>
+                        <td>{{ businesspartner.secondary_role }}</td>
 
                         <td>
                             <a href="{% url 'crm:businesspartner_update' businesspartner.id %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>

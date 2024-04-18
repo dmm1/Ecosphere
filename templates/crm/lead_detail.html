@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ lead.name }}</h1>
+                    <p class="card-text"><strong>Email:</strong> {{ lead.email }}</p>
+                    <p class="card-text"><strong>Phone:</strong> {{ lead.phone }}</p>
+                    <p class="card-text"><strong>Status:</strong> {{ lead.get_status_display }}</p>
+                    <p class="card-text"><strong>Notes:</strong> {{ lead.notes }}</p>
+                    <p class="card-text"><strong>Created:</strong> {{ lead.created_at }}</p>
+                    <p class="card-text"><strong>Updated:</strong> {{ lead.updated_at }}</p>
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'crm:lead_update' lead.pk %}" class="btn btn-primary me-2">Edit</a>
+                        <a href="{% url 'crm:lead_delete' lead.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

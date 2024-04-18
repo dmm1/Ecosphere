@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-{% load i18n %}
 
 {% block content %}
 <div class="container my-5">
-    <h1 class="mb-4">{% if form.instance.pk %}Update{% else %}Create{% endif %} Business Partner</h1>
+    <h1 class="mb-4">{% if form.instance.pk %}Update{% else %}Create{% endif %} Contact</h1>
     <form method="post" class="form-group">
         {% csrf_token %}
         {% for field in form %}
@@ -19,3 +18,4 @@
     </form>
 </div>
 {% endblock %}
+

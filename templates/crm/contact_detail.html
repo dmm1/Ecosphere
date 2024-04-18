@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">{{ contact.first_name }} {{ contact.last_name }} - {{ contact.title }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Email:</strong> {{ contact.email }}</p>
+            <p><strong>Phone:</strong> {{ contact.phone }}</p>
+            <p><strong>Job Function:</strong> {{ contact.get_job_function_display }}</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Business Partner:</strong> {% if contact.business_partner %}
+                <a href="{% url 'crm:businesspartner_detail' contact.business_partner.pk %}">{{ contact.business_partner.name }} - {{ contact.business_partner.get_full_address }}</a>
+            {% else %}None{% endif %}</p>
+            <p><strong>Notes:</strong> {{ contact.notes }}</p>
+            <p><strong>Last Contacted:</strong> {% if contact.last_contacted %}{{ contact.last_contacted }}{% else %}Never{% endif %}</p>
+            <p><strong>Preferred Communication:</strong> {{ contact.get_preferred_communication_display }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-end">
+            <a href="{% url 'crm:contact_update' contact.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'crm:contact_delete' contact.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

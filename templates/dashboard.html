@@ -13,9 +13,9 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{% trans "Customers" %}</h5>
-                    <p class="card-text">{% trans "View and manage your customers." %}</p>
-                    <a href="{% url 'crm:customer_list' %}" class="btn btn-primary">{% trans "Go to Customers" %}</a>
+                    <h5 class="card-title">{% trans "Businesspartner" %}</h5>
+                    <p class="card-text">{% trans "View and manage your Businesspartners." %}</p>
+                    <a href="{% url 'crm:businesspartner_list' %}" class="btn btn-primary">{% trans "Go to Businesspartners" %}</a>
                 </div>
             </div>
         </div>
@@ -25,6 +25,28 @@
                     <h5 class="card-title">{% trans "Opportunities" %}</h5>
                     <p class="card-text">{% trans "View and manage your sales opportunities." %}</p>
                     <a href="{% url 'crm:opportunity_list' %}" class="btn btn-primary">{% trans "Go to Opportunities" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{% trans "Contacts" %}</h5>
+                    <p class="card-text">{% trans "View and manage your Contacts." %}</p>
+                    <a href="{% url 'crm:contact_list' %}" class="btn btn-primary">{% trans "Go to Contacts" %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Leads</h5>
+                    <p class="card-text">Total Leads: {{ total_leads }}</p>
+                    <p class="card-text">New Leads: {{ new_leads }}</p>
+                    <p class="card-text">Open Leads: {{ open_leads }}</p>
+                    <a href="{% url 'crm:lead_list' %}" class="btn btn-primary">View Leads</a>
                 </div>
             </div>
         </div>

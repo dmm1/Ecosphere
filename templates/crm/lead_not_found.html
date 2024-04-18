@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Lead Not Found</h1>
+            <p>The lead you are trying to access does not exist or does not belong to you.</p>
+            <a href="{% url 'crm:lead_list' %}" class="btn btn-primary">Go Back to Leads</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

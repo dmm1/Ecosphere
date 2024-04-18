@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h1>Contacts</h1>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="d-flex justify-content-between mb-3">
+                {% if show_all %}
+                <a href="?show_all=false" class="btn btn-primary">Show My Contacts</a>
+                {% else %}
+                <a href="?show_all=true" class="btn btn-primary">Show All Contacts</a>
+                {% endif %}
+                <a href="{% url 'crm:contact_create' %}" class="btn btn-success">Add New</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Business Partner</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in page_obj %}
+                    <tr>
+                        <td><a href="{% url 'crm:contact_detail' contact.pk %}">{{ contact.first_name }} {{ contact.last_name }}</a></td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.phone }}</td>
+                        <td>{{ contact.business_partner.name }}</td>
+                        <td>
+                            <a href="{% url 'crm:contact_update' contact.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'crm:contact_delete' contact.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if page_obj.has_other_pages %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if show_all %}&show_all=true{% endif %}"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link"
+                            href="?page={{ i }}{% if show_all %}&show_all=true{% endif %}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if show_all %}&show_all=true{% endif %}"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
