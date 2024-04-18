@@ -6,11 +6,11 @@ app_name = 'crm'
 
 urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('customers/', views.customer_list, name='customer_list'),
-    path('customers/create/', views.customer_create, name='customer_create'),
-    path('customers/<int:pk>/', views.customer_detail, name='customer_detail'),
-    path('customers/<int:pk>/update/', views.customer_update, name='customer_update'),
-    path('customers/<int:pk>/delete/', views.customer_delete, name='customer_delete'),
+    path('businesspartner/', views.businesspartner_list, name='businesspartner_list'),
+    path('businesspartner/create/', views.businesspartner_create, name='businesspartner_create'),
+    path('businesspartner/<int:pk>/', views.businesspartner_detail, name='businesspartner_detail'),
+    path('businesspartner/<int:pk>/update/', views.businesspartner_update, name='businesspartner_update'),
+    path('businesspartner/<int:pk>/delete/', views.businesspartner_delete, name='businesspartner_delete'),
     path('opportunities/', views.opportunity_list, name='opportunity_list'),
     path('opportunities/create/', views.opportunity_create, name='opportunity_create'),
     path('opportunities/<int:pk>/', views.opportunity_detail, name='opportunity_detail'),

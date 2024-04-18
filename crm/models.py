@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
-class Customer(models.Model):
+class BusinessPartner(models.Model):
     INDUSTRY_CHOICES = [
         ('Manufacturing', 'Manufacturing'),
         ('Retail', 'Retail'),
@@ -44,13 +44,15 @@ class Customer(models.Model):
 
 class Opportunity(models.Model):
     name = models.CharField(max_length=100)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='opportunities')
+    customer = models.ForeignKey(BusinessPartner, on_delete=models.CASCADE, related_name='opportunities')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     probability = models.IntegerField(default=50)
     status = models.CharField(max_length=50, choices=[
         ('open', 'Open'),
         ('won', 'Won'),
         ('lost', 'Lost'),
+        ('finished', 'finished'),
+        ('in progress', 'in progress'),
     ])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

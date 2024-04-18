@@ -5,7 +5,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-12">
-            <h1>{% if customer %}{% trans "Edit Customer" %}{% else %}{% trans "Create Customer" %}{% endif %}</h1>
+            <h1>{% if businesspartner %}{% trans "Edit Businesspartner" %}{% else %}{% trans "Create Businesspartner" %}{% endif %}</h1>
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}

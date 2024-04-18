@@ -1,5 +1,5 @@
 from django import forms
-from .models import Opportunity, Customer
+from .models import Opportunity, BusinessPartner
 
 class OpportunityForm(forms.ModelForm):
     class Meta:
@@ -11,7 +11,7 @@ class OpportunityForm(forms.ModelForm):
         model = Opportunity
         fields = ['name', 'customer', 'amount', 'probability', 'status']
 
-class CustomerForm(forms.ModelForm):
+class BusinessParnterForm(forms.ModelForm):
     class Meta:
-        model = Customer
+        model = BusinessPartner
         fields = ['name', 'email', 'phone', 'industry', 'primary_role', 'secondary_role']

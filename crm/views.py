@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
-from .models import Customer, Opportunity
-from .forms import OpportunityForm, CustomerForm
+from .models import BusinessPartner, Opportunity
+from .forms import OpportunityForm, BusinessParnterForm
 from django.core.paginator import Paginator
 
 @login_required
@@ -12,59 +12,59 @@ def dashboard(request):
 
 
 @login_required
-def customer_list(request):
+def businesspartner_list(request):
     show_all = str(request.session.get('show_all', False)).lower()
     if 'show_all' in request.GET:
         show_all = str(request.GET.get('show_all', 'false')).lower() == 'true'
         request.session['show_all'] = show_all
 
     if show_all:
-        customers = Customer.objects.all().order_by('name')  # Order by name
+        businesspartner = BusinessPartner.objects.all().order_by('name')  # Order by name
     else:
-        customers = Customer.objects.filter(user=request.user).order_by('name')  # Order by name
+        businesspartner = BusinessPartner.objects.filter(user=request.user).order_by('name')  # Order by name
 
-    paginator = Paginator(customers, 10)  # Show 10 customers per page
+    paginator = Paginator(businesspartner, 10)  # Show 10 businesspartner per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'crm/customer_list.html', {'page_obj': page_obj, 'show_all': show_all})
+    return render(request, 'crm/businesspartner_list.html', {'page_obj': page_obj, 'show_all': show_all})
 
 @login_required
-def customer_detail(request, pk):
-    customer = get_object_or_404(Customer, pk=pk)
-    return render(request, 'crm/customer_detail.html', {'customer': customer})
+def businesspartner_detail(request, pk):
+    businesspartner = get_object_or_404(BusinessPartner, pk=pk)
+    return render(request, 'crm/businesspartner_detail.html', {'businesspartner': businesspartner})
 
 @login_required
-def customer_create(request):
+def businesspartner_create(request):
     if request.method == 'POST':
-        form = CustomerForm(request.POST)
+        form = BusinessParnterForm(request.POST)
         if form.is_valid():
-            customer = form.save(commit=False)
-            customer.user = request.user
-            customer.save()
-            return redirect('crm:customer_list')
+            businesspartner = form.save(commit=False)
+            businesspartner.user = request.user
+            businesspartner.save()
+            return redirect('crm:businesspartner_list')
     else:
-        form = CustomerForm()
-    return render(request, 'crm/customer_form.html', {'form': form})
+        form = BusinessParnterForm()
+    return render(request, 'crm/businesspartner_form.html', {'form': form})
 @login_required
-def customer_update(request, pk):
-    customer = get_object_or_404(Customer, pk=pk)
+def businesspartner_update(request, pk):
+    businesspartner = get_object_or_404(BusinessPartner, pk=pk)
     if request.method == 'POST':
-        form = CustomerForm(request.POST, instance=customer)
+        form = BusinessParnterForm(request.POST, instance=businesspartner)
         if form.is_valid():
             form.save()
-            return redirect('crm:customer_list')
+            return redirect('crm:businesspartner_list')
     else:
-        form = CustomerForm(instance=customer)
-    return render(request, 'crm/customer_form.html', {'form': form, 'customer': customer})
+        form = BusinessParnterForm(instance=businesspartner)
+    return render(request, 'crm/businesspartner_form.html', {'form': form, 'businesspartner': businesspartner})
 
 @login_required
-def customer_delete(request, pk):
-    customer = get_object_or_404(Customer, pk=pk)
+def businesspartner_delete(request, pk):
+    businesspartner = get_object_or_404(BusinessPartner, pk=pk)
     if request.method == 'POST':
-        customer.delete()
-        return redirect('crm:customer_list')
-    return render(request, 'crm/customer_confirm_delete.html', {'customer': customer})
+        businesspartner.delete()
+        return redirect('crm:businesspartner_list')
+    return render(request, 'crm/businesspartner_confirm_delete.html', {'businesspartner': businesspartner})
 
 @login_required
 def opportunity_list(request):
