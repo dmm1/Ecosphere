@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 18:08+0200\n"
+"POT-Creation-Date: 2024-04-20 20:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\crm\customer_confirm_delete.html:8
+#: .\templates\accounts\login.html:30
+msgid "Welcome to Ecosphere CRM"
+msgstr ""
+
+#: .\templates\accounts\login.html:31
+msgid "Your journey starts here. Log in to discover more."
+msgstr ""
+
+#: .\templates\accounts\login.html:35
+msgid "Username"
+msgstr ""
+
+#: .\templates\accounts\login.html:38
+msgid "Password"
+msgstr ""
+
+#: .\templates\accounts\login.html:40
+msgid "Log In"
+msgstr ""
+
+#: .\templates\accounts\login.html:42
+msgid "Forgot password?"
+msgstr ""
+
+#: .\templates\accounts\login.html:43
+msgid "Don't have an account?"
+msgstr ""
+
+#: .\templates\accounts\login.html:43
+msgid "Register here"
+msgstr ""
+
+#: .\templates\crm\businesspartner_confirm_delete.html:8
 msgid "Delete Customer"
 msgstr ""
 
-#: .\templates\crm\customer_confirm_delete.html:9
+#: .\templates\crm\businesspartner_confirm_delete.html:9
 msgid "Are you sure you want to delete the customer?"
 msgstr ""
 
-#: .\templates\crm\customer_confirm_delete.html:12
-#: .\templates\crm\customer_detail.html:14
-#: .\templates\crm\customer_list.html:24
+#: .\templates\crm\businesspartner_confirm_delete.html:12
+#: .\templates\crm\businesspartner_list.html:41
 #: .\templates\crm\opportunity_confirm_delete.html:12
 #: .\templates\crm\opportunity_detail.html:20
 #: .\templates\crm\opportunity_list.html:30
@@ -36,56 +67,77 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: .\templates\crm\customer_confirm_delete.html:13
+#: .\templates\crm\businesspartner_confirm_delete.html:13
 #: .\templates\crm\opportunity_confirm_delete.html:13
 msgid "Cancel"
 msgstr ""
 
-#: .\templates\crm\customer_detail.html:8
-msgid "Customer Details"
+#: .\templates\crm\businesspartner_list.html:9 .\templates\dashboard.html:16
+msgid "Businesspartner"
 msgstr ""
 
-#: .\templates\crm\customer_detail.html:12
-msgid "Email:"
+#: .\templates\crm\businesspartner_list.html:11
+msgid "Create Businesspartner"
 msgstr ""
 
-#: .\templates\crm\customer_detail.html:13
-#: .\templates\crm\customer_list.html:23
+#: .\templates\crm\businesspartner_list.html:15
+msgid "Show only my Businesspartners"
+msgstr ""
+
+#: .\templates\crm\businesspartner_list.html:17
+msgid "Show All Businesspartners"
+msgstr ""
+
+#: .\templates\crm\businesspartner_list.html:22
+#: .\templates\crm\opportunity_list.html:12
+msgid "Name"
+msgstr ""
+
+#: .\templates\crm\businesspartner_list.html:23
+msgid "Email"
+msgstr ""
+
+#: .\templates\crm\businesspartner_list.html:24
+msgid "Phone"
+msgstr ""
+
+#: .\templates\crm\businesspartner_list.html:27
+#: .\templates\crm\opportunity_list.html:17
+msgid "Actions"
+msgstr ""
+
+#: .\templates\crm\businesspartner_list.html:40
 #: .\templates\crm\opportunity_detail.html:19
 #: .\templates\crm\opportunity_list.html:29
 msgid "Edit"
 msgstr ""
 
-#: .\templates\crm\customer_form.html:8
-msgid "Edit Customer"
+#: .\templates\crm\businesspartner_list.html:46
+msgid "No Businesspartner found."
 msgstr ""
 
-#: .\templates\crm\customer_form.html:8 .\templates\crm\customer_list.html:30
-msgid "Create Customer"
+#: .\templates\crm\businesspartner_list.html:55
+msgid "First"
 msgstr ""
 
-#: .\templates\crm\customer_form.html:12
-#: .\templates\crm\opportunity_form.html:12
-msgid "Save"
+#: .\templates\crm\businesspartner_list.html:56
+msgid "Previous"
 msgstr ""
 
-#: .\templates\crm\customer_list.html:8 .\templates\dashboard.html:16
-#: .\templates\navigation.html:14
-msgid "Customers"
+#: .\templates\crm\businesspartner_list.html:61
+msgid "Page"
 msgstr ""
 
-#: .\templates\crm\customer_list.html:12
-#: .\templates\crm\opportunity_list.html:12
-msgid "Name"
+#: .\templates\crm\businesspartner_list.html:61
+msgid "of"
 msgstr ""
 
-#: .\templates\crm\customer_list.html:13
-msgid "Email"
+#: .\templates\crm\businesspartner_list.html:66
+msgid "Next"
 msgstr ""
 
-#: .\templates\crm\customer_list.html:14
-#: .\templates\crm\opportunity_list.html:17
-msgid "Actions"
+#: .\templates\crm\businesspartner_list.html:67
+msgid "Last"
 msgstr ""
 
 #: .\templates\crm\opportunity_confirm_delete.html:8
@@ -137,8 +189,12 @@ msgstr ""
 msgid "Create Opportunity"
 msgstr ""
 
+#: .\templates\crm\opportunity_form.html:12
+msgid "Save"
+msgstr ""
+
 #: .\templates\crm\opportunity_list.html:8 .\templates\dashboard.html:25
-#: .\templates\navigation.html:17
+#: .\templates\navigation.html:23
 msgid "Opportunities"
 msgstr ""
 
@@ -167,11 +223,11 @@ msgid "Quicklinks"
 msgstr ""
 
 #: .\templates\dashboard.html:17
-msgid "View and manage your customers."
+msgid "View and manage your Businesspartners."
 msgstr ""
 
 #: .\templates\dashboard.html:18
-msgid "Go to Customers"
+msgid "Go to Businesspartners"
 msgstr ""
 
 #: .\templates\dashboard.html:26
@@ -182,27 +238,31 @@ msgstr ""
 msgid "Go to Opportunities"
 msgstr ""
 
-#: .\templates\ecosphere\index.html:35
-msgid "Username"
+#: .\templates\dashboard.html:36
+msgid "Contacts"
 msgstr ""
 
-#: .\templates\ecosphere\index.html:38
-msgid "Password"
+#: .\templates\dashboard.html:37
+msgid "View and manage your Contacts."
 msgstr ""
 
-#: .\templates\ecosphere\index.html:40
-msgid "Log In"
+#: .\templates\dashboard.html:38
+msgid "Go to Contacts"
 msgstr ""
 
-#: .\templates\navigation.html:20
+#: .\templates\navigation.html:14
+msgid "Businesspartners"
+msgstr ""
+
+#: .\templates\navigation.html:26
 msgid "Profile"
 msgstr ""
 
-#: .\templates\navigation.html:23
+#: .\templates\navigation.html:29
 msgid "Logout"
 msgstr ""
 
-#: .\templates\navigation.html:27
+#: .\templates\navigation.html:33
 msgid "Admin"
 msgstr ""
 
