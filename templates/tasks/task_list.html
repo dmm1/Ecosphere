@@ -1,0 +1,16 @@
+<!-- ecosphere/templates/tasks/task_list.html -->
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <h1>{% trans 'Tasks' %}</h1>
+  <ul class="list-group">
+    {% for task in tasks %}
+      <li class="list-group-item">
+        <a href="{% url 'tasks:task_detail' task.id %}">{{ task.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'tasks:task_create' %}" class="btn btn-primary mt-3">{% trans 'Create New Task' %}</a>
+{% endblock %}
+

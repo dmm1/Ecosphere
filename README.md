@@ -9,7 +9,7 @@ This will take _some_ time to build but i am sure it will be worth it in the end
 
 Please see the /docs for more information and getting started on the project.
 
-## Capabilities Version 0.0.3
+## Working Capabilities Version 0.0.4
 
 - **Login**: Enables registered users to securely access their accounts with their email and password.
 
@@ -19,13 +19,19 @@ Please see the /docs for more information and getting started on the project.
 
 - **Secure Sign-off**: Facilitates a safe sign-off process to guard user privacy and deter unauthorized access.
 
-- **User Profile**: Basic Implementation
+- **User Profile**: Basic Implementation, Profile Picture Upload, User Details Edit
 
-- **Customers**: Basic Implementation, related to Users
+- **Business Partners (BP)**: Basic Implementation, related to Users
 
-- **Opportunitys**: Basic Implementation, related to Customers and Users
+- **Opportunitys**: Basic Implementation, related to BP and Users
+ 
+- **Leads**: Basic Implementation, related to BP and Users
+ 
+- **Contacts**: Basic Implementation, related to BP and Users
 
-## Screenshots
+- **Tasks**: Basic Implementation
+
+## Screenshots**
 
 to be added _soon_
 

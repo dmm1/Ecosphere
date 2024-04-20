@@ -33,3 +33,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Implement new Login Page
 - Implement Login-Image (AI created)
 
+
+## [0.0.4] - 2023-20-04    
+### Added
+- Update User Model
+- Implement new BusinessPartner Model
+- Implement Task
+- Implement Lead Model
+- Implement new Opportunitys
+- Implement new Profile
+- Implement new Login Page
+- Implement Login-Image (AI created)
+- Add new views for Opportunitys, Profile, and Login-Image
+- Add new functionality for Opportunitys
+- Add new functionality for Profile
+- Add new functionality for Login-Image
+

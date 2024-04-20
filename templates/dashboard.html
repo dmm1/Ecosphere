@@ -15,6 +15,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{% trans "Businesspartner" %}</h5>
                     <p class="card-text">{% trans "View and manage your Businesspartners." %}</p>
+                    <p class="card-text">Total Businesspartners: {{ total_businesspartners }}</p>
+                    <p class="card-text">Your Businesspartners: {{ user_businesspartners }}</p>
                     <a href="{% url 'crm:businesspartner_list' %}" class="btn btn-primary">{% trans "Go to Businesspartners" %}</a>
                 </div>
             </div>
@@ -24,6 +26,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{% trans "Opportunities" %}</h5>
                     <p class="card-text">{% trans "View and manage your sales opportunities." %}</p>
+                    <p class="card-text">Total Opportunities: {{ total_opportunities }}</p>
+                    <p class="card-text">Open Opportunities: {{ open_opportunities }}</p>
+                    <p class="card-text">Won Opportunities: {{ won_opportunities }}</p>
                     <a href="{% url 'crm:opportunity_list' %}" class="btn btn-primary">{% trans "Go to Opportunities" %}</a>
                 </div>
             </div>
@@ -35,6 +40,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{% trans "Contacts" %}</h5>
                     <p class="card-text">{% trans "View and manage your Contacts." %}</p>
+                    <p class="card-text">Total Contacts: {{ total_contacts }}</p>
+                    <p class="card-text">Your Contacts: {{ user_contacts }}</p>
                     <a href="{% url 'crm:contact_list' %}" class="btn btn-primary">{% trans "Go to Contacts" %}</a>
                 </div>
             </div>
@@ -47,6 +54,36 @@
                     <p class="card-text">New Leads: {{ new_leads }}</p>
                     <p class="card-text">Open Leads: {{ open_leads }}</p>
                     <a href="{% url 'crm:lead_list' %}" class="btn btn-primary">View Leads</a>
+                </div>
+            </div>
+        </div>
+         <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tasks</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                            <tr>
+                                <td>{{ task.title }}</td>
+                                <td>{{ task.description }}</td>
+                                <td>{{ task.status }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3">No tasks found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                   <a href="{% url 'tasks:task_create' %}" class="btn btn-primary">Add Task</a>
                 </div>
             </div>
         </div>

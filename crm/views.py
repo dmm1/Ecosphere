@@ -3,21 +3,28 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
 from .models import BusinessPartner, Opportunity, Contact, Lead
+from tasks.models import Task
 from .forms import OpportunityForm, BusinessPartnerForm, ContactForm, LeadForm
 from django.core.paginator import Paginator
 from django.urls import reverse
+
 
 @login_required
 def dashboard(request):
     total_leads = Lead.objects.filter(user=request.user).count()
     new_leads = Lead.objects.filter(user=request.user, status='New').count()
     open_leads = Lead.objects.filter(user=request.user, status='Open').count()
+    tasks = Task.objects.all()[:5]  # Fetch the latest 5 tasks
 
     total_opportunities = Opportunity.objects.filter(assigned_to=request.user).count()
     open_opportunities = Opportunity.objects.filter(assigned_to=request.user, status='open').count()
     won_opportunities = Opportunity.objects.filter(assigned_to=request.user, status='won').count()
 
-    total_contacts = Contact.objects.filter(business_partner__user=request.user).count()
+    total_businesspartners = BusinessPartner.objects.count()
+    user_businesspartners = BusinessPartner.objects.filter(user=request.user).count()
+
+    total_contacts = Contact.objects.count()
+    user_contacts = Contact.objects.filter(business_partner__user=request.user).count()
 
     return render(request, 'dashboard.html', {
         'total_leads': total_leads,
@@ -26,7 +33,11 @@ def dashboard(request):
         'total_opportunities': total_opportunities,
         'open_opportunities': open_opportunities,
         'won_opportunities': won_opportunities,
+        'total_businesspartners': total_businesspartners,
+        'user_businesspartners': user_businesspartners,
         'total_contacts': total_contacts,
+        'user_contacts': user_contacts,
+        'tasks': tasks,
     })
 
 

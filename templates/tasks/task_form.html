@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <h1>{% if object %}{% trans 'Edit Task' %}{% else %}{% trans 'Create Task' %}{% endif %}</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="id_title" class="form-label">{% trans 'Title' %}</label>
+      <input type="text" class="form-control" id="id_title" name="title" value="{{ form.title.value|default:'' }}">
+    </div>
+    <div class="mb-3">
+      <label for="id_description" class="form-label">{% trans 'Description' %}</label>
+      <textarea class="form-control" id="id_description" name="description" rows="3">{{ form.description.value|default:'' }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label for="id_status" class="form-label">{% trans 'Status' %}</label>
+      <select class="form-select" id="id_status" name="status">
+        {% for value, label in form.fields.status.choices %}
+          <option value="{{ value }}" {% if form.status.value == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="id_due_date" class="form-label">{% trans 'Due Date' %}</label>
+      <input type="date" class="form-control" id="id_due_date" name="due_date" value="{{ form.due_date.value|default:'' }}">
+    </div>
+    <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+  </form>
+{% endblock %}

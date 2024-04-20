@@ -1,0 +1,20 @@
+<!-- ecosphere/templates/tasks/task_detail.html -->
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <h1>{% trans 'Task Details' %}</h1>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ task.title }}</h5>
+      <p class="card-text">{{ task.description }}</p>
+      <p class="card-text">{% trans 'Status:' %} {{ task.get_status_display }}</p>
+      <p class="card-text">{% trans 'Due Date:' %} {{ task.due_date }}</p>
+      <div class="d-flex justify-content-end">
+        <a href="{% url 'tasks:task_update' task.id %}" class="btn btn-primary me-2">{% trans 'Edit' %}</a>
+        <a href="{% url 'tasks:task_delete' task.id %}" class="btn btn-danger">{% trans 'Delete' %}</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

@@ -18,8 +18,9 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('accounts/login/', login_view, name='login'),
     path('accounts/profile/', login_required(profile_view), name='profile'),
-    path('', include('accounts.urls', namespace='accounts')),
-    path('', include('crm.urls', namespace='crm')),
+    path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('', include(('crm.urls', 'crm'), namespace='crm')),
+    path('', include(('tasks.urls', 'tasks'), namespace='tasks')),
 )
 
 if settings.DEBUG:
