@@ -13,6 +13,8 @@ Please see the /docs for more information and getting started on the project.
 
 - **Login**: Enables registered users to securely access their accounts with their email and password.
 
+- **Dashbaord**: Quick access to key customer information, including recent activity, leads, opportunities, and contacts.
+
 - **Backend**: Admin Backend with User / Group / Auth Management
 
 - **Localisation**: Working translation with language switcher, currently only EN & DE are supported, see /docs
