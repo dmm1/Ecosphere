@@ -15,8 +15,6 @@
                 <div class="card-body">
                     <h5 class="card-title">{% trans "Businesspartner" %}</h5>
                     <p class="card-text">{% trans "View and manage your Businesspartners." %}</p>
-                    <p class="card-text">Total Businesspartners: {{ total_businesspartners }}</p>
-                    <p class="card-text">Your Businesspartners: {{ user_businesspartners }}</p>
                     <a href="{% url 'crm:businesspartner_list' %}" class="btn btn-primary">{% trans "Go to Businesspartners" %}</a>
                 </div>
             </div>
@@ -40,9 +38,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{% trans "Contacts" %}</h5>
                     <p class="card-text">{% trans "View and manage your Contacts." %}</p>
-                    <p class="card-text">Total Contacts: {{ total_contacts }}</p>
-                    <p class="card-text">Your Contacts: {{ user_contacts }}</p>
-                    <a href="{% url 'crm:contact_list' %}" class="btn btn-primary">{% trans "Go to Contacts" %}</a>
+                   <a href="{% url 'crm:contact_list' %}" class="btn btn-primary">{% trans "Go to Contacts" %}</a>
                 </div>
             </div>
         </div>
@@ -64,17 +60,17 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Status</th>
+                                 <th>Title</th>
+                                 <th>Status</th>
+                                 <th>Due Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for task in tasks %}
+                            {% for task in user_tasks %}
                             <tr>
                                 <td>{{ task.title }}</td>
-                                <td>{{ task.description }}</td>
-                                <td>{{ task.status }}</td>
+                                <td>{{ task.get_status_display }}</td>
+                                <td>{{ task.due_date }}</td>
                             </tr>
                             {% empty %}
                             <tr>
@@ -84,6 +80,7 @@
                         </tbody>
                     </table>
                    <a href="{% url 'tasks:task_create' %}" class="btn btn-primary">Add Task</a>
+                   <a href="{% url 'tasks:task_list' %}" class="btn btn-primary">View All Tasks</a>
                 </div>
             </div>
         </div>

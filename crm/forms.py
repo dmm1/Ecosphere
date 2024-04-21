@@ -20,7 +20,7 @@ class BusinessPartnerForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ['first_name', 'last_name', 'academic_title', 'email', 'phone', 'title', 'job_function', 'business_partner', 'address', 'notes', 'last_contacted', 'preferred_communication']
+        fields = ['first_name', 'last_name', 'academic_title', 'email', 'phone', 'title', 'department', 'business_partner', 'address', 'notes', 'last_contacted', 'preferred_communication']
 
 class LeadForm(forms.ModelForm):
     class Meta:

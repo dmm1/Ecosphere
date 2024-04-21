@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 from django.utils.translation import gettext_lazy as _
 
 class BusinessPartner(models.Model):
@@ -55,19 +56,19 @@ class BusinessPartner(models.Model):
 
 class Opportunity(models.Model):
     name = models.CharField(max_length=100)
-    customer = models.ForeignKey(BusinessPartner, on_delete=models.CASCADE, related_name='opportunities')
+    customer = models.ForeignKey(BusinessPartner, on_delete=models.CASCADE, related_name='opportunities', null=True, blank=True)
+    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='opportunities', null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     probability = models.IntegerField(default=50)
     status = models.CharField(max_length=50, choices=[
         ('open', 'Open'),
         ('won', 'Won'),
         ('lost', 'Lost'),
-        ('finished', 'finished'),
-        ('in progress', 'in progress'),
+        ('finished', 'Finished'),
+        ('in progress', 'In Progress'),
     ])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='opportunities')
 
     def __str__(self):
         return self.name
@@ -80,7 +81,7 @@ class Contact(models.Model):
         ('Other', 'Other'),
     ]
 
-    JOB_FUNCTION_CHOICES = [
+    DEPARTMENT_CHOICES = [
         ('Sales', 'Sales'),
         ('Marketing', 'Marketing'),
         ('IT', 'IT'),
@@ -99,14 +100,14 @@ class Contact(models.Model):
     first_name = models.CharField(max_length=50, default='')
     last_name = models.CharField(max_length=50, default='')
     academic_title = models.CharField(max_length=50, null=True, blank=True)
-    email = models.EmailField(max_length=100)
-    phone = models.CharField(max_length=20)
-    title = models.CharField(max_length=50, choices=TITLE_CHOICES)
-    job_function = models.CharField(max_length=50, choices=JOB_FUNCTION_CHOICES)
+    email = models.EmailField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
+    title = models.CharField(max_length=50, choices=TITLE_CHOICES, null=True, blank=True)
+    department = models.CharField(max_length=50, choices=DEPARTMENT_CHOICES, null=True, blank=True)
     business_partner = models.ForeignKey(BusinessPartner, on_delete=models.CASCADE, related_name='contacts', null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    last_contacted = models.DateTimeField(null=True, blank=True)
+    last_contacted = models.DateField(default=date.today)
     preferred_communication = models.CharField(max_length=50, choices=PREFERRED_COMMUNICATION_CHOICES, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

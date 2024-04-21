@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from .models import BusinessPartner, Opportunity, Contact, Lead
 from tasks.models import Task
 from .forms import OpportunityForm, BusinessPartnerForm, ContactForm, LeadForm
@@ -11,35 +12,31 @@ from django.urls import reverse
 
 @login_required
 def dashboard(request):
-    total_leads = Lead.objects.filter(user=request.user).count()
-    new_leads = Lead.objects.filter(user=request.user, status='New').count()
-    open_leads = Lead.objects.filter(user=request.user, status='Open').count()
-    tasks = Task.objects.all()[:5]  # Fetch the latest 5 tasks
+    # Get the total number of opportunities for the user's business partners
+    opportunities = Opportunity.objects.filter(assigned_to=request.user)
+    total_opportunities = opportunities.count()
+    open_opportunities = opportunities.filter(status='open').count()
+    won_opportunities = opportunities.filter(status='won').count()
 
-    total_opportunities = Opportunity.objects.filter(assigned_to=request.user).count()
-    open_opportunities = Opportunity.objects.filter(assigned_to=request.user, status='open').count()
-    won_opportunities = Opportunity.objects.filter(assigned_to=request.user, status='won').count()
+    # Get the total number of leads, new leads, and open leads for the user
+    leads = Lead.objects.filter(user=request.user)
+    total_leads = leads.count()
+    new_leads = leads.filter(status='New').count()
+    open_leads = leads.filter(status='Open').count()
 
-    total_businesspartners = BusinessPartner.objects.count()
-    user_businesspartners = BusinessPartner.objects.filter(user=request.user).count()
+    # Get the user's tasks
+    user_tasks = Task.objects.filter(assigned_to=request.user).order_by('due_date')[:5]
 
-    total_contacts = Contact.objects.count()
-    user_contacts = Contact.objects.filter(business_partner__user=request.user).count()
 
     return render(request, 'dashboard.html', {
-        'total_leads': total_leads,
-        'new_leads': new_leads,
-        'open_leads': open_leads,
         'total_opportunities': total_opportunities,
         'open_opportunities': open_opportunities,
         'won_opportunities': won_opportunities,
-        'total_businesspartners': total_businesspartners,
-        'user_businesspartners': user_businesspartners,
-        'total_contacts': total_contacts,
-        'user_contacts': user_contacts,
-        'tasks': tasks,
+        'total_leads': total_leads,
+        'new_leads': new_leads,
+        'open_leads': open_leads,
+        'user_tasks': user_tasks,
     })
-
 
 
 @login_required
@@ -106,9 +103,21 @@ def businesspartner_delete(request, pk):
 
 @login_required
 def opportunity_list(request):
-    opportunities = request.user.opportunities.all()
-    return render(request, 'crm/opportunity_list.html', {'opportunities': opportunities})
+    show_all = str(request.session.get('show_all', False)).lower()
+    if 'show_all' in request.GET:
+        show_all = str(request.GET.get('show_all', 'false')).lower() == 'true'
+        request.session['show_all'] = show_all
 
+    if show_all:
+        opportunities = Opportunity.objects.all().order_by('created_at')
+    else:
+        opportunities = Opportunity.objects.filter(assigned_to=request.user).order_by('created_at')
+
+    paginator = Paginator(opportunities, 5)  # Show 5 opportunities per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'crm/opportunity_list.html', {'page_obj': page_obj, 'show_all': show_all})
 @login_required
 def opportunity_detail(request, pk):
     opportunity = get_object_or_404(Opportunity, pk=pk, assigned_to=request.user)
