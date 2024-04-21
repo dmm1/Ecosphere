@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Opportunity, BusinessPartner, Contact, Lead
+from django.core.validators import EmailValidator
 
 class OpportunityForm(forms.ModelForm):
     class Meta:
@@ -12,6 +13,7 @@ class BusinessPartnerForm(forms.ModelForm):
     industry = forms.ChoiceField(choices=BusinessPartner.INDUSTRY_CHOICES)
     primary_role = forms.ChoiceField(choices=BusinessPartner.PRIMARY_ROLE_CHOICES)
     secondary_role = forms.ChoiceField(choices=BusinessPartner.SECONDARY_ROLE_CHOICES)
+    email = forms.EmailField(validators=[EmailValidator(message='Please enter a valid email address.')])
 
     class Meta:
         model = BusinessPartner
