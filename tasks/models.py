@@ -9,7 +9,7 @@ class Task(models.Model):
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     ]
-    title = models.CharField(max_length=100, default='Job Position')
+    title = models.CharField(max_length=100, default='New Task')
     description = models.TextField()
     status = models.CharField(max_length=20, choices=TASK_STATUS_CHOICES, default='todo')
     completed = models.BooleanField(default=False)
