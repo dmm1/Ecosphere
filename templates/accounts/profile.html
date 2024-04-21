@@ -35,19 +35,27 @@
                     <h2>Profile Picture</h2>
                 </div>
                 <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                {% if user.profile.profile_picture %}
+                 {% if user.profile.profile_picture %}
                 <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="img-thumbnail mb-3 profile-picture-profile">
+                <a href="{% url 'accounts:change_profile_picture' %}" class="btn btn-primary mt-2">Change Profile Picture</a>
                 {% else %}
                 <form method="post" action="{% url 'accounts:upload_profile_picture' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" name="profile_picture">
-                    <button type="submit" class="btn btn-primary mt-2">Upload</button>
+                    <div class="form-group">
+                        <input type="file" name="profile_picture" id="profile_picture" class="form-control-file">
+                        <button type="submit" class="btn btn-primary mt-2" id="upload_button" disabled>Upload</button>
+                    </div>
                 </form>
                 {% endif %}
-                <a href="{% url 'accounts:change_profile_picture' %}" class="btn btn-primary mt-2">Change Profile Picture</a>
                  </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('profile_picture').addEventListener('change', function() {
+    document.getElementById('upload_button').disabled = false;
+});
+</script>
 {% endblock %}
