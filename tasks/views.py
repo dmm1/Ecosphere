@@ -48,7 +48,9 @@ def task_update(request, task_id):
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)
+            task.due_date = form.cleaned_data['due_date']
+            task.save()
             return redirect('tasks:task_list')
     else:
         form = TaskForm(instance=task)
