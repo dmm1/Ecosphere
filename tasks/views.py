@@ -8,14 +8,16 @@ from .forms import TaskForm, CommentForm
 @login_required
 def task_list(request):
     show_all = str(request.session.get('show_all', False)).lower()
+    order_by = request.GET.get('order_by', 'due_date')
+
     if 'show_all' in request.GET:
         show_all = str(request.GET.get('show_all', 'false')).lower() == 'true'
         request.session['show_all'] = show_all
 
     if show_all:
-        tasks = Task.objects.all().order_by('due_date')
+        tasks = Task.objects.all().order_by(order_by)
     else:
-        tasks = Task.objects.filter(assigned_to=request.user).order_by('due_date')
+        tasks = Task.objects.filter(assigned_to=request.user).order_by(order_by)
 
     paginator = Paginator(tasks, 5)  # Show 5 tasks per page
     page_number = request.GET.get('page')
@@ -35,9 +37,6 @@ def task_create(request):
     else:
         form = TaskForm()
     return render(request, 'tasks/task_form.html', {'form': form})
-
-# tasks/views.py
-
 
 @login_required
 def task_detail(request, task_id):

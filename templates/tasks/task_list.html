@@ -19,10 +19,18 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>{% trans "Title" %}</th>
-        <th>{% trans "Status" %}</th>
-        <th>{% trans "Due Date" %}</th>
-        <th>{% trans "Assigned To" %}</th>
+        <th>
+          <a href="?order_by=title">{% trans "Title" %}</a>
+        </th>
+        <th>
+          <a href="?order_by=status">{% trans "Status" %}</a>
+        </th>
+        <th>
+          <a href="?order_by=due_date">{% trans "Due Date" %}</a>
+        </th>
+        <th>
+          <a href="?order_by=assigned_to">{% trans "Assigned To" %}</a>
+        </th>
         <th>{% trans "Actions" %}</th>
       </tr>
     </thead>
