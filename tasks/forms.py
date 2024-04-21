@@ -1,6 +1,6 @@
 # tasks/forms.py
 from django import forms
-from .models import Task
+from .models import Task, Comment
 from datetime import datetime
 
 class TaskForm(forms.ModelForm):
@@ -18,3 +18,8 @@ class TaskForm(forms.ModelForm):
         widgets = {
             'assigned_to': forms.Select(attrs={'class': 'form-control'}),
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']

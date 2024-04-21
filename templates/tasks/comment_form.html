@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="mb-4">{% trans "Edit Comment" %}</h1>
+        <form method="post" action="{% url 'tasks:comment_edit' comment.id %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-success">{% trans "Save Changes" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -3,13 +3,89 @@
 {% load i18n %}
 
 {% block content %}
-  <h1>{{ task.title }}</h1>
-  <p>{{ task.description }}</p>
-  <p>Status: {{ task.get_status_display }}</p>
-  <p>Due Date: {{ task.due_date }}</p>
-  <p>Assigned To: {{ task.assigned_to }}</p>
-  <a href="{% url 'task_update' task.id %}" class="btn btn-primary">Edit</a>
-  <a href="{% url 'task_delete' task.id %}" class="btn btn-danger">Delete</a>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="mb-4">{{ task.title }}</h1>
+        <p>{{ task.description }}</p>
+        <p><strong>{% trans "Status" %}:</strong> {{ task.get_status_display }}</p>
+        <p><strong>{% trans "Due Date" %}:</strong> {{ task.due_date }}</p>
+        <p><strong>{% trans "Assigned To" %}:</strong> {{ task.assigned_to }}</p>
+        <div class="d-flex justify-content-end mb-4">
+          <a href="{% url 'tasks:task_update' task.id %}" class="btn btn-primary mr-2">{% trans "Edit" %}</a>
+          <a href="{% url 'tasks:task_delete' task.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
+        </div>
+
+        <h2 class="my-4">{% trans "Comments" %}</h2>
+      {% for comment in comments %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="card-text mb-0">{{ comment.content }} - <span class="font-weight-bold">{{ comment.user.username }}</span></p>
+        {% if comment.user == request.user %}
+          <div>
+            <a href="{% url 'tasks:comment_edit' comment.id %}" class="btn btn-primary btn-sm mr-2">{% trans "Edit" %}</a>
+            <a href="{% url 'tasks:comment_delete' comment.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+          </div>
+        {% endif %}
+      </div>
+      <button class="btn btn-primary btn-sm reply-btn mt-2">{% trans "Reply" %}</button>
+      <div class="reply-form" style="display: none;">
+        <form method="post" action="{% url 'tasks:comment_create' task.id %}" class="mt-3">
+          {% csrf_token %}
+          <input type="hidden" name="parent_id" value="{{ comment.id }}">
+          <div class="form-group">
+            <textarea name="content" class="form-control" rows="2" placeholder="{% trans 'Write your reply...' %}"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success btn-sm">{% trans "Submit Reply" %}</button>
+        </form>
+      </div>
+    </div>
+    {% for reply in comment.comment_set.all %}
+      <div class="card mb-3 ml-5">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text mb-0">{{ reply.content }} - <span class="font-weight-bold">{{ reply.user.username }}</span></p>
+            {% if reply.user == request.user %}
+              <div>
+                <a href="{% url 'tasks:comment_edit' reply.id %}" class="btn btn-primary btn-sm mr-2">{% trans "Edit" %}</a>
+                <a href="{% url 'tasks:comment_delete' reply.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% empty %}
+  <p>{% trans "No comments yet." %}</p>
+{% endfor %}
+
+
+        <h2 class="my-4">{% trans "Add a comment" %}</h2>
+        <button id="showCommentForm" class="btn btn-success mb-3">{% trans "Add Comment" %}</button>
+        <div id="commentForm" style="display: none;">
+          <form method="post" action="{% url 'tasks:comment_create' task.id %}" class="mb-3">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">{% trans "Submit Comment" %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% block script %}
+<script>
+document.getElementById('showCommentForm').addEventListener('click', function() {
+    document.getElementById('commentForm').style.display = 'block';
+});
+
+document.querySelectorAll('.reply-btn').forEach(function(button) {
+  button.addEventListener('click', function() {
+    this.nextElementSibling.style.display = 'block';
+  });
+});
+</script>
+{% endblock script %}
 {% endblock %}
-
-

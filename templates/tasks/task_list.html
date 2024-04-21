@@ -29,7 +29,7 @@
     <tbody>
       {% for task in page_obj %}
         <tr>
-          <td>{{ task.title }}</td>
+          <td><a href="{% url 'tasks:task_detail' task.id %}">{{ task.title }}</a></td>
           <td>{{ task.get_status_display }}</td>
           <td>{{ task.due_date }}</td>
           <td>{{ task.assigned_to }}</td>
