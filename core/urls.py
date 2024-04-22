@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth.decorators import login_required
-from accounts.views import login_view, profile_view
+from apps.accounts.views import login_view, profile_view
 from crm.views import dashboard
 
 from django.conf import settings
@@ -18,9 +18,9 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('accounts/login/', login_view, name='login'),
     path('accounts/profile/', login_required(profile_view), name='profile'),
-    path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('', include(('apps.accounts.urls', 'accounts'), namespace='accounts')),
     path('', include(('crm.urls', 'crm'), namespace='crm')),
-    path('', include(('tasks.urls', 'tasks'), namespace='tasks')),
+    path('', include(('apps.tasks.urls', 'tasks'), namespace='tasks')),
 )
 
 if settings.DEBUG:

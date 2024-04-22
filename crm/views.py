@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, logout
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from .models import BusinessPartner, Opportunity, Contact, Lead
-from tasks.models import Task
+from apps.tasks.models import Task
 from .forms import OpportunityForm, BusinessPartnerForm, ContactForm, LeadForm
 from django.core.paginator import Paginator
 from django.urls import reverse
