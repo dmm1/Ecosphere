@@ -23,7 +23,7 @@ def task_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'tasks/task_list.html', {'page_obj': page_obj, 'show_all': show_all})
+    return render(request, 'apps/tasks/task_list.html', {'page_obj': page_obj, 'show_all': show_all})
 
 @login_required
 def task_create(request):
@@ -36,14 +36,14 @@ def task_create(request):
             return redirect('tasks:task_list')
     else:
         form = TaskForm()
-    return render(request, 'tasks/task_form.html', {'form': form})
+    return render(request, 'apps/tasks/task_form.html', {'form': form})
 
 @login_required
 def task_detail(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     top_level_comments = task.comments.filter(parent__isnull=True).order_by('-created_at')
     form = CommentForm()
-    return render(request, 'tasks/task_detail.html', {'task': task, 'comments': top_level_comments, 'form': form})
+    return render(request, 'apps/tasks/task_detail.html', {'task': task, 'comments': top_level_comments, 'form': form})
 
 @login_required
 def task_update(request, task_id):
@@ -57,7 +57,7 @@ def task_update(request, task_id):
             return redirect('tasks:task_detail', task_id=task.id)
     else:
         form = TaskForm(instance=task)
-    return render(request, 'tasks/task_form.html', {'form': form, 'task': task})
+    return render(request, 'apps/tasks/task_form.html', {'form': form, 'task': task})
 
 @login_required
 def task_delete(request, pk):
@@ -65,7 +65,7 @@ def task_delete(request, pk):
     if request.method == 'POST':
         task.delete()
         return redirect('task_list')
-    return render(request, 'tasks/task_confirm_delete.html', {'task': task})
+    return render(request, 'apps/tasks/task_confirm_delete.html', {'task': task})
 
 @login_required
 def comment_create(request, task_id):
@@ -83,7 +83,7 @@ def comment_create(request, task_id):
             return redirect('tasks:task_detail', task_id=task.id)
     else:
         form = CommentForm()
-    return render(request, 'tasks/comment_form.html', {'form': form})
+    return render(request, 'apps/tasks/comment_form.html', {'form': form})
 
 @login_required
 def comment_delete(request, comment_id):
@@ -100,7 +100,7 @@ def comment_delete(request, comment_id):
         return redirect('tasks:task_detail', task_id=comment.task.id)
     else:
         # If the request method is GET, render the confirmation template
-        return render(request, 'tasks/comment_confirm_delete.html', {'comment': comment})
+        return render(request, 'apps/tasks/comment_confirm_delete.html', {'comment': comment})
 
 @login_required
 def comment_edit(request, comment_id):
@@ -116,4 +116,4 @@ def comment_edit(request, comment_id):
     else:
         form = CommentForm(instance=comment)
 
-    return render(request, 'tasks/comment_form.html', {'form': form, 'comment': comment})
+    return render(request, 'apps/tasks/comment_form.html', {'form': form, 'comment': comment})

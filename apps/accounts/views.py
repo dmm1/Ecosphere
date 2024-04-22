@@ -17,7 +17,7 @@ def login_view(request):
             return redirect('crm:dashboard')
         else:
             error_message = 'Invalid username or password'
-    return render(request, 'accounts/login.html', {'error_message': error_message})
+    return render(request, 'apps/accounts/login.html', {'error_message': error_message})
 
 @login_required
 def profile_view(request):
@@ -34,7 +34,7 @@ def profile_view(request):
         user_profile.save()
         return redirect('accounts:profile')
 
-    return render(request, 'accounts/profile.html', {'user_profile': user_profile})
+    return render(request, 'apps/accounts/profile.html', {'user_profile': user_profile})
 
 @login_required
 def edit_profile(request):
@@ -49,7 +49,7 @@ def edit_profile(request):
     else:
         user_form = UserProfileForm(instance=user)
         profile_form = ProfileForm(instance=profile)
-    return render(request, 'accounts/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'apps/accounts/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
 @login_required
 def upload_profile_picture(request):
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def change_profile_picture(request):
             return redirect('accounts:profile')
     else:
         form = ProfilePictureForm(instance=request.user.profile)
-    return render(request, 'accounts/change_profile_picture.html', {'form': form})
+    return render(request, 'apps/accounts/change_profile_picture.html', {'form': form})
 
 def logout_view(request):
     logout(request)
