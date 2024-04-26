@@ -4,12 +4,11 @@
 The EcoSphere CRM application will offer an intuitive platform for seamless customer relationship management, enabling users to effortlessly register, log in, input and manage customer information, and ensure secure logouts.
 It will grow to include more advanced features, functionalities and Opportunity related sustainability in future versions to build a robust CRM system. 
 
-As i work also with a CRM system in my day job, i _thought_ it would be a good idea to build one from scratch to make it more efficient and user friendly then the one i am currently using.
 This will take _some_ time to build but i am sure it will be worth it in the end.
 
 Please see the /docs for more information and getting started on the project.
 
-## Working Capabilities Version 0.0.4
+## Working Capabilities Version 0.0.5
 
 - **Login**: Enables registered users to securely access their accounts with their email and password.
 
@@ -31,7 +30,7 @@ Please see the /docs for more information and getting started on the project.
  
 - **Contacts**: Basic Implementation, related to BP and Users
 
-- **Tasks**: Basic Implementation
+- **Tasks and Activities**: Basic Implementation, related to Users and Opportunities
 
 ## Screenshots**
 
