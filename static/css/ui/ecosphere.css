@@ -3,6 +3,243 @@
  * This code is part of the Ecosphere project, available at https://github.com/dmm1/ecosphere
  * path:
  */
+/* Hide 'dark' theme icon only when the dark theme is active */
+/* Hide 'dark' theme icon when not in 'light' theme */
+
+body:not([data-bs-theme='light']) .hide-theme-dark {
+  display: none !important;
+}
+/* Hide 'fancy' theme icon when not in 'dark' theme */
+body:not([data-bs-theme='dark']) .hide-theme-fancy {
+  display: none !important;
+}
+/* Hide 'light' theme icon when not in 'fancy' theme */
+body:not([data-bs-theme='fancy']) .hide-theme-light {
+  display: none !important;
+}
+/* Targeting the navbar brand image specifically in the 'fancy' theme */
+/* Override for 'fancy' theme to keep logo color black */
+body[data-bs-theme='fancy'] .navbar-brand-autodark {
+    filter: none;  /* Reset any filter applied by autodark class */
+    color: black;  /* If the logo involves text, ensure it is black */
+}
+
+/* If the logo is an SVG inside the navbar-brand-autodark class */
+body[data-bs-theme='fancy'] .navbar-brand-autodark svg {
+    fill: black; /* Ensures SVG fill is black */
+}
+
+/* If the logo is an image and CSS filters are applied */
+body[data-bs-theme='fancy'] .navbar-brand-autodark img {
+    filter: brightness(0) invert(0); /* Adjust filter to maintain original color */
+}
+[data-bs-theme=fancy] {
+  color-scheme: fancy;
+  --tblr-blue: #4a6ee6;
+  --tblr-indigo: #5a6cef;
+  --tblr-purple: #b44fda;
+  --tblr-pink: #d64382;
+  --tblr-red: #d64a4a;
+  --tblr-orange: #f77f1a;
+  --tblr-yellow: #f5a71a;
+  --tblr-green: #39b95a;
+  --tblr-teal: #14b38e;
+  --tblr-cyan: #1eb0c4;
+  --tblr-black: #000000;
+  --tblr-white: #ffffff;
+  --tblr-gray: #7a8398;
+  --tblr-gray-dark: #1f2937;
+  --tblr-gray-100: #f8fafc;
+  --tblr-gray-200: #f1f5f9;
+  --tblr-gray-300: #e2e8f0;
+  --tblr-gray-400: #cbd5e1;
+  --tblr-gray-500: #94a3b8;
+  --tblr-gray-600: #7a8398;
+  --tblr-gray-700: #475569;
+  --tblr-gray-800: #1f2937;
+  --tblr-gray-900: #0f172a;
+  --tblr-primary: #4a6ee6;
+  --tblr-secondary: #7a8398;
+  --tblr-success: #39b95a;
+  --tblr-info: #4ea6e6;
+  --tblr-warning: #f77f1a;
+  --tblr-danger: #d64a4a;
+  --tblr-light: #f8fafc;
+  --tblr-dark: #1f2937;
+  --tblr-muted: #7a8398;
+  --tblr-blue: #4a6ee6;
+  --tblr-azure: #4ea6e6;
+  --tblr-indigo: #5a6cef;
+  --tblr-purple: #b44fda;
+  --tblr-pink: #d64382;
+  --tblr-red: #d64a4a;
+  --tblr-orange: #f77f1a;
+  --tblr-yellow: #f5a71a;
+  --tblr-lime: #87c232;
+  --tblr-green: #39b95a;
+  --tblr-teal: #14b38e;
+  --tblr-cyan: #1eb0c4;
+  --tblr-facebook: #1877f2;
+  --tblr-twitter: #1da1f2;
+  --tblr-linkedin: #0a66c2;
+  --tblr-google: #ea4335;
+  --tblr-youtube: #ff0000;
+  --tblr-vimeo: #1ab7ea;
+  --tblr-dribbble: #ea4c89;
+  --tblr-github: #181717;
+  --tblr-instagram: #e1306c;
+  --tblr-pinterest: #bd081c;
+  --tblr-vk: #6d7e9c;
+  --tblr-rss: #ffa500;
+  --tblr-flickr: #0063dc;
+  --tblr-bitbucket: #0052cc;
+  --tblr-tabler: #4a6ee6;
+  --tblr-primary-rgb: 74, 110, 230;
+  --tblr-secondary-rgb: 122, 131, 152;
+  --tblr-success-rgb: 57, 185, 90;
+  --tblr-info-rgb: 78, 166, 230;
+  --tblr-warning-rgb: 247, 127, 26;
+  --tblr-danger-rgb: 214, 74, 74;
+  --tblr-light-rgb: 248, 250, 252;
+  --tblr-dark-rgb: 31, 41, 55;
+  --tblr-muted-rgb: 122, 131, 152;
+  --tblr-blue-rgb: 74, 110, 230;
+  --tblr-azure-rgb: 78, 166, 230;
+  --tblr-indigo-rgb: 90, 108, 239;
+  --tblr-purple-rgb: 180, 79, 218;
+  --tblr-pink-rgb: 214, 67, 130;
+  --tblr-red-rgb: 214, 74, 74;
+  --tblr-orange-rgb: 247, 127, 26;
+  --tblr-yellow-rgb: 245, 167, 26;
+  --tblr-lime-rgb: 135, 194, 50;
+  --tblr-green-rgb: 57, 185, 90;
+  --tblr-teal-rgb: 20, 179, 142;
+  --tblr-cyan-rgb: 30, 176, 196;
+  --tblr-facebook-rgb: 24, 119, 242;
+  --tblr-twitter-rgb: 29, 161, 242;
+  --tblr-linkedin-rgb: 10, 102, 194;
+  --tblr-google-rgb: 234, 67, 53;
+  --tblr-youtube-rgb: 255, 0, 0;
+  --tblr-vimeo-rgb: 26, 183, 234;
+  --tblr-dribbble-rgb: 234, 76, 137;
+  --tblr-github-rgb: 24, 23, 23;
+  --tblr-instagram-rgb: 225, 48, 108;
+  --tblr-pinterest-rgb: 189, 8, 28;
+  --tblr-vk-rgb: 109, 126, 156;
+  --tblr-rss-rgb: 255, 165, 0;
+  --tblr-flickr-rgb: 0, 99, 220;
+  --tblr-bitbucket-rgb: 0, 82, 204;
+  --tblr-tabler-rgb: 74, 110, 230;
+  --tblr-primary-text-emphasis: #0a2a7a;
+  --tblr-secondary-text-emphasis: #3a4254;
+  --tblr-success-text-emphasis: #1f6a2a;
+  --tblr-info-text-emphasis: #2a5a7a;
+  --tblr-warning-text-emphasis: #7a4a0a;
+  --tblr-danger-text-emphasis: #7a2a2a;
+  --tblr-light-text-emphasis: #475569;
+  --tblr-dark-text-emphasis: #475569;
+  --tblr-primary-bg-subtle: #d9e3f9;
+  --tblr-secondary-bg-subtle: #e6e8ed;
+  --tblr-success-bg-subtle: #d8f2e1;
+  --tblr-info-bg-subtle: #d9edf9;
+  --tblr-warning-bg-subtle: #fde9d6;
+  --tblr-danger-bg-subtle: #f9dada;
+  --tblr-light-bg-subtle: #fbfcfd;
+  --tblr-dark-bg-subtle: #cbd5e1;
+  --tblr-primary-border-subtle: #b3c8f3;
+  --tblr-secondary-border-subtle: #c7cbd3;
+  --tblr-success-border-subtle: #b8e8c2;
+  --tblr-info-border-subtle: #b8d9f3;
+  --tblr-warning-border-subtle: #fac18c;
+  --tblr-danger-border-subtle: #f2b0b0;
+  --tblr-light-border-subtle: #f1f5f9;
+  --tblr-dark-border-subtle: #94a3b8;
+  --tblr-white-rgb: 255, 255, 255;
+  --tblr-black-rgb: 0, 0, 0;
+  --tblr-font-sans-serif: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+  --tblr-font-monospace: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  --tblr-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --tblr-body-font-family: var(--tblr-font-sans-serif);
+  --tblr-body-font-size: 0.875rem;
+  --tblr-body-font-weight: 400;
+  --tblr-body-line-height: 1.4285714286;
+  --tblr-body-color: #1f2937;
+  --tblr-body-color-rgb: 31, 41, 55;
+  --tblr-body-bg: #f8fafc;
+  --tblr-body-bg-rgb: 248, 250, 252;
+  --tblr-emphasis-color: #1f2937;
+  --tblr-emphasis-color-rgb: 31, 41, 55;
+  --tblr-secondary-color: rgba(31, 41, 55, 0.75);
+  --tblr-secondary-color-rgb: 31, 41, 55;
+  --tblr-secondary-bg: #f1f5f9;
+  --tblr-secondary-bg-rgb: 241, 245, 249;
+  --tblr-tertiary-color: rgba(31, 41, 55, 0.5);
+  --tblr-tertiary-color-rgb: 31, 41, 55;
+  --tblr-tertiary-bg: #f8fafc;
+  --tblr-tertiary-bg-rgb: 248, 250, 252;
+  --tblr-link-color: #4a6ee6;
+  --tblr-link-color-rgb: 74, 110, 230;
+  --tblr-link-decoration: none;
+  --tblr-link-hover-color: #3a5ac4;
+  --tblr-link-hover-color-rgb: 58, 90, 196;
+  --tblr-link-hover-decoration: underline;
+  --tblr-code-color: var(--tblr-gray-600);
+  --tblr-highlight-bg: #fdf2d9;
+  --tblr-border-width: 1px;
+  --tblr-border-style: solid;
+  --tblr-border-color: #e2e8f0;
+  --tblr-border-color-translucent: rgba(15, 23, 42, 0.14);
+  --tblr-border-radius: 6px;
+  --tblr-border-radius-sm: 4px;
+  --tblr-border-radius-lg: 10px;
+  --tblr-border-radius-xl: 1.25rem;
+  --tblr-border-radius-xxl: 2.5rem;
+  --tblr-border-radius-2xl: var(--tblr-border-radius-xxl);
+  --tblr-border-radius-pill: 100rem;
+  --tblr-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --tblr-box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --tblr-box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  --tblr-box-shadow-inset: 0 0 transparent;
+  --tblr-focus-ring-width: 0.25rem;
+  --tblr-focus-ring-opacity: 0.25;
+  --tblr-focus-ring-color: rgba(74, 110, 230, 0.25);
+  --tblr-form-valid-color: #39b95a;
+  --tblr-form-valid-border-color: #39b95a;
+  --tblr-form-invalid-color: #d64a4a;
+  --tblr-form-invalid-border-color: #d64a4a;
+}
+[data-bs-theme=fancy] .navbar-brand-autodark .navbar-brand-image {
+  filter: brightness(0) invert(1);
+}
+[data-bs-theme=fancy] .form-select {
+  --tblr-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fcfdfe' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+[data-bs-theme=fancy] .form-switch .form-check-input:not(:checked):not(:focus) {
+  --tblr-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 0.25%29'/%3e%3c/svg%3e");
+}
+[data-bs-theme=fancy] .navbar-toggler-icon {
+  --tblr-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+[data-bs-theme=fancy] .accordion-button::after {
+  --tblr-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2379a6dc'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --tblr-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2379a6dc'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+[data-bs-theme=fancy] .btn-close {
+  filter: var(--tblr-btn-close-white-filter);
+}
+[data-bs-theme=fancy] .carousel .carousel-control-prev-icon,
+[data-bs-theme=fancy] .carousel .carousel-control-next-icon, [data-bs-theme=fancy].carousel .carousel-control-prev-icon,
+[data-bs-theme=fancy].carousel .carousel-control-next-icon {
+  filter: invert(1) grayscale(100);
+}
+[data-bs-theme=fancy] .carousel .carousel-indicators [data-bs-target], [data-bs-theme=fancy].carousel .carousel-indicators [data-bs-target] {
+  background-color: #000000;
+}
+[data-bs-theme=fancy] .carousel .carousel-caption, [data-bs-theme=fancy].carousel .carousel-caption {
+  color: #000000;
+}
+
+
 .nav-item-icon {
   margin-right: 10px; /* Adjust this value as needed */
 }

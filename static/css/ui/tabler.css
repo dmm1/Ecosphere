@@ -17563,13 +17563,6 @@ Navbar vertical
   border-top: 0;
 }
 
-body:not(.theme-dark):not([data-bs-theme=dark]) .hide-theme-light {
-  display: none !important;
-}
-body.theme-dark .hide-theme-dark, body[data-bs-theme=dark] .hide-theme-dark {
-  display: none !important;
-}
-
 [data-bs-theme=dark] {
   --tblr-body-color: #fcfdfe;
   --tblr-body-color-rgb: 252, 253, 254;
