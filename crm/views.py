@@ -35,7 +35,6 @@ def dashboard(request):
         'user_tasks': user_tasks,
     })
 
-
 @login_required
 def businesspartner_list(request):
     show_all = str(request.session.get('show_all', False)).lower()

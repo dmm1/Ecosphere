@@ -13,7 +13,7 @@ SECRET_KEY = 'your_secret_key'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -24,9 +24,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crm.apps.CrmConfig',
     'apps.accounts.apps.AccountsConfig',
     'apps.tasks.apps.TasksConfig',
-    'crm.apps.CrmConfig',
+
+
 
 ]
 
