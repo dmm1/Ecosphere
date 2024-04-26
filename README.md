@@ -47,13 +47,12 @@ to be added _soon_
 - **MYSQL Storage**: Employs an MYSQL database for efficient handling and access to customer data.
 
 - **Frontend Design**: Crafted with HTML and CSS for a visually engaging and user-friendly interface
-- 
+
 ## Upcoming Features for V1.0
 Future updates will focus on enhancing the user interface for a more engaging and efficient experience. Anticipated upgrades include:
 
 - **Account Management**: Users can update their personal account details.
-- Introducing a search function for pinpointing specific customer entries.
-- Applying pagination for orderly display of customer records.
+- Introducing a **search** function for pinpointing specific customer entries.
 - Adding a password reset feature for user convenience.
 - Incorporating email notifications for real-time alerts and communications.
 - Make the registration page optional for the Admin, allow or deny new Registrations.
@@ -61,3 +60,7 @@ Future updates will focus on enhancing the user interface for a more engaging an
 - Review technology stack and make changes if needed.
 - Review the database structure and make changes if needed.
 - Review the code and make changes if needed.
+
+## Installation, Tipps and Tricks
+- **Installation**: Please see the /docs for installation instructions.
+- **Tipps and Tricks**: Please see the /docs for tipps and tricks.
