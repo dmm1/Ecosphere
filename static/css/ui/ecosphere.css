@@ -3,6 +3,14 @@
  * This code is part of the Ecosphere project, available at https://github.com/dmm1/ecosphere
  * path:
  */
+.nav-item-icon {
+  margin-right: 10px; /* Adjust this value as needed */
+}
+.nav-link svg {
+  vertical-align: middle; /* Align the middle of the element with the middle of the line */
+  height: 22px; /* Set a consistent height */
+  width: 22; /* Set a consistent width */
+}
 pre.highlight,
 .highlight pre {
   max-height: 30rem;
