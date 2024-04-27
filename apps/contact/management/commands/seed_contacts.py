@@ -6,37 +6,39 @@ from faker import Faker
 class Command(BaseCommand):
     help = 'Seeds the database with Contact instances'
 
-    def handle(self, *args, **options):
-        faker = Faker()
-        titles = ['Manager', 'Director', 'Executive', 'Other']
-        departments = ['Sales', 'Marketing', 'IT', 'Finance', 'HR', 'Other']
-        communications = ['Email', 'Phone', 'Text', 'In-Person']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.faker = Faker()
 
+    def handle(self, *args, **kwargs):
         for i in range(10):  # Change the range to the number of instances you want to create
+            contact_data = self.generate_fake_data(Contact)
+            contact_data['business_partner'] = BusinessPartner.objects.first() if BusinessPartner.objects.exists() else None
             contact, created = Contact.objects.get_or_create(
-                first_name=faker.first_name(),
-                last_name=faker.last_name(),
-                defaults={
-                    'academic_title': faker.job(),
-                    'email': faker.email(),
-                    'phone': faker.phone_number()[:20],
-                    'title': faker.random_element(elements=titles),
-                    'department': faker.random_element(elements=departments),
-                    'notes': faker.text(),
-                    'preferred_communication': faker.random_element(elements=communications),
-                    # Add a valid user instance
-                    'business_partner': BusinessPartner.objects.first() if BusinessPartner.objects.exists() else None
-                }
+                first_name=self.faker.first_name(),
+                last_name=self.faker.last_name(),
+                defaults=contact_data
             )
 
             if not created:
-                contact.academic_title = faker.job()
-                contact.email = faker.email()
-                contact.phone = faker.phone_number()
-                contact.title = faker.random_element(elements=titles)
-                contact.department = faker.random_element(elements=departments)
-                contact.notes = faker.text()
-                contact.preferred_communication = faker.random_element(elements=communications)
+                for key, value in contact_data.items():
+                    setattr(contact, key, value)
                 contact.save()
 
         self.stdout.write(self.style.SUCCESS('Successfully seeded Contact instances'))
+
+    def generate_fake_data(self, model):
+        data = {}
+        for field in model._meta.get_fields():
+            if field.name in ['id', 'created_at', 'updated_at']:
+                continue
+            elif field.get_internal_type() == 'CharField':
+                data[field.name] = self.faker.word()
+            elif field.get_internal_type() == 'TextField':
+                data[field.name] = self.faker.text()
+            elif field.get_internal_type() == 'BooleanField':
+                data[field.name] = self.faker.boolean()
+            elif field.get_internal_type() == 'DateField':
+                data[field.name] = self.faker.date()
+            # Add more elif conditions here for other field types as needed
+        return data

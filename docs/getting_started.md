@@ -28,6 +28,7 @@ For local deployment, follow these instructions:
    ```
    python main.py seed_businesspartners.py
    python main.py seed_contacts.py
+   python main.py seed_tasks.py
    ```
 6. **Server Launch**: Initiate the development server to start the CRM application on your device:
    ```

@@ -31,6 +31,8 @@ Please see the /docs for more information and getting started on the project.
 - **Contacts**: Basic Implementation, related to BP and Users
 
 - **Tasks and Activities**: Basic Implementation, related to Users and Opportunities
+- 
+- - **Sample Data Import**: Import for the apps via seeds view docs/
 
 ## Screenshots**
 
