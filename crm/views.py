@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import BusinessPartner, Opportunity, Contact, Lead
+from .models import Opportunity,  Lead
 from apps.tasks.models import Task
-from .forms import OpportunityForm, BusinessPartnerForm, ContactForm, LeadForm
+from .forms import OpportunityForm, LeadForm
 from django.core.paginator import Paginator
 from django.urls import reverse
 
@@ -35,67 +35,6 @@ def dashboard(request):
         'user_tasks': user_tasks,
     })
 
-@login_required
-def businesspartner_list(request):
-    show_all = str(request.session.get('show_all', False)).lower()
-    if 'show_all' in request.GET:
-        show_all = str(request.GET.get('show_all', 'false')).lower() == 'true'
-        request.session['show_all'] = show_all
-
-    if show_all:
-        businesspartner = BusinessPartner.objects.all().order_by('name')  # Order by name
-    else:
-        businesspartner = BusinessPartner.objects.filter(user=request.user).order_by('name')  # Order by name
-
-    paginator = Paginator(businesspartner, 10)  # Show 10 businesspartner per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'crm/businesspartner_list.html', {'page_obj': page_obj, 'show_all': show_all})
-
-@login_required
-def businesspartner_detail(request, pk):
-    businesspartner = get_object_or_404(BusinessPartner, pk=pk)
-    return render(request, 'crm/businesspartner_detail.html', {'businesspartner': businesspartner})
-
-@login_required
-def businesspartner_create(request):
-    if request.method == 'POST':
-        form = BusinessPartnerForm(request.POST)
-        if form.is_valid():
-            businesspartner = form.save(commit=False)
-            businesspartner.user = request.user
-            businesspartner.save()
-            return redirect('crm:businesspartner_list')
-    else:
-        form = BusinessPartnerForm()
-    return render(request, 'crm/businesspartner_form.html', {'form': form})
-
-@login_required
-def businesspartner_detail(request, pk):
-    businesspartner = get_object_or_404(BusinessPartner, pk=pk)
-    contacts = Contact.objects.filter(business_partner=businesspartner)
-    return render(request, 'crm/businesspartner_detail.html', {'businesspartner': businesspartner, 'contacts': contacts})
-
-@login_required
-def businesspartner_update(request, pk):
-    businesspartner = get_object_or_404(BusinessPartner, pk=pk)
-    if request.method == 'POST':
-        form = BusinessPartnerForm(request.POST, instance=businesspartner)
-        if form.is_valid():
-            form.save()
-            return redirect('crm:businesspartner_list')
-    else:
-        form = BusinessPartnerForm(instance=businesspartner)
-    return render(request, 'crm/businesspartner_form.html', {'form': form, 'businesspartner': businesspartner})
-
-@login_required
-def businesspartner_delete(request, pk):
-    businesspartner = get_object_or_404(BusinessPartner, pk=pk)
-    if request.method == 'POST':
-        businesspartner.delete()
-        return redirect('crm:businesspartner_list')
-    return render(request, 'crm/businesspartner_confirm_delete.html', {'businesspartner': businesspartner})
 
 @login_required
 def opportunity_list(request):
@@ -151,55 +90,7 @@ def opportunity_delete(request, pk):
         return redirect('crm:opportunity_list')
     return render(request, 'crm/opportunity_confirm_delete.html', {'opportunity': opportunity})
 
-@login_required
-def contact_list(request):
-    show_all = str(request.session.get('show_all', False)).lower()
-    if 'show_all' in request.GET:
-        show_all = str(request.GET.get('show_all', 'false')).lower() == 'true'
-        request.session['show_all'] = show_all
 
-    if show_all:
-        contacts = Contact.objects.all().order_by('-created_at')
-    else:
-        contacts = Contact.objects.filter(business_partner__user=request.user).order_by('-created_at')
-
-    paginator = Paginator(contacts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'crm/contact_list.html', {'page_obj': page_obj, 'show_all': show_all})
-
-def contact_create(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('crm:contact_list')
-    else:
-        form = ContactForm()
-    return render(request, 'crm/contact_form.html', {'form': form})
-
-def contact_detail(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
-    return render(request, 'crm/contact_detail.html', {'contact': contact})
-
-def contact_update(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST':
-        form = ContactForm(request.POST, instance=contact)
-        if form.is_valid():
-            form.save()
-            return redirect('crm:contact_list')
-    else:
-        form = ContactForm(instance=contact)
-    return render(request, 'crm/contact_form.html', {'form': form})
-
-def contact_delete(request, pk):
-    contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST':
-        contact.delete()
-        return redirect('crm:contact_list')
-    return render(request, 'crm/contact_confirm_delete.html', {'contact': contact})
 
 @login_required
 def lead_list(request):

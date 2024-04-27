@@ -15,33 +15,47 @@
                 {% else %}
                 <a href="?show_all=true" class="btn btn-primary">Show All Contacts</a>
                 {% endif %}
-                <a href="{% url 'crm:contact_create' %}" class="btn btn-success">Add New</a>
+                <a href="{% url 'contact:contact_create' %}" class="btn btn-success">Add New</a>
             </div>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Business Partner</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for contact in page_obj %}
-                    <tr>
-                        <td><a href="{% url 'crm:contact_detail' contact.pk %}">{{ contact.first_name }} {{ contact.last_name }}</a></td>
-                        <td>{{ contact.email }}</td>
-                        <td>{{ contact.phone }}</td>
-                        <td>{{ contact.business_partner.name }}</td>
-                        <td>
-                            <a href="{% url 'crm:contact_update' contact.pk %}" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="{% url 'crm:contact_delete' contact.pk %}" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+           <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Business Partner</th> <!-- New table header -->
+                <th>User Assignment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in page_obj %}
+            <tr>
+                <td><a href="{% url 'contact:contact_detail' contact.pk %}">{{ contact.first_name }} {{ contact.last_name }}</a></td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>
+                    {% if contact.business_partner %}
+                        {{ contact.business_partner.name }}
+                    {% else %}
+                        Not Assigned to a Business Partner
+                    {% endif %}
+                </td>
+                <td>
+                    {% if contact.user %}
+                        Assigned to {{ contact.user.username }}
+                    {% else %}
+                        Not Assigned to a User
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'contact:contact_update' contact.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'contact:contact_delete' contact.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
             {% if page_obj.has_other_pages %}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">

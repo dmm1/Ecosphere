@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>{% trans "Businesspartner" %}</h1>
+        <a href="{% url 'business_partner:businesspartner_create' %}" class="btn btn-green">
+            <i class="bi bi-plus-circle-dotted"></i> {% trans "Create Businesspartner" %}
+        </a>
+    </div>
+  <div class="mb-3">
+    {% if show_all %}
+        <a href="?show_all=false" class="btn btn-info">{% trans "Show only my Businesspartners" %}</a>
+    {% else %}
+        <a href="?show_all=true" class="btn btn-warning">{% trans "Show All Businesspartners" %}</a>
+    {% endif %}
+    </div>
+    <div class="card">
+        <table class="table card-table table-vcenter">
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Email" %}</th>
+                    <th>{% trans "Phone" %}</th>
+                    <th>Primary Role</th>
+                    <th>Secondary Role</th>
+                    <th>{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for businesspartner in page_obj %}
+                <tr>
+                    <td><a href="{% url 'business_partner:businesspartner_detail' businesspartner.id %}">{{ businesspartner.name }}</a></td>
+                    <td>{{ businesspartner.email }}</td>
+                    <td>{{ businesspartner.phone }}</td>
+                    <td>{{ businesspartner.primary_role }}</td>
+                    <td>{{ businesspartner.secondary_role }}</td>
+                    <td>
+                        <a href="{% url 'business_partner:businesspartner_update' businesspartner.id %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>
+                        <a href="{% url 'business_partner:businesspartner_delete' businesspartner.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+                    </td>
+                </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">{% trans "No Businesspartner found." %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1&show_all={{ show_all }}">{% trans "First" %}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&show_all={{ show_all }}">{% trans "Previous" %}</a></li>
+                {% endif %}
+
+                <li class="page-item disabled">
+                    <span class="page-link">
+                        {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.
+                    </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&show_all={{ show_all }}">{% trans "Next" %}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&show_all={{ show_all }}">{% trans "Last" %}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

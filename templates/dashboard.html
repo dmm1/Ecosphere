@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{% trans "Businesspartner" %}</h5>
                     <p class="card-text">{% trans "View and manage your Businesspartners." %}</p><div class="text-center">
-                    <a href="{% url 'crm:businesspartner_list' %}" class="btn btn-yellow">{% trans "Go to Businesspartners" %}</a>
+                    <a href="{% url 'business_partner:businesspartner_list' %}" class="btn btn-yellow">{% trans "Go to Businesspartners" %}</a>
                 </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{% trans "Contacts" %}</h5>
                     <p class="card-text">{% trans "View and manage your Contacts." %}</p>
-                   <a href="{% url 'crm:contact_list' %}" class="btn btn-primary">{% trans "Go to Contacts" %}</a>
+                   <a href="{% url 'contact:contact_list' %}" class="btn btn-primary">{% trans "Go to Contacts" %}</a>
                 </div>
             </div>
         </div>

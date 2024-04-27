@@ -145,7 +145,7 @@
         <div class="nav-item">
             <a href="{% url 'accounts:profile' %}" class="nav-link d-flex lh-1 text-reset p-0" >
 
-           <span class="avatar avatar-sm" style="background-image: url({{ user.profile.profile_picture.url }}"></span>
+           <span class="avatar avatar-sm" style="background-image: url({% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}https://via.placeholder.com/150{% endif %})"></span>
             <div class="d-none d-xl-block ps-2">
               <div>{{ user.first_name }} {{ user.last_name }}</div>
               <div class="mt-1 small text-muted">#jobdescription</div>
@@ -182,7 +182,7 @@
               <div class="dropdown-menu">
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="{% url 'crm:businesspartner_list' %}">
+                    <a class="dropdown-item" href="{% url 'business_partner:businesspartner_list' %}">
                       {% trans "All Businesspartners" %}
                     </a>
 
@@ -218,7 +218,7 @@
                     </a>
                   </div>
                   <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="{% url 'crm:contact_create' %}">
+                    <a class="dropdown-item" href="{% url 'contact:contact_create' %}">
                       {% trans "Create Contact" %}
                       <span class="badge badge-sm bg-green-lt text-uppercase ms-auto">{% trans "NEW" %}</span>
                     </a>

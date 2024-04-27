@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crm.apps.CrmConfig',
     'apps.accounts.apps.AccountsConfig',
+    'apps.business_partner.apps.BusinessPartnerConfig',
+    'apps.contact.apps.ContactConfig',
     'apps.tasks.apps.TasksConfig',
 
 

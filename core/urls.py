@@ -20,7 +20,9 @@ urlpatterns += i18n_patterns(
     path('accounts/profile/', login_required(profile_view), name='profile'),
     path('', include(('apps.accounts.urls', 'accounts'), namespace='accounts')),
     path('', include(('crm.urls', 'crm'), namespace='crm')),
+    path('', include(('apps.business_partner.urls', 'business_partner'), namespace='business_partner')),
     path('', include(('apps.tasks.urls', 'tasks'), namespace='tasks')),
+    path('', include(('apps.contact.urls', 'contact'), namespace='contact')),
 )
 
 if settings.DEBUG:
