@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Task, Comment
 from .forms import TaskForm, CommentForm
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+
 
 @login_required
 def task_list(request):
@@ -54,17 +57,18 @@ def task_update(request, task_id):
             task = form.save(commit=False)
             task.due_date = form.cleaned_data['due_date']
             task.save()
-            return redirect('tasks:task_detail', task_id=task.id)
+            show_all = str(request.session.get('show_all', False)).lower()
+            return HttpResponseRedirect(reverse('tasks:task_list') + f'?show_all={show_all}')
     else:
         form = TaskForm(instance=task)
     return render(request, 'apps/tasks/task_form.html', {'form': form, 'task': task})
 
 @login_required
-def task_delete(request, pk):
-    task = get_object_or_404(Task, pk=pk)
+def task_delete(request, task_id):  # Change 'pk' to 'task_id'
+    task = get_object_or_404(Task, pk=task_id)  # Change 'pk' to 'task_id'
     if request.method == 'POST':
         task.delete()
-        return redirect('task_list')
+        return redirect('tasks:task_list')  # Add 'tasks:' before 'task_list'
     return render(request, 'apps/tasks/task_confirm_delete.html', {'task': task})
 
 @login_required

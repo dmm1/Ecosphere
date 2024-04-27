@@ -2,11 +2,23 @@
 {% load i18n %}
 
 {% block content %}
-  <h1>Delete Task</h1>
-  <p>Are you sure you want to delete the task "{{ task.title }}"?</p>
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>
-  </form>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{% trans "Delete Task" %}</h3>
+              </div>
+              <div class="card-body">
+                <p>{% trans "Are you sure you want to delete the task" %} "{{ task.title }}"?</p>
+                <form method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+                  <a href="{% url 'tasks:task_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 {% endblock %}
