@@ -24,10 +24,15 @@ For local deployment, follow these instructions:
    python main.py createsuperuser
    ```
 
-5. **Server Launch**: Initiate the development server to start the CRM application on your device:
+5. **App Seed**: If you like you can seed the database with sample data using the following command:
+   ```
+   python main.py seed_businesspartners.py
+   python main.py seed_contacts.py
+   ```
+6. **Server Launch**: Initiate the development server to start the CRM application on your device:
    ```
    python main.py runserver
    ```
 
-6. **Application Access**: Visit `http://localhost:8000` in a web browser to explore the CRM application. Log in using the superuser credentials to start.
+7. **Application Access**: Visit `http://localhost:8000` in a web browser to explore the CRM application. Log in using the superuser credentials to start.
  
