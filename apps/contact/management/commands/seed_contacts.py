@@ -11,7 +11,7 @@ class Command(BaseCommand):
         self.faker = Faker()
 
     def handle(self, *args, **kwargs):
-        for i in range(10):  # Change the range to the number of instances you want to create
+        for i in range(20):  # Change the range to the number of instances you want to create
             contact_data = self.generate_fake_data(Contact)
             contact_data['business_partner'] = BusinessPartner.objects.first() if BusinessPartner.objects.exists() else None
             contact, created = Contact.objects.get_or_create(

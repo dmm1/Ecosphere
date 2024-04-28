@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h1>{% trans "Search Results" %}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-body">
+    <div class="container-xl">
+        {% if contacts or business_partners or tasks or leads or opportunities %}
+        {% if contacts %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{% trans "Contacts" %}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row row-cards">
+                    {% for contact in contacts %}
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{% url 'contact:contact_detail' contact.id %}">{{ contact.first_name }} {{ contact.last_name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if business_partners %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{% trans "Business Partners" %}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row row-cards">
+                    {% for partner in business_partners %}
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{% url 'business_partner:businesspartner_detail' partner.id %}">{{ partner.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if tasks %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{% trans "Tasks" %}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row row-cards">
+                    {% for task in tasks %}
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{% url 'tasks:task_detail' task.id %}">{{ task.title }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if leads %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{% trans "Leads" %}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row row-cards">
+                    {% for lead in leads %}
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{% url 'crm:lead_detail' lead.id %}">{{ lead.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if opportunities %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{% trans "Opportunities" %}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row row-cards">
+                    {% for opportunity in opportunities %}
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{% url 'crm:opportunity_detail' opportunity.id %}">{{ opportunity.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-warning">
+                    {% trans "No results found." %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

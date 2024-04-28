@@ -39,3 +39,10 @@
 # 0.0.5 (2024-26-04)
 - New UI
 
+# 0.0.5 (2024-28-04)
+- Model Improvements
+- UI Improvements
+- Bug Fixes
+- Performance Improvements
+- Implement Search App
+

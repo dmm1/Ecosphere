@@ -23,6 +23,7 @@ urlpatterns += i18n_patterns(
     path('', include(('apps.business_partner.urls', 'business_partner'), namespace='business_partner')),
     path('', include(('apps.tasks.urls', 'tasks'), namespace='tasks')),
     path('', include(('apps.contact.urls', 'contact'), namespace='contact')),
+    path('search/', include(('apps.search.urls', 'search'), namespace='search')),
 )
 
 if settings.DEBUG:

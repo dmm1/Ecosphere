@@ -8,7 +8,7 @@ This will take _some_ time to build but i am sure it will be worth it in the end
 
 Please see the /docs for more information and getting started on the project.
 
-## Working Capabilities Version 0.0.5
+## Working Capabilities Version 0.0.6
 
 - **Login**: Enables registered users to securely access their accounts with their email and password.
 
@@ -31,6 +31,8 @@ Please see the /docs for more information and getting started on the project.
 - **Contacts**: Basic Implementation, related to BP and Users
 
 - **Tasks and Activities**: Basic Implementation, related to Users and Opportunities
+ 
+- **Search**: Search for all Models, including Users, Opportunities, Leads, Contacts, and Activities.
 - 
 - - **Sample Data Import**: Import for the apps via seeds view docs/
 

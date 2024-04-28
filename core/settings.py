@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.business_partner.apps.BusinessPartnerConfig',
     'apps.contact.apps.ContactConfig',
     'apps.tasks.apps.TasksConfig',
+    'apps.search.apps.SearchConfig',
 
 
 
