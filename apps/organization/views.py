@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.models import Permission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -7,6 +7,9 @@ from .models import Country, Group, Team, CountryAdmin
 from .serializers import UserSerializer, GroupSerializer, TeamSerializer, CountrySerializer
 from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm, UserCreationForm
 from django.contrib import messages
+import logging
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def dashboard(request):
@@ -20,35 +23,22 @@ def user_profile(request, user_id):
     return render(request, 'apps/organization/user_profile.html', {'user': user})
 
 # Update the create_user view
-@login_required
 def create_user(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCreationForm(request.user, data=request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            if request.user.is_superuser:
-                # Django admin can assign the user to any country
-                country = form.cleaned_data['country']
-                user.countryadmin = CountryAdmin.objects.create(user=user, country=country)
-            elif hasattr(request.user, 'countryadmin'):
-                # Country admin can only assign the user to their own country
-                user.countryadmin = CountryAdmin.objects.create(user=user, country=request.user.countryadmin.country)
-            user.save()
-            messages.success(request, 'User created successfully.')
-            return redirect('organization:dashboard')
+            try:
+                user = form.save()
+                logger.info(f"User '{user.username}' created successfully.")
+                return redirect('organization:dashboard')
+            except Exception as e:
+                logger.error(f"Error creating user: {e}")
+                logger.exception(e)  # This will log the exception
     else:
-        form = UserCreationForm()
+        form = UserCreationForm(request.user)
 
-    if request.user.is_superuser:
-        # Django admin can see all countries
-        countries = Country.objects.all()
-    elif hasattr(request.user, 'countryadmin'):
-        # Country admin can only see their own country
-        countries = [request.user.countryadmin.country]
-    else:
-        countries = []
-
-    return render(request, 'apps/organization/create_user.html', {'form': form, 'countries': countries})
+    logger.debug(f"Rendering create_user.html with form: {form}")
+    return render(request, 'apps/organization/create_user.html', {'form': form})
 
 @login_required
 def read_user(request, user_id):

@@ -13,7 +13,7 @@ router.register(r'groups', GroupViewSet, basename='group')
 router.register(r'teams', TeamViewSet, basename='team')
 
 urlpatterns = [
-    path('dashboard/', dashboard, name='dashboard'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('create/user/', create_user, name='create_user.html'),
     path('read/user/<int:user_id>/', read_user, name='read_user'),
     path('update/user/<int:user_id>/', update_user, name='update_user'),

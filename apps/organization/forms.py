@@ -1,11 +1,41 @@
 # apps/organization/forms.py
 from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .models import Group, Team, Country
+from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
+from .models import User, Country, CountryAdmin, Group, Team
 
-class UserCreationForm(UserCreationForm):
-    country = forms.ModelChoiceField(queryset=Country.objects.all())
+
+
+
+class UserCreationForm(DjangoUserCreationForm):
+    country = forms.ModelChoiceField(queryset=Country.objects.all(), required=True, empty_label=None)
+
+    class Meta(DjangoUserCreationForm.Meta):
+        model = User
+        fields = ['username', 'email', 'password1', 'password2', 'country']
+
+    def __init__(self, user=None, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+        if hasattr(self.user, 'countryadmin'):
+            self.fields['country'].initial = self.user.countryadmin.country
+            self.fields['country'].widget = forms.HiddenInput()
+        else:
+            self.fields['country'].queryset = Country.objects.all()
+            self.fields['country'].empty_label = '--- Select a country ---'
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if hasattr(self.user, 'countryadmin'):
+            country_admin = CountryAdmin(user=user, country=self.user.countryadmin.country)
+            if commit:
+                user.save()
+                country_admin.save()
+        elif 'country' in self.cleaned_data:
+            country_admin = CountryAdmin(user=user, country=self.cleaned_data['country'])
+            if commit:
+                user.save()
+                country_admin.save()
+        return user
 
 class UserForm(forms.ModelForm):
     class Meta:
