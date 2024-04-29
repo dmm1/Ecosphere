@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Group Details" %}{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+    <h1>{% trans "Group Details" %}</h1>
+    <div class="card">
+        <div class="card-body">
+            <h2>{{ group.name }}</h2>
+            <p>{% trans "Description:" %} {{ group.description }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

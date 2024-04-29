@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Update Team" %}{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+    <h1>{% trans "Update Team" %}</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">{% trans "Name" %}</label>
+                    {{ form.name }}
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">{% trans "Description" %}</label>
+                    {{ form.description }}
+                </div>
+                <div class="mb-3">
+                    <label for="group" class="form-label">{% trans "Group" %}</label>
+                    {{ form.group }}
+                </div>
+                <button type="submit" class="btn btn-primary">{% trans "Update Team" %}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

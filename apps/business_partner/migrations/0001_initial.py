@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('vat', models.CharField(default='', max_length=100)),
                 ('email', models.EmailField(default='', max_length=100)),
                 ('phone', models.CharField(default='', max_length=20)),
-                ('country', models.CharField(default='', max_length=100)),
+                ('countries', models.CharField(default='', max_length=100)),
                 ('state', models.CharField(default='', max_length=100)),
                 ('postcode', models.CharField(default='', max_length=20)),
                 ('city', models.CharField(default='', max_length=100)),

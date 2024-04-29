@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Create User" %}{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+    <h1>{% trans "Create User" %}</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">{% trans "Username" %}</label>
+                    {{ form.username }}
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">{% trans "Email" %}</label>
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">{% trans "Password" %}</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">{% trans "Confirm Password" %}</label>
+                    {{ form.password2 }}
+                </div>
+                <button type="submit" class="btn btn-primary">{% trans "Create User" %}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
