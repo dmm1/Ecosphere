@@ -38,7 +38,17 @@ def create_user(request):
             return redirect('organization:dashboard')
     else:
         form = UserCreationForm()
-    return render(request, 'apps/organization/create_user.html', {'form': form})
+
+    if request.user.is_superuser:
+        # Django admin can see all countries
+        countries = Country.objects.all()
+    elif hasattr(request.user, 'countryadmin'):
+        # Country admin can only see their own country
+        countries = [request.user.countryadmin.country]
+    else:
+        countries = []
+
+    return render(request, 'apps/organization/create_user.html', {'form': form, 'countries': countries})
 
 @login_required
 def read_user(request, user_id):

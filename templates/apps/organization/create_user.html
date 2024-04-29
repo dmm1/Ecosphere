@@ -27,10 +27,20 @@
                     <label for="password2" class="form-label">{% trans "Confirm Password" %}</label>
                     {{ form.password2 }}
                 </div>
-                <div class="mb-3">
-                    <label for="country" class="form-label">{% trans "Country" %}</label>
-                    {{ form.country }}
-                </div>
+                {% if request.user.is_superuser %}
+                    <div class="mb-3">
+                        <label for="country" class="form-label">{% trans "Country" %}</label>
+                        {{ form.country }}
+                    </div>
+                {% elif request.user.countryadmin %}
+                    <div class="mb-3">
+                        <label for="country" class="form-label">{% trans "Country" %}</label>
+                        <select name="country" id="id_country" disabled>
+                            <option value="{{ request.user.countryadmin.country.id }}">{{ request.user.countryadmin.country.name }}</option>
+                        </select>
+                        {{ form.country.as_hidden }}
+                    </div>
+                {% endif %}
                 <button type="submit" class="btn btn-primary">{% trans "Create User" %}</button>
             </form>
         </div>
