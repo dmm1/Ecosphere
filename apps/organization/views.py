@@ -107,7 +107,9 @@ def create_team(request):
     if request.method == 'POST':
         form = TeamForm(request.POST)
         if form.is_valid():
-            form.save()
+            team = form.save(commit=False)
+            team.created_by = request.user
+            team.save()
             messages.success(request, 'Team created successfully.')
             return redirect('organization:dashboard')
     else:
