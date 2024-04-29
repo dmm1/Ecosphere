@@ -3,9 +3,9 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions
-from .models import Country, Group, Team
+from .models import Country, Group, Team, CountryAdmin
 from .serializers import UserSerializer, GroupSerializer, TeamSerializer, CountrySerializer
-from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm
+from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm, UserCreationForm
 from django.contrib import messages
 
 @login_required
@@ -19,17 +19,26 @@ def user_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
     return render(request, 'apps/organization/user_profile.html', {'user': user})
 
+# Update the create_user view
 @login_required
 def create_user(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            if request.user.is_superuser:
+                # Django admin can assign the user to any country
+                country = form.cleaned_data['country']
+                user.countryadmin = CountryAdmin.objects.create(user=user, country=country)
+            elif hasattr(request.user, 'countryadmin'):
+                # Country admin can only assign the user to their own country
+                user.countryadmin = CountryAdmin.objects.create(user=user, country=request.user.countryadmin.country)
+            user.save()
             messages.success(request, 'User created successfully.')
             return redirect('organization:dashboard')
     else:
         form = UserCreationForm()
-    return render(request, 'apps/organization/create_user.html.html', {'form': form})
+    return render(request, 'apps/organization/create_user.html', {'form': form})
 
 @login_required
 def read_user(request, user_id):
@@ -175,6 +184,7 @@ class TeamViewSet(viewsets.ModelViewSet):
             raise permissions.PermissionDenied("You can't create a team in this group.")
         serializer.save(created_by=self.request.user)
 
+# Update the UserViewSet
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     def get_queryset(self):
