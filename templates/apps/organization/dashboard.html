@@ -40,14 +40,18 @@
                             <tr>
                                 <td>{{ user.username }}</td>
                                 <td>{{ user.email }}</td>
-                                <td><a href="/profile/{{ user.id }}" class="btn btn-primary btn-sm">{% trans "Visit Account" %}</a></td>
-                                <td><a href="/update/user/{{ user.id }}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
-                                <td><a href="/delete/user/{{ user.id }}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                                <td><a href="{% url 'organization:user_profile' user.id %}" class="btn btn-primary btn-sm">{% trans "Visit Account" %}</a></td>
+                                <td><a href="{% url 'organization:update_user' user.id %}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
+                                <td><a href="{% url 'organization:delete_user' user.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">{% trans "No users found." %}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="/create/user/" class="btn btn-primary">{% trans "Create User" %}</a>
+                    <a href="{% url 'organization:create_user' %}" class="btn btn-primary">{% trans "Create User" %}</a>
                 </div>
                 <div class="tab-pane fade" id="groups">
                     <table id="groups-table" class="table table-bordered table-striped table-hover">
@@ -64,13 +68,17 @@
                             <tr>
                                 <td>{{ group.name }}</td>
                                 <td>{{ group.description }}</td>
-                                <td><a href="/update/group/{{ group.id }}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
-                                <td><a href="/delete/group/{{ group.id }}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                                <td><a href="{% url 'organization:update_group' group.id %}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
+                                <td><a href="{% url 'organization:delete_group' group.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4">{% trans "No groups found." %}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="/create/group/" class="btn btn-primary">{% trans "Create Group" %}</a>
+                    <a href="{% url 'organization:create_group' %}" class="btn btn-primary">{% trans "Create Group" %}</a>
                 </div>
                 <div class="tab-pane fade" id="teams">
                     <table id="teams-table" class="table table-bordered table-striped table-hover">
@@ -86,16 +94,20 @@
                         <tbody>
                             {% for team in teams %}
                             <tr>
-                                <td>{{ team.name }}</td>
+                                <td><a href="{% url 'organization:team_detail' team.id %}">{{ team.name }}</a></td>
                                 <td>{{ team.description }}</td>
                                 <td>{{ team.group.name }}</td>
-                                <td><a href="/update/team/{{ team.id }}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
-                                <td><a href="/delete/team/{{ team.id }}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                                <td><a href="{% url 'organization:team_update' team.id %}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
+                                <td><a href="{% url 'organization:team_delete' team.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">{% trans "No teams found." %}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="/create/team/" class="btn btn-primary">{% trans "Create Team" %}</a>
+                    <a href="{% url 'organization:team_create' %}" class="btn btn-primary">{% trans "Create Team" %}</a>
                 </div>
             </div>
         </div>

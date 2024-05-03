@@ -1,8 +1,7 @@
 # apps/organization/urls.py
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, GroupViewSet, TeamViewSet, CountryViewSet, dashboard, create_user, read_user, update_user, delete_user, create_group, read_group, update_group, delete_group, create_team, read_team, update_team, delete_team, user_profile
-from . import views
+from .views import UserViewSet, GroupViewSet, TeamViewSet, CountryViewSet, dashboard, create_user, read_user, update_user, delete_user, create_group, read_group, update_group, delete_group, team_list, team_detail, team_create, team_update, team_delete, user_profile, user_autocomplete
 
 app_name = 'organization'
 
@@ -13,21 +12,22 @@ router.register(r'groups', GroupViewSet, basename='group')
 router.register(r'teams', TeamViewSet, basename='team')
 
 urlpatterns = [
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('create/user/', create_user, name='create_user.html'),
-    path('read/user/<int:user_id>/', read_user, name='read_user'),
-    path('update/user/<int:user_id>/', update_user, name='update_user'),
-    path('delete/user/<int:user_id>/', delete_user, name='delete_user'),
-    path('create/group/', create_group, name='create_group'),
-    path('read/group/<int:group_id>/', read_group, name='read_group'),
-    path('update/group/<int:group_id>/', update_group, name='update_group'),
-    path('delete/group/<int:group_id>/', delete_group, name='delete_group'),
-    path('create/team/', create_team, name='create_team'),
-    path('read/team/<int:team_id>/', read_team, name='read_team'),
-    path('update/team/<int:team_id>/', update_team, name='update_team'),
-    path('delete/team/<int:team_id>/', delete_team, name='delete_team'),
-    path('profile/<int:user_id>/', views.user_profile, name='user_profile'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('users/create/', create_user, name='create_user'),
+    path('users/<int:user_id>/', read_user, name='read_user'),
+    path('users/<int:user_id>/update/', update_user, name='update_user'),
+    path('users/<int:user_id>/delete/', delete_user, name='delete_user'),
+    path('users/autocomplete/', user_autocomplete, name='user_autocomplete'),
+    path('groups/create/', create_group, name='create_group'),
+    path('groups/<int:group_id>/', read_group, name='read_group'),
+    path('groups/<int:group_id>/update/', update_group, name='update_group'),
+    path('groups/<int:group_id>/delete/', delete_group, name='delete_group'),
+    path('teams/', team_list, name='team_list'),
+    path('teams/<int:team_id>/', team_detail, name='team_detail'),
+    path('teams/create/', team_create, name='team_create'),
+    path('teams/<int:team_id>/update/', team_update, name='team_update'),
+    path('teams/<int:team_id>/delete/', team_delete, name='team_delete'),
+    path('users/<int:user_id>/profile/', user_profile, name='user_profile'),
 ]
-
 
 urlpatterns += router.urls

@@ -3,13 +3,32 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions
-from .models import Country, Group, Team, CountryAdmin
+from .models import Country, Group, Team, CountryAdmin, User
 from .serializers import UserSerializer, GroupSerializer, TeamSerializer, CountrySerializer
 from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm, UserCreationForm
 from django.contrib import messages
 import logging
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
+from django.db.models import Q
 
 logger = logging.getLogger(__name__)
+
+def user_autocomplete(request):
+    term = request.GET.get('q')
+    users = User.objects.filter(username__icontains=term)
+    data = [
+        {
+            'id': user.id,
+            'text': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'country': user.country or 'Not available',
+        }
+        for user in users
+    ]
+    return JsonResponse({'results': data})
 
 @login_required
 def dashboard(request):
@@ -111,19 +130,27 @@ def delete_group(request, group_id):
         return redirect('organization:dashboard')
     return render(request, 'apps/organization/confirm_delete.html', {'object': group})
 
-def create_team(request):
+@login_required
+def team_list(request):
+    teams = Team.objects.filter(group__country=request.user.countryadmin.country)
+    return render(request, 'apps/organization/team_list.html', {'teams': teams})
+
+@login_required
+def team_detail(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    team_members = team.members.all()
+    return render(request, 'apps/organization/team_detail.html', {'team': team, 'team_members': team_members})
+
+@login_required
+def team_create(request):
     if request.method == 'POST':
         form = TeamForm(request.POST, user=request.user)
         if form.is_valid():
             team = form.save()
-            # Optionally, perform any post-save actions or redirection
-            return redirect('organization:read_team', team_id=team.id)  # Redirect to the newly created team's detail page
-        else:
-            print("Form is invalid")
-            print(form.errors)
+            return redirect('organization:team_detail', team_id=team.id)
     else:
         form = TeamForm(user=request.user)
-    return render(request, 'apps/organization/create_team.html', {'form': form})
+    return render(request, 'apps/organization/team_create.html', {'form': form})
 
 
 @login_required
@@ -132,35 +159,26 @@ def read_team(request, team_id):
     return render(request, 'apps/organization/team_detail.html', {'team': team})
 
 @login_required
-def update_team(request, team_id):
+def team_update(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-
-    # Check if the user has permission to update the team
-    if not request.user.has_perm('organization.change_team') and team.group.country != request.user.countryadmin.country:
-        messages.error(request, 'You do not have permission to update this team.')
-        return redirect('organization:dashboard')
-
     if request.method == 'POST':
-        form = TeamUpdateForm(request.POST, instance=team, user=request.user)
+        form = TeamForm(request.POST, instance=team)
         if form.is_valid():
-            team = form.save()
-            messages.success(request, 'Team updated successfully.')
-            return redirect('organization:dashboard')
+            form.save()
+            return redirect('organization:team_detail', team_id=team.id)
     else:
-        form = TeamUpdateForm(instance=team, user=request.user)
-
-    return render(request, 'apps/organization/update_team.html', {'form': form})
-
-
+        form = TeamForm(instance=team)
+    return render(request, 'apps/organization/update_team.html', {'team': team, 'form': form})
 
 @login_required
-def delete_team(request, team_id):
+def team_delete(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     if request.method == 'POST':
         team.delete()
-        messages.success(request, 'Team deleted successfully.')
-        return redirect('organization:dashboard')
-    return render(request, 'apps/organization/confirm_delete.html', {'object': team})
+        return redirect('organization:team_list')
+    return render(request, 'apps/organization/team_confirm_delete.html', {'team': team})
+
+
 class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer

@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from .models import User, Country, CountryAdmin, Group, Team
 from django.utils.translation import gettext_lazy as _
 from django.forms.models import ModelChoiceField
+from django.forms.widgets import SelectMultiple
+from django.urls import reverse_lazy
 
 
 
@@ -119,37 +121,53 @@ class GroupUpdateForm(forms.ModelForm):
         self.fields['country'].required = True
 
 
-class UserModelChoiceField(ModelChoiceField):
+class UserMultipleChoiceField(forms.ModelMultipleChoiceField):
+    widget = SelectMultiple(
+        attrs={
+            'class': 'form-control select2',
+            'data-ajax--url': reverse_lazy('organization:user_autocomplete'),
+            'data-ajax--cache': 'true',
+            'data-ajax--dataType': 'json',
+            'data-ajax--delay': 250,
+            'data-minimum-input-length': 1,
+            'style': 'width: 100%;',
+        }
+    )
+
     def label_from_instance(self, obj):
         return f"{obj.first_name} {obj.last_name} - {obj.email} ({obj.countryadmin.country.name})"
 
 class TeamUpdateForm(forms.ModelForm):
-    users = UserModelChoiceField(
+    members = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
         required=False,
-        label=_("Users"),
-        widget=forms.CheckboxSelectMultiple,
-        to_field_name='id',
+        label=_("Members"),
     )
 
     class Meta:
         model = Team
-        fields = ['name', 'description', 'group', 'country', 'users']
+        fields = ['name', 'description', 'group', 'country', 'members']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(TeamUpdateForm, self).__init__(*args, **kwargs)
 
         if user:
+            print(f"User: {user}")
             self.fields['group'].queryset = Group.objects.filter(created_by=user)
             if hasattr(user, 'countryadmin'):
+                print(f"User is a country admin for {user.countryadmin.country}")
                 self.fields['country'].queryset = Country.objects.filter(id=user.countryadmin.country.id)
             else:
+                print("User is not a country admin")
                 self.fields['country'].queryset = Country.objects.all()
-            self.fields['users'].queryset = get_user_model().objects.filter(groups__in=user.groups.all())
+            self.fields['country'].required = True
 
     def save(self, commit=True):
         team = super().save(commit=False)
-        team.save()
-        team.users.set(self.cleaned_data['users'])
+        team.members.set(self.cleaned_data['members'])
+
+        if commit:
+            team.save()
         return team
+

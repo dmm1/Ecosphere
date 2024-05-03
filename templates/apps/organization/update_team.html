@@ -1,39 +1,108 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% load i18n %}
 
-{% block title %}{% trans "Update Team" %}{% endblock %}
-
 {% block content %}
-<div class="container-xl">
-    <h1>{% trans "Update Team" %}</h1>
-    <div class="card">
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="name" class="form-label">{% trans "Name" %}</label>
-                    {{ form.name }}
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">{% trans "Description" %}</label>
-                    {{ form.description }}
-                </div>
-                <div class="mb-3">
-                    <label for="group" class="form-label">{% trans "Group" %}</label>
-                    {{ form.group }}
-                </div>
-                <div class="mb-3">
-                    <label for="country" class="form-label">{% trans "Country" %}</label>
-                    {{ form.country }}
-                </div>
-                <div class="mb-3">
-                    <label for="users" class="form-label">{% trans "Users" %}</label>
-                    {{ form.users }}
-                </div>
-                <button type="submit" class="btn btn-primary">{% trans "Update Team" %}</button>
-            </form>
+  <div class="page-header">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h1>{% trans "Update Team" %}</h1>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+
+  <div class="container-xl">
+   <form method="post" action="{% url 'organization:team_update' team.id %}">
+      {% csrf_token %}
+      <div class="card-body">
+        {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+              <small class="form-hint">{{ field.help_text }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% if user %}
+          <div class="mb-3">
+            <label class="form-label">{% trans "Member Information" %}</label>
+            <div class="form-control-plaintext">
+              <div>{% trans "First Name" %}: {{ user.first_name }}</div>
+              <div>{% trans "Last Name" %}: {{ user.last_name }}</div>
+              <div>{% trans "Email" %}: {{ user.email }}</div>
+              {% if user.country %}
+                <div>{% trans "Country" %}: {{ user.country }}</div>
+              {% else %}
+                <div>{% trans "Country" %}: {% trans "Not available" %}</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        <div class="mb-3">
+          <label class="form-label">{% trans "Team Members" %}</label>
+          <select class="form-control select2" name="members" multiple>
+            {% for member in team.members.all %}
+              <option value="{{ member.id }}" selected>{{ member.username }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+      </div>
+    </form>
+  </div>
+
+  {% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('.select2').select2({
+          ajax: {
+            url: "{% url 'organization:user_autocomplete' %}",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+              return {
+                q: params.term,
+                page: params.page || 1
+              };
+            },
+            processResults: function (data, params) {
+              params.page = params.page || 1;
+              return {
+                results: data.results,
+                pagination: {
+                  more: (params.page * 10) < data.count
+                }
+              };
+            },
+            cache: true
+          },
+          minimumInputLength: 1,
+          placeholder: "{% trans 'Search for a user' %}",
+          allowClear: true,
+          multiple: true,
+          templateResult: function (user) {
+            if (!user.id) {
+              return user.text;
+            }
+            var $user = $('<span>' + user.first_name + ' ' + user.last_name + ' - ' + user.email + ' (' + (user.country || '{% trans "Not available" %}') + ')</span>');
+            return $user;
+          },
+          templateSelection: function (user) {
+            if (!user.id) {
+              return user.text;
+            }
+            var $user = $('<span>' + user.first_name + ' ' + user.last_name + ' - ' + user.email + ' (' + (user.country || '{% trans "Not available" %}') + ')</span>');
+            return $user;
+          }
+        });
+      });
+    </script>
+  {% endblock %}
 {% endblock %}

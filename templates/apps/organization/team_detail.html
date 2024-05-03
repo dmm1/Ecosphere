@@ -1,18 +1,65 @@
 {% extends 'base.html' %}
-
 {% load i18n %}
 
-{% block title %}{% trans "Team Details" %}{% endblock %}
-
 {% block content %}
-<div class="container-xl">
-    <h1>{% trans "Team Details" %}</h1>
-    <div class="card">
-        <div class="card-body">
-            <h2>{{ team.name }}</h2>
-            <p>{% trans "Description:" %} {{ team.description }}</p>
-            <p>{% trans "Group:" %} {{ team.group.name }}</p>
-        </div>
+<div class="page-header">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <h1>{{ team.name }}</h1>
+      </div>
+      <div class="col-auto">
+        <a href="{% url 'organization:team_update' team.id %}" class="btn btn-primary">
+          {% trans "Update Team" %}
+        </a>
+        <a href="{% url 'organization:team_delete' team.id %}" class="btn btn-danger">
+          {% trans "Delete Team" %}
+        </a>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="container-xl">
+  <div class="card">
+    <div class="card-body">
+      <h2>{% trans "Team Details" %}</h2>
+      <p>{{ team.description }}</p>
+      <p>{% trans "Group:" %} {{ team.group.name }}</p>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h2>{% trans "Team Members" %}</h2>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Email" %}</th>
+            <th>{% trans "Actions" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for member in team_members %}
+          <tr>
+            <td>{{ member.username }}</td>
+            <td>{{ member.email }}</td>
+            <td>
+              <a href="{% url 'organization:user_profile' member.id %}" class="btn btn-primary btn-sm">
+                {% trans "View Profile" %}
+              </a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">{% trans "No team members found." %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 {% endblock %}
+

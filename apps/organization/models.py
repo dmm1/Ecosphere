@@ -29,6 +29,7 @@ class Team(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='teams')
     country = models.ForeignKey(Country, on_delete=models.CASCADE, default=1)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    members = models.ManyToManyField(User, related_name='teams')
 
     def __str__(self):
         return self.name
