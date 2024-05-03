@@ -23,6 +23,14 @@
                     <label for="group" class="form-label">{% trans "Group" %}</label>
                     {{ form.group }}
                 </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">{% trans "Country" %}</label>
+                    {{ form.country }}
+                </div>
+                <div class="mb-3">
+                    <label for="users" class="form-label">{% trans "Users" %}</label>
+                    {{ form.users }}
+                </div>
                 <button type="submit" class="btn btn-primary">{% trans "Update Team" %}</button>
             </form>
         </div>

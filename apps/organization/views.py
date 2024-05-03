@@ -111,19 +111,20 @@ def delete_group(request, group_id):
         return redirect('organization:dashboard')
     return render(request, 'apps/organization/confirm_delete.html', {'object': group})
 
-@login_required
 def create_team(request):
     if request.method == 'POST':
-        form = TeamForm(request.POST)
+        form = TeamForm(request.POST, user=request.user)
         if form.is_valid():
-            team = form.save(commit=False)
-            team.created_by = request.user
-            team.save()
-            messages.success(request, 'Team created successfully.')
-            return redirect('organization:dashboard')
+            team = form.save()
+            # Optionally, perform any post-save actions or redirection
+            return redirect('organization:read_team', team_id=team.id)  # Redirect to the newly created team's detail page
+        else:
+            print("Form is invalid")
+            print(form.errors)
     else:
-        form = TeamForm()
+        form = TeamForm(user=request.user)
     return render(request, 'apps/organization/create_team.html', {'form': form})
+
 
 @login_required
 def read_team(request, team_id):
@@ -133,15 +134,24 @@ def read_team(request, team_id):
 @login_required
 def update_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
+
+    # Check if the user has permission to update the team
+    if not request.user.has_perm('organization.change_team') and team.group.country != request.user.countryadmin.country:
+        messages.error(request, 'You do not have permission to update this team.')
+        return redirect('organization:dashboard')
+
     if request.method == 'POST':
-        form = TeamUpdateForm(request.POST, instance=team)
+        form = TeamUpdateForm(request.POST, instance=team, user=request.user)
         if form.is_valid():
-            form.save()
+            team = form.save()
             messages.success(request, 'Team updated successfully.')
             return redirect('organization:dashboard')
     else:
-        form = TeamUpdateForm(instance=team)
+        form = TeamUpdateForm(instance=team, user=request.user)
+
     return render(request, 'apps/organization/update_team.html', {'form': form})
+
+
 
 @login_required
 def delete_team(request, team_id):
