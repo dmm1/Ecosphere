@@ -5,28 +5,55 @@
 {% block title %}{% trans "Update Group" %}{% endblock %}
 
 {% block content %}
-<div class="container-xl">
-    <h1>{% trans "Update Group" %}</h1>
-    <div class="card">
-        <div class="card-body">
-            <form method="post">
+  <div class="page-header">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h1 class="page-title">
+            {% trans "Update Group" %}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">{% trans "Group Details" %}</h3>
+            </div>
+            <div class="card-body">
+              <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="name" class="form-label">{% trans "Name" %}</label>
-                    {{ form.name }}
+                <label class="form-label" for="{{ form.name.id_for_label }}">{% trans "Name" %}</label>
+              <input type="text" class="form-control" id="{{ form.name.id_for_label }}" name="{{ form.name.name }}" value="{{ form.name.value|default:'' }}">
+            </div>
+                <div class="mb-3">
+                  <label class="form-label" for="{{ form.description.id_for_label }}">{% trans "Description" %}</label>
+                  {{ form.description }}
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">{% trans "Description" %}</label>
-                    {{ form.description }}
+                  <label class="form-label" for="{{ form.country.id_for_label }}">{% trans "Country" %}</label>
+                  {{ form.country }}
                 </div>
                 <div class="mb-3">
-                    <label for="country" class="form-label">{% trans "Country" %}</label>
-                    {{ form.country }}
+                  <label class="form-label" for="{{ form.permissions.id_for_label }}">{% trans "Permissions" %}</label>
+                  {{ form.permissions }}
                 </div>
-                <button type="submit" class="btn btn-primary">{% trans "Update Group" %}</button>
-            </form>
+                <div class="form-footer">
+                  <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 {% endblock %}
+
 

@@ -1,4 +1,5 @@
 # apps/organization/forms.py
+from django.contrib.auth.models import Permission, Group as AuthGroup
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
@@ -46,11 +47,16 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
-
 class GroupForm(forms.ModelForm):
+    permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = Group
-        fields = ['name', 'description', 'country']
+        fields = ['name', 'description', 'country', 'permissions']
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -60,13 +66,32 @@ class GroupForm(forms.ModelForm):
         else:
             self.fields['country'].queryset = Country.objects.all()
         self.fields['country'].required = True
+        self.fields['permissions'].queryset = Permission.objects.all()
 
     def save(self, commit=True):
         group = super().save(commit=False)
         group.created_by = self.user
         if commit:
             group.save()
+            group.permissions.set(self.cleaned_data['permissions'])
         return group
+
+class GroupUpdateForm(forms.ModelForm):
+    permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    class Meta:
+        model = Group
+        fields = ['name', 'description', 'country', 'permissions']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['country'].queryset = Country.objects.all()
+        self.fields['country'].required = True
+        self.fields['permissions'].queryset = Permission.objects.all()
 
 import logging
 logger = logging.getLogger(__name__)
@@ -110,15 +135,6 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'first_name', 'last_name']
 
-class GroupUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Group
-        fields = ['name', 'description', 'country']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['country'].queryset = Country.objects.all()
-        self.fields['country'].required = True
 
 
 class UserMultipleChoiceField(forms.ModelMultipleChoiceField):

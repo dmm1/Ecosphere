@@ -27,7 +27,7 @@ admin.site.register(Country, CountryAdmin)
 # Admin for Group
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'country', 'created_by')
-    list_filter = ('country',)
+    list_filter = ('permissions',)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

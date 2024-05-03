@@ -175,6 +175,24 @@
                 </span>
               </a>
             </li>
+             {% if request.user.is_staff %}
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin:index' %}" >
+                <span class="nav-link-title">
+                  {% trans "Admin Settings" %}
+                </span>
+              </a>
+            </li>
+                    {% endif %}
+                    {% if request.user.is_staff or perms.organization.change_group or perms.organization.change_team %}
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'organization:dashboard' %}" >
+                <span class="nav-link-title">
+                  {% trans "Country Settings" %}
+                </span>
+              </a>
+            </li>
+                    {% endif %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
 

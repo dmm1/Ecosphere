@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Groups</h1>
+
+  <a href="{% url 'organization:group_create' %}">Create Group</a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Country</th>
+        <th>Permissions</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for group in object_list %}
+        <tr>
+          <td><a href="{% url 'organization:group_detail' group.pk %}">{{ group.name }}</a></td>
+          <td>{{ group.description }}</td>
+          <td>{{ group.country.name }}</td>
+          <td>
+            {% for permission in group.permissions.all %}
+              {{ permission.name }}<br>
+            {% empty %}
+              -
+            {% endfor %}
+          </td>
+         <td><a href="{% url 'organization:group_update' group.id %}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
+         <td><a href="{% url 'organization:group_delete' group.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No groups found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -66,10 +66,10 @@
                         <tbody>
                             {% for group in groups %}
                             <tr>
-                                <td>{{ group.name }}</td>
+                                <td><a href="{% url 'organization:group_detail' group.id %}">{{ group.name }}</a></td>
                                 <td>{{ group.description }}</td>
-                                <td><a href="{% url 'organization:update_group' group.id %}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
-                                <td><a href="{% url 'organization:delete_group' group.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                                <td><a href="{% url 'organization:group_update' group.id %}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
+                                <td><a href="{% url 'organization:group_delete' group.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
                             </tr>
                             {% empty %}
                             <tr>
@@ -78,7 +78,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="{% url 'organization:create_group' %}" class="btn btn-primary">{% trans "Create Group" %}</a>
+                    <a href="{% url 'organization:group_create' %}" class="btn btn-primary">{% trans "Create Group" %}</a>
                 </div>
                 <div class="tab-pane fade" id="teams">
                     <table id="teams-table" class="table table-bordered table-striped table-hover">

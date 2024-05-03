@@ -11,6 +11,8 @@ import logging
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.db.models import Q
+from django.contrib.auth.models import Permission
+from django.conf.urls.i18n import i18n_patterns
 
 logger = logging.getLogger(__name__)
 
@@ -87,12 +89,18 @@ def delete_user(request, user_id):
     return render(request, 'apps/organization/confirm_delete.html', {'object': user})
 
 @login_required
+def group_detail(request, group_id):
+    group = get_object_or_404(Group, id=group_id)
+    return render(request, 'apps/organization/group_detail.html', {'group': group})
+
+@login_required
 def create_group(request):
     if request.user.has_perm('organization.add_group'):
         if request.method == 'POST':
             form = GroupForm(request.user, request.POST)
             if form.is_valid():
-                form.save()
+                group = form.save()
+                group.permissions.set(form.cleaned_data['permissions'])
                 messages.success(request, 'Group created successfully.')
                 return redirect('organization:dashboard')
         else:
@@ -101,6 +109,12 @@ def create_group(request):
     else:
         messages.error(request, 'You do not have permission to create a group.')
         return redirect('organization:dashboard')
+
+@login_required
+def group_list(request):
+    groups = Group.objects.filter(country=request.user.countryadmin.country)
+    return render(request, 'apps/organization/group_list.html', {'groups': groups})
+
 
 @login_required
 def read_group(request, group_id):
@@ -113,9 +127,10 @@ def update_group(request, group_id):
     if request.method == 'POST':
         form = GroupUpdateForm(request.POST, instance=group)
         if form.is_valid():
-            form.save()
+            group = form.save()
+            group.permissions.set(form.cleaned_data['permissions'])
             messages.success(request, 'Group updated successfully.')
-            return redirect('organization:dashboard')
+            return redirect('organization:group_list')
     else:
         form = GroupUpdateForm(instance=group)
     return render(request, 'apps/organization/update_group.html', {'form': form})
@@ -127,7 +142,7 @@ def delete_group(request, group_id):
     if request.method == 'POST':
         group.delete()
         messages.success(request, 'Group deleted successfully.')
-        return redirect('organization:dashboard')
+        return redirect('organization:group_list')
     return render(request, 'apps/organization/confirm_delete.html', {'object': group})
 
 @login_required
@@ -150,7 +165,7 @@ def team_create(request):
             return redirect('organization:team_detail', team_id=team.id)
     else:
         form = TeamForm(user=request.user)
-    return render(request, 'apps/organization/team_create.html', {'form': form})
+    return render(request, 'apps/organization/create_team.html', {'form': form})
 
 
 @login_required
@@ -187,13 +202,11 @@ class CountryViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            return Group.objects.all()
-        elif hasattr(self.request.user, 'countryadmin'):
-            return Group.objects.filter(country=self.request.user.countryadmin.country)
-        else:
-            return Group.objects.none()
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()

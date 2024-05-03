@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 
-{% load i18n %}
-
-{% block title %}{% trans "Group Details" %}{% endblock %}
-
 {% block content %}
-<div class="container-xl">
-    <h1>{% trans "Group Details" %}</h1>
-    <div class="card">
-        <div class="card-body">
-            <h2>{{ group.name }}</h2>
-            <p>{% trans "Description:" %} {{ group.description }}</p>
-        </div>
-    </div>
-</div>
+  <h1>{{ group.name }}</h1>
+
+  <p>{{ group.description }}</p>
+  <p>Country: {{ group.country.name }}</p>
+
+  <h2>Permissions</h2>
+  <ul>
+    {% for permission in group.permissions.all %}
+      <li>{{ permission.name }}</li>
+    {% empty %}
+      <li>No permissions assigned.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'organization:group_update' group.id %}">Edit</a>
+  <a href="{% url 'organization:group_delete' group.id %}">Delete</a>
 {% endblock %}
