@@ -2,13 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.models import Permission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets, permissions
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .models import Country, Group, Team, CountryAdmin, User
 from .serializers import UserSerializer, GroupSerializer, TeamSerializer, CountrySerializer
 from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm, UserCreationForm
 from django.contrib import messages
 import logging
-from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth.models import Permission
@@ -16,20 +19,35 @@ from django.conf.urls.i18n import i18n_patterns
 
 logger = logging.getLogger(__name__)
 
+class UserAutocompleteView(APIView):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('q', '')
+        users = User.objects.filter(username__icontains=query)
+        data = []
+        for user in users:
+            user_data = {
+                'id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email,
+                'country': user.country if hasattr(user, 'country') else 'Not available',
+            }
+            data.append(user_data)
+        return Response(data, status=status.HTTP_200_OK)
+
 def user_autocomplete(request):
     term = request.GET.get('q')
-    users = User.objects.filter(username__icontains=term)
-    data = [
-        {
+    users = User.objects.filter(
+        Q(username__icontains=term) |
+        Q(first_name__icontains=term) |
+        Q(last_name__icontains=term)
+    )
+    data = []
+    for user in users:
+        data.append({
             'id': user.id,
-            'text': user.username,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'country': user.country or 'Not available',
-        }
-        for user in users
-    ]
+            'text': f"{user.first_name} {user.last_name} - {user.email} ({user.country or  _('Not available')})"
+        })
     return JsonResponse({'results': data})
 
 @login_required
@@ -153,8 +171,8 @@ def team_list(request):
 @login_required
 def team_detail(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-    team_members = team.members.all()
-    return render(request, 'apps/organization/team_detail.html', {'team': team, 'team_members': team_members})
+    team_members_list = list(team.members.all().values('id', 'username', 'first_name', 'last_name', 'email', 'countryadmin__country__name'))
+    return render(request, 'apps/organization/team_detail.html', {'team': team, 'team_members_list': team_members_list})
 
 @login_required
 def team_create(request):
@@ -173,17 +191,29 @@ def read_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     return render(request, 'apps/organization/team_detail.html', {'team': team})
 
+
 @login_required
 def team_update(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     if request.method == 'POST':
-        form = TeamForm(request.POST, instance=team)
+        form = TeamUpdateForm(request.POST, instance=team, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('organization:team_detail', team_id=team.id)
+            return redirect('organization:team_detail', team.id)
     else:
-        form = TeamForm(instance=team)
-    return render(request, 'apps/organization/update_team.html', {'team': team, 'form': form})
+        form = TeamUpdateForm(instance=team, user=request.user)
+
+    all_users = User.objects.all()
+    team_members_list = list(team.members.all().values('id', 'username', 'first_name', 'last_name', 'email', 'countryadmin__country__name'))
+
+    context = {
+        'team': team,
+        'form': form,
+        'all_users': all_users,
+        'team_members_list': team_members_list,
+    }
+    return render(request, 'apps/organization/update_team.html', context)
+
 
 @login_required
 def team_delete(request, team_id):

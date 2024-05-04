@@ -1,7 +1,8 @@
 # apps/organization/urls.py
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, GroupViewSet, TeamViewSet, CountryViewSet, dashboard, create_user, read_user, update_user, delete_user, create_group, read_group, update_group, delete_group, group_list, group_detail, team_list, team_detail, team_create, team_update, team_delete, user_profile, user_autocomplete
+from .views import UserViewSet, GroupViewSet, TeamViewSet, CountryViewSet, dashboard, create_user, read_user, update_user, delete_user, create_group, read_group, update_group, delete_group, group_list, group_detail, team_list, team_detail, team_create, team_update, team_delete, user_profile, UserAutocompleteView
+from .views import user_autocomplete
 
 app_name = 'organization'
 
@@ -17,7 +18,7 @@ urlpatterns = [
     path('users/<int:user_id>/', read_user, name='read_user'),
     path('users/<int:user_id>/update/', update_user, name='update_user'),
     path('users/<int:user_id>/delete/', delete_user, name='delete_user'),
-    path('users/autocomplete/', user_autocomplete, name='user_autocomplete'),
+    path('users/autocomplete/', UserAutocompleteView.as_view(), name='user_autocomplete'),
     path('groups/<int:group_id>/', read_group, name='read_group'),
     path('groups/', group_list, name='group_list'),
     path('groups/create/', create_group, name='group_create'),
@@ -31,6 +32,7 @@ urlpatterns = [
     path('teams/<int:team_id>/delete/', team_delete, name='team_delete'),
     path('users/<int:user_id>/profile/', user_profile, name='user_profile'),
     path('api/', include(router.urls)),
+    path('user-autocomplete/', user_autocomplete, name='user-autocomplete'),
     path('api/groups/<int:pk>/', GroupViewSet.as_view({'get': 'retrieve'}), name='group-detail'),
 ]
 
