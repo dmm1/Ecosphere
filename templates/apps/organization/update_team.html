@@ -3,6 +3,17 @@
 {% load i18n %}
 
 {% block content %}
+<ol class="breadcrumb" aria-label="breadcrumbs">
+  <li class="breadcrumb-item">
+      <a href="{% url 'organization:dashboard' %}">{% trans "Country Dashboard" %}</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{% url 'organization:team_list' %}">{% trans "Teams" %}</a>
+  </li>
+  <li class="breadcrumb-item active">
+      {% trans "Update Team" %}
+  </li>
+</ol>
   <div class="page-header">
     <div class="container-xl">
       <div class="row g-2 align-items-center">

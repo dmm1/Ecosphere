@@ -1,20 +1,44 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
-  <h1>{{ group.name }}</h1>
+<div class="page-header">
+  <div class="row align-items-center">
+    <div class="col">
+      <ol class="breadcrumb" aria-label="breadcrumbs">
+        <li class="breadcrumb-item">
+            <a href="{% url 'organization:dashboard' %}">{% trans "Country Dashboard" %}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'organization:group_list' %}">{% trans "Groups" %}</a>
+        </li>
+        <li class="breadcrumb-item active">
+          {{ group.name }}
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
 
-  <p>{{ group.description }}</p>
-  <p>Country: {{ group.country.name }}</p>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">{{ group.name }}</h3>
+  </div>
+  <div class="card-body">
+    <p>{{ group.description }}</p>
+    <p>Country: {{ group.country.name }}</p>
 
-  <h2>Permissions</h2>
-  <ul>
-    {% for permission in group.permissions.all %}
-      <li>{{ permission.name }}</li>
-    {% empty %}
-      <li>No permissions assigned.</li>
-    {% endfor %}
-  </ul>
-
-  <a href="{% url 'organization:group_update' group.id %}">Edit</a>
-  <a href="{% url 'organization:group_delete' group.id %}">Delete</a>
+    <h4>Permissions</h4>
+    <ul>
+      {% for permission in group.permissions.all %}
+        <li>{{ permission.name }}</li>
+      {% empty %}
+        <li>No permissions assigned.</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="card-footer">
+    <a href="{% url 'organization:group_update' group.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'organization:group_delete' group.id %}" class="btn btn-danger">Delete</a>
+  </div>
+</div>
 {% endblock %}

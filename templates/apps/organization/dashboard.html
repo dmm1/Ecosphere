@@ -7,7 +7,24 @@
 
 {% block content %}
 <div class="container-xl">
-    <h1>{% trans "Welcome" %}, {{ request.user.username }}</h1>
+    <ol class="breadcrumb" aria-label="breadcrumbs">
+        <li class="breadcrumb-item">
+            <a href="{% url 'organization:dashboard' %}">{% trans "Country Dashboard" %}</a>
+        </li>
+        <li class="breadcrumb-item active">
+            {% trans "Users" %}
+        </li>
+    </ol>
+    <br />
+    {% if visits < 3 %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">{% trans "Welcome to the Country Dashboard, " %}{{ request.user.username }}!</h4>
+        <p>{% trans "This is your administrative dashboard where you can manage users, groups, and teams within your organization. Use the tabs below to navigate between different sections." %}</p>
+        <hr>
+        <p class="mb-0">{% trans "If you need any help, please refer to the documentation or contact support." %}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
     <div class="card">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -25,7 +42,8 @@
         <div class="card-body">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="users">
-                    <table id="users-table" class="table table-bordered table-striped table-hover">
+                    <div class="table-responsive">
+                    <table id="users-table" class="table table-vcenter table-hover sticky-top">
                         <thead>
                             <tr>
                                 <th>{% trans "Name" %}</th>
@@ -51,10 +69,12 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="{% url 'organization:create_user' %}" class="btn btn-primary">{% trans "Create User" %}</a>
+                    </div>
+                    <a href="{% url 'organization:create_user' %}" class="btn btn-primary mt-3">{% trans "Create User" %}</a>
                 </div>
                 <div class="tab-pane fade" id="groups">
-                    <table id="groups-table" class="table table-bordered table-striped table-hover">
+                    <div class="table-responsive">
+                    <table id="groups-table" class="table table-vcenter table-hover sticky-top">
                         <thead>
                             <tr>
                                 <th>{% trans "Name" %}</th>
@@ -78,10 +98,12 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="{% url 'organization:group_create' %}" class="btn btn-primary">{% trans "Create Group" %}</a>
+                    </div>
+                    <a href="{% url 'organization:group_create' %}" class="btn btn-primary mt-3">{% trans "Create Group" %}</a>
                 </div>
                 <div class="tab-pane fade" id="teams">
-                    <table id="teams-table" class="table table-bordered table-striped table-hover">
+                    <div class="table-responsive">
+                    <table id="teams-table" class="table table-vcenter table-hover sticky-top">
                         <thead>
                             <tr>
                                 <th>{% trans "Name" %}</th>
@@ -107,10 +129,22 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="{% url 'organization:team_create' %}" class="btn btn-primary">{% trans "Create Team" %}</a>
+                    </div>
+                    <a href="{% url 'organization:team_create' %}" class="btn btn-primary mt-3">{% trans "Create Team" %}</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".nav-link").on('shown.bs.tab', function(e){
+        e.preventDefault();
+        var tab = $(this);
+        var breadcrumb = $('.breadcrumb-item.active');
+        breadcrumb.text(tab.text());
+    });
+});
+</script>
 {% endblock %}

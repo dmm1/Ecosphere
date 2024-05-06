@@ -3,51 +3,57 @@
 {% load i18n %}
 
 {% block content %}
-  <div class="page-header">
-    <div class="container-xl">
-      <div class="row g-2 align-items-center">
-        <div class="col">
-          <h1>{% trans "Team Details" %}</h1>
+<div class="page-header">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title">{% trans "Team Details" %}</h2>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="{% url 'organization:dashboard' %}" class="breadcrumb-item">{% trans "Country Dashboard" %}</a>
+  <a href="{% url 'organization:team_list' %}" class="breadcrumb-item">{% trans "Teams" %}</a>
+  <span class="breadcrumb-item active">{{ team.name }}</span>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">{{ team.name }}</h3>
+  </div>
+  <div class="card-body">
+    <p>{{ team.description }}</p>
+    <p>{% trans "Group" %}: {{ team.group.name }}</p>
+    <p>{% trans "Country" %}: {{ team.country.name }}</p>
+    <p>{% trans "Created By" %}: {{ team.created_by.username }}</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">{% trans "Team Members" %}</h3>
+  </div>
+  <div class="card-body">
+    {% for member in team_members_list %}
+      <div class="mb-3">
+        <div class="form-control-plaintext">
+          <div>{% trans "Username" %}: {{ member.username }}</div>
+          <div>{% trans "First Name" %}: {{ member.first_name }}</div>
+          <div>{% trans "Last Name" %}: {{ member.last_name }}</div>
+          <div>{% trans "Email" %}: {{ member.email }}</div>
+          {% if member.countryadmin__country__name %}
+            <div>{% trans "Country" %}: {{ member.countryadmin__country__name }}</div>
+          {% else %}
+            <div>{% trans "Country" %}: {% trans "Not available" %}</div>
+          {% endif %}
         </div>
       </div>
-    </div>
+    {% endfor %}
   </div>
+</div>
 
-  <div class="container-xl">
-    <div class="card">
-      <div class="card-body">
-        <h2>{{ team.name }}</h2>
-        <p>{{ team.description }}</p>
-        <p>{% trans "Group" %}: {{ team.group.name }}</p>
-        <p>{% trans "Country" %}: {{ team.country.name }}</p>
-        <p>{% trans "Created By" %}: {{ team.created_by.username }}</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-body">
-        <h2>{% trans "Team Members" %}</h2>
-        {% for member in team_members_list %}
-          <div class="mb-3">
-            <div class="form-control-plaintext">
-              <div>{% trans "Username" %}: {{ member.username }}</div>
-              <div>{% trans "First Name" %}: {{ member.first_name }}</div>
-              <div>{% trans "Last Name" %}: {{ member.last_name }}</div>
-              <div>{% trans "Email" %}: {{ member.email }}</div>
-              {% if member.countryadmin__country__name %}
-                <div>{% trans "Country" %}: {{ member.countryadmin__country__name }}</div>
-              {% else %}
-                <div>{% trans "Country" %}: {% trans "Not available" %}</div>
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-between">
-      <a href="{% url 'organization:team_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
-      <a href="{% url 'organization:team_update' team.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
-    </div>
-  </div>
+<div class="d-flex justify-content-between">
+  <a href="{% url 'organization:team_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+  <a href="{% url 'organization:team_update' team.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
+</div>
 {% endblock %}

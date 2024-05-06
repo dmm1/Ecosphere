@@ -55,7 +55,9 @@ def dashboard(request):
     users = User.objects.filter(countryadmin__country=request.user.countryadmin.country)
     groups = Group.objects.filter(country=request.user.countryadmin.country)
     teams = Team.objects.filter(group__country=request.user.countryadmin.country)
-    return render(request, 'apps/organization/dashboard.html', {'users': users, 'groups': groups, 'teams': teams})
+    visits = request.session.get('visits', 0)
+    request.session['visits'] = visits + 1
+    return render(request, 'apps/organization/dashboard.html', {'visits': visits, 'users': users, 'groups': groups, 'teams': teams})
 
 def user_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
