@@ -3,57 +3,116 @@
 {% load i18n %}
 
 {% block content %}
-<div class="page-header">
-  <div class="row align-items-center">
-    <div class="col">
-      <h2 class="page-title">{% trans "Team Details" %}</h2>
+  <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title">
+            {% trans "Team Details" %}
+          </h2>
+        </div>
+      </div>
+      <div class="breadcrumb">
+        <a href="{% url 'organization:dashboard' %}" class="breadcrumb-item">{% trans "Country Dashboard" %}</a>
+        <a href="{% url 'organization:team_list' %}" class="breadcrumb-item">{% trans "Teams" %}</a>
+        <span class="breadcrumb-item active">{{ team.name }}</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="breadcrumb">
-  <a href="{% url 'organization:dashboard' %}" class="breadcrumb-item">{% trans "Country Dashboard" %}</a>
-  <a href="{% url 'organization:team_list' %}" class="breadcrumb-item">{% trans "Teams" %}</a>
-  <span class="breadcrumb-item active">{{ team.name }}</span>
-</div>
+  <div class="page-body">
+  <div class="container-xl">
 
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">{{ team.name }}</h3>
+  <h3 class="card-title">{{ team.name }} <span class="badge badge-outline text-red"><a href="{% url 'organization:team_update' team.id %}" title="{% trans "Edit Team" %}">{% trans "Edit" %}</a></span></h3>
   </div>
   <div class="card-body">
-    <p>{{ team.description }}</p>
-    <p>{% trans "Group" %}: {{ team.group.name }}</p>
-    <p>{% trans "Country" %}: {{ team.country.name }}</p>
-    <p>{% trans "Created By" %}: {{ team.created_by.username }}</p>
+    <div class="datagrid">
+      <div class="datagrid-item">
+        <div class="datagrid-title">{% trans "Team Description" %}</div>
+        <div class="datagrid-content">{{ team.description }}</div>
+      </div>
+      <div class="datagrid-item">
+        <div class="datagrid-title">{% trans "Group" %}</div>
+        <div class="datagrid-content">{{ team.group.name }}</div>
+      </div>
+      <div class="datagrid-item">
+        <div class="datagrid-title">{% trans "Country" %}</div>
+        <div class="datagrid-content">{{ team.country.name }}</div>
+      </div>
+      <div class="datagrid-item">
+        <div class="datagrid-title">{% trans "Created By" %}</div>
+        <div class="datagrid-content">{{ team.created_by.username }}</div>
+      </div>
+  </div>
   </div>
 </div>
+
+<br />
 
 <div class="card">
   <div class="card-header">
     <h3 class="card-title">{% trans "Team Members" %}</h3>
   </div>
-  <div class="card-body">
+  <br />
+  <div class="row row-cards">
+    
     {% for member in team_members_list %}
-      <div class="mb-3">
-        <div class="form-control-plaintext">
-          <div>{% trans "Username" %}: {{ member.username }}</div>
-          <div>{% trans "First Name" %}: {{ member.first_name }}</div>
-          <div>{% trans "Last Name" %}: {{ member.last_name }}</div>
-          <div>{% trans "Email" %}: {{ member.email }}</div>
-          {% if member.countryadmin__country__name %}
-            <div>{% trans "Country" %}: {{ member.countryadmin__country__name }}</div>
-          {% else %}
-            <div>{% trans "Country" %}: {% trans "Not available" %}</div>
-          {% endif %}
+    <div class="col-md-6 col-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">{{ member.first_name }} {{ member.last_name }} 
+            <span class="badge badge-outline text-red"><a class="small" href="{% url 'organization:update_user' member.id %}">Edit User </a> </span>
+        </h3>
+          <div class="datagrid">
+
+            <div class="datagrid-item">
+              <div class="datagrid-title">{% trans "Username" %}</div>
+              <div class="datagrid-content">{{ member.username }}</div>
+            </div>
+            <div class="datagrid-item">
+              <div class="datagrid-title"> {% trans "Email" %} </div>
+              <div class="datagrid-content">{{ member.email }} </div>
+            </div>
+
+            {% if member.countryadmin__country__name %}
+            <div class="datagrid-item">
+              <div class="datagrid-title">{% trans "Country" %}</div>
+              <div class="datagrid-content">{{ member.countryadmin__country__name }}</div>            
+            </div>
+            {% else %}
+            <div class="datagrid-item">
+              <div class="datagrid-title">{% trans "Country" %}</div>
+              <div class="datagrid-content">{% trans "Not available" %}</div>
+            </div> 
+                            
+            {% endif %}
+
+          </div>
+          <br />
+          
+          <a href="{% url 'organization:user_profile' member.id %}" style="float:right;" class="btn btn-azure btn-sm">Visit Profile </a> 
         </div>
       </div>
+    </div>
     {% endfor %}
+
+    </div>
+    <br />
+    <div class="row g-2 align-items-center" style="margin-left:12px;">
+    <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+      <a href="{% url 'organization:team_list' %}" class="btn btn-yellow w-100">
+        {% trans "Back" %}
+      </a>
+    </div>
+    </div>
+
   </div>
 </div>
 
-<div class="d-flex justify-content-between">
-  <a href="{% url 'organization:team_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
-  <a href="{% url 'organization:team_update' team.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
-</div>
+
+
+</div></div>
 {% endblock %}

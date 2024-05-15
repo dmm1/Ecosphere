@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
+
 {% block content %}
-<div class="page-header">
-  <div class="row align-items-center">
-    <div class="col">
-      <ol class="breadcrumb" aria-label="breadcrumbs">
-        <li class="breadcrumb-item">
-            <a href="{% url 'organization:dashboard' %}">{% trans "Country Dashboard" %}</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="{% url 'organization:group_list' %}">{% trans "Groups" %}</a>
-        </li>
-        <li class="breadcrumb-item active">
-          {{ group.name }}
-        </li>
-      </ol>
+
+<div class="page-header d-print-none">
+  <div class="container-xl">
+      <div class="breadcrumb">
+      <a href="{% url 'organization:dashboard' %}" class="breadcrumb-item">{% trans "Country Dashboard" %}</a>
+      <a href="{% url 'organization:team_list' %}" class="breadcrumb-item">{% trans "Groups" %}</a>
+      <span class="breadcrumb-item active">{{ group.name }}</span>
     </div>
   </div>
 </div>
+
+<div class="page-body">
+<div class="container-xl">
 
 <div class="card">
   <div class="card-header">
@@ -40,5 +38,7 @@
     <a href="{% url 'organization:group_update' group.id %}" class="btn btn-primary">Edit</a>
     <a href="{% url 'organization:group_delete' group.id %}" class="btn btn-danger">Delete</a>
   </div>
+</div>
+</div>
 </div>
 {% endblock %}
