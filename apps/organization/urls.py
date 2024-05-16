@@ -1,8 +1,8 @@
 # apps/organization/urls.py
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, GroupViewSet, TeamViewSet, CountryViewSet, dashboard, create_user, read_user, update_user, delete_user, create_group, read_group, update_group, delete_group, group_list, group_detail, team_list, team_detail, team_create, team_update, team_delete, user_profile, UserAutocompleteView
-from .views import user_autocomplete
+from .views import UserViewSet, GroupViewSet, TeamViewSet, CountryViewSet, dashboard, create_user, read_user, update_user, delete_user, create_group, read_group, update_group, delete_group, group_list, group_detail, team_list, team_detail, team_create, team_update, team_delete, user_profile, UserAutocompleteView, country_setting_create
+from .views import user_autocomplete, country_setting_list, country_setting_create, country_setting_detail, country_setting_update, country_setting_delete
 
 app_name = 'organization'
 
@@ -32,8 +32,12 @@ urlpatterns = [
     path('teams/<int:team_id>/delete/', team_delete, name='team_delete'),
     path('users/<int:user_id>/profile/', user_profile, name='user_profile'),
     path('api/', include(router.urls)),
-    path('user-autocomplete/', user_autocomplete, name='user-autocomplete'),
-    path('api/groups/<int:pk>/', GroupViewSet.as_view({'get': 'retrieve'}), name='group-detail'),
+    path('user-autocomplete/', user_autocomplete, name='user-autocomplete'),    
+    path('country_setting/', country_setting_list, name='country_setting_list'),
+    path('country_setting_create/', country_setting_create, name='country_setting_create'),
+    path('country_setting/<int:country_setting_id>/', country_setting_detail, name='country_setting_detail'),
+    path('country_setting/<int:country_setting_id>/update/', country_setting_update, name='country_setting_update'),
+    path('country_setting/<int:country_setting_id>/delete/', country_setting_delete, name='country_setting_delete'),
 ]
 
 urlpatterns += router.urls

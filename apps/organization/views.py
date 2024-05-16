@@ -7,15 +7,16 @@ from rest_framework import viewsets, permissions
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Country, Group, Team, CountryAdmin, User
-from .serializers import UserSerializer, GroupSerializer, TeamSerializer, CountrySerializer
-from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm, UserCreationForm
+from .models import Country, Group, Team, CountryAdmin, User, CountrySetting
+from .serializers import UserSerializer, GroupSerializer, TeamSerializer, CountrySerializer, CountrySettingSerializer
+from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm, UserCreationForm, CountrySettingForm
 from django.contrib import messages
 import logging
 from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth.models import Permission
 from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -56,8 +57,9 @@ def dashboard(request):
     groups = Group.objects.filter(country=request.user.countryadmin.country)
     teams = Team.objects.filter(group__country=request.user.countryadmin.country)
     visits = request.session.get('visits', 0)
+    country_setting = CountrySetting.objects.all()
     request.session['visits'] = visits + 1
-    return render(request, 'apps/organization/dashboard.html', {'visits': visits, 'users': users, 'groups': groups, 'teams': teams})
+    return render(request, 'apps/organization/dashboard.html', {'visits': visits, 'users': users, 'groups': groups, 'teams': teams, 'country_setting': country_setting})
 
 def user_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
@@ -268,4 +270,45 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return User.objects.none()
 
+@login_required
+def country_setting_create(request):
+    if request.method == 'POST':
+        form = CountrySettingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # replace with the name of the view you want to redirect to
+    else:
+        form = CountrySettingForm()
+    return render(request, 'apps/organization/create_countrysetting.html', {'form': form})
 
+@login_required
+def country_setting_list(request):
+    country_setting = CountrySetting.objects.all()
+    return render(request, 'apps/organization/country_setting_list.html', {'country_setting': country_setting})
+
+@login_required
+def country_setting_detail(request, country_setting_id):
+    country_setting = get_object_or_404(CountrySetting, id=country_setting_id)
+    return render(request, 'apps/organization/country_setting_detail.html', {'country_setting': country_setting})
+
+@login_required
+def country_setting_update(request, country_setting_id):
+    country_setting = get_object_or_404(CountrySetting, id=country_setting_id)
+    if request.method == 'POST':
+        form = CountrySettingForm(request.POST, instance=country_setting)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Country Setting updated successfully.')
+            return redirect('organization:country_setting_list')
+    else:
+        form = CountrySettingForm(instance=country_setting)
+    return render(request, 'apps/organization/update_country_setting.html', {'form': form})
+
+@login_required
+def country_setting_delete(request, country_setting_id):
+    country_setting = get_object_or_404(CountrySetting, id=country_setting_id)
+    if request.method == 'POST':
+        country_setting.delete()
+        messages.success(request, 'Country Setting deleted successfully.')
+        return redirect('organization:country_setting_list')
+    return render(request, 'apps/organization/confirm_delete.html', {'object': country_setting})

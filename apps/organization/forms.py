@@ -11,9 +11,12 @@ from django.forms.widgets import Select
 from django_select2.forms import ModelSelect2MultipleWidget
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
-from .models import User, Country, CountryAdmin, Group, Team
+from .models import User, Country, CountryAdmin, Group, Team, CountrySetting
 
-
+class CountrySettingForm(forms.ModelForm):
+    class Meta:
+        model = CountrySetting
+        fields = ['country', 'currency', 'timezone', 'language']
 
 class UserCreationForm(DjangoUserCreationForm):
     country = forms.ModelChoiceField(queryset=Country.objects.all(), required=True, empty_label=None)

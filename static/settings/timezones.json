@@ -1,0 +1,14 @@
+[
+    {"code": "EST", "name": "Eastern Standard Time"},
+    {"code": "CST", "name": "Central Standard Time"},
+    {"code": "MST", "name": "Mountain Standard Time"},
+    {"code": "PST", "name": "Pacific Standard Time"},
+    {"code": "UTC", "name": "Coordinated Universal Time"},
+    {"code": "GMT", "name": "Greenwich Mean Time"},
+    {"code": "CET", "name": "Central European Time (GMT+1)"},
+    {"code": "EET", "name": "Eastern European Time (GMT+2)"},
+    {"code": "IST", "name": "Indian Standard Time (GMT+5:30)"},
+    {"code": "CST", "name": "China Standard Time (GMT+8)"},
+    {"code": "JST", "name": "Japan Standard Time (GMT+9)"},
+    {"code": "AEST", "name": "Australian Eastern Standard Time (GMT+10)"}
+]

@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Country, CountryAdmin, Group, Team
+from .models import Country, CountryAdmin, Group, Team, CountrySetting
+
+# Admin for CountrySetting
+class CountrySettingAdmin(admin.ModelAdmin):
+    list_display = ['country', 'currency', 'timezone', 'language']
+
+admin.site.register(CountrySetting, CountrySettingAdmin)
 
 # Inline admin to show CountryAdmin in the User admin
 class CountryAdminInline(admin.StackedInline):

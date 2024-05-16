@@ -37,6 +37,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="teams-tab" data-bs-toggle="tab" href="#teams">{% trans "Teams" %}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="countrysettings-tab" data-bs-toggle="tab" href="#countrysettings">{% trans "Country Settings" %}</a>
+                </li>
             </ul>
         </div>
         <div class="card-body">
@@ -131,6 +134,39 @@
                     </table>
                     </div>
                     <a href="{% url 'organization:team_create' %}" class="btn btn-primary mt-3">{% trans "Create Team" %}</a>
+                </div>
+                <div class="tab-pane fade" id="countrysettings">
+                    <div class="table-responsive">
+                        <table id="countrysettings-table" class="table table-vcenter table-hover sticky-top">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Country Name" %}</th>
+                                    <th>{% trans "Currency" %}</th>
+                                    <th>{% trans "Timezone" %}</th>
+                                    <th>{% trans "Language" %}</th>
+                                    <th>{% trans "Update" %}</th>
+                                    <th>{% trans "Delete" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for setting in country_setting %}
+                                <tr>
+                                    <td>{{ setting.country.name }}</td>
+                                    <td>{{ setting.currency }}</td>
+                                    <td>{{ setting.timezone }}</td>
+                                    <td>{{ setting.language }}</td>
+                                    <td><a href="{% url 'organization:country_setting_update' setting.id %}" class="btn btn-warning btn-sm">{% trans "Update" %}</a></td>
+                                    <td><a href="{% url 'organization:country_setting_delete' setting.id %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a></td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6">{% trans "No country settings found." %}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="{% url 'organization:country_setting_create' %}" class="btn btn-primary mt-3">{% trans "Create Country Setting" %}</a>
                 </div>
             </div>
         </div>
