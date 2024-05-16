@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    email_address = models.EmailField(blank=True)
     bio = models.TextField(blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='user_images', null=True, blank=True)

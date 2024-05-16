@@ -10,6 +10,8 @@ from rest_framework.views import APIView
 from .models import Country, Group, Team, CountryAdmin, User, CountrySetting
 from .serializers import UserSerializer, GroupSerializer, TeamSerializer, CountrySerializer, CountrySettingSerializer
 from .forms import UserForm, GroupForm, TeamForm, UserUpdateForm, GroupUpdateForm, TeamUpdateForm, UserCreationForm, CountrySettingForm
+from .models import CountrySetting
+from .serializers import CountrySettingSerializer
 from django.contrib import messages
 import logging
 from django.http import JsonResponse
@@ -269,6 +271,24 @@ class UserViewSet(viewsets.ModelViewSet):
             return User.objects.filter(countryadmin__country=self.request.user.countryadmin.country)
         else:
             return User.objects.none()
+
+
+class CountrySettingViewSet(viewsets.ModelViewSet):
+    queryset = CountrySetting.objects.all()
+    serializer_class = CountrySettingSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return CountrySetting.objects.all()
+        elif hasattr(self.request.user, 'countryadmin'):
+            return CountrySetting.objects.filter(country=self.request.user.countryadmin.country)
+        else:
+            return CountrySetting.objects.none()
+
+    def perform_create(self, serializer):
+        if not self.request.user.is_superuser and self.request.user.countryadmin.country != serializer.validated_data['country']:
+            raise permissions.PermissionDenied("You can't create a country setting for this country.")
+        serializer.save()
 
 @login_required
 def country_setting_create(request):
