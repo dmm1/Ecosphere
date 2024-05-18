@@ -18,23 +18,24 @@
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
-      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+          --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
       }
       body {
-      	font-feature-settings: "cv03", "cv04", "cv11";
+          font-feature-settings: "cv03", "cv04", "cv11";
       }
     </style>
-    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
-
+    <!-- Extra styles -->
+    {% block extra_styles %}{% endblock %}
 </head>
-<body  class=" layout-fluid">
+<body class="layout-fluid">
 <script src="{% static 'js/ui/ecosphere-theme.js' %}"></script>
+    <!-- Extra scripts -->
+    {% block extra_scripts %}{% endblock %}
     <div class="page">
     {% include 'navigation.html' %}
         <div class="page-wrapper">
             <!-- Page body -->
-                            {% block content %}{% endblock %}
-             
+            {% block content %}{% endblock %}
             {% include 'footer.html' %}
         </div>
     </div>
