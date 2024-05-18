@@ -57,8 +57,11 @@
 </div>
 
 <script>
-document.getElementById('profile_picture').addEventListener('change', function() {
-    document.getElementById('upload_button').disabled = false;
-});
-</script>
+    var profilePicture = document.getElementById('profile_picture');
+    if (profilePicture) {
+        profilePicture.addEventListener('change', function() {
+            document.getElementById('upload_button').disabled = false;
+        });
+    }
+    </script>
 {% endblock %}
