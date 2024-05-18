@@ -2,13 +2,52 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Edit Profile</h2>
-    <form method="post">
-        {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+   
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit Profile</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bio</label>
+                    {{ form.bio }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Country</label>
+                    {{ form.country }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Language</label>
+                    {{ form.language }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Timezone</label>
+                    {{ form.timezone }}
+                </div>
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <a href="{% url 'accounts:profile' %}" class="btn btn-secondary mt-2">Back to Profile</a>
 </div>
 {% endblock %}

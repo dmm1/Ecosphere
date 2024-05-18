@@ -13,9 +13,12 @@
                     <p><strong>Groups:</strong> {% for group in user.groups.all %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
                     <p><strong>First Name:</strong> {{ user.first_name }}</p>
                     <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-                    <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
                     <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
                     <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
+                    <p><strong>Country:</strong> {{ user.profile.get_country_display }}</p>
+                    <p><strong>Language:</strong> {{ user.profile.get_language_display }}</p>
+                    <p><strong>Timezone:</strong> {{ user.profile.timezone }}</p>
                 </div>
                 <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary mt-2">Edit Profile</a>
             </div>

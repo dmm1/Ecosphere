@@ -15,6 +15,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','192.168.1.252']
 
+CACHE_MIDDLEWARE_SECONDS = 0
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -31,7 +33,6 @@ INSTALLED_APPS = [
     'apps.tasks.apps.TasksConfig',
     'apps.search.apps.SearchConfig',
     'rest_framework',
-    'apps.organization.apps.OrganizationConfig',
 
 
 

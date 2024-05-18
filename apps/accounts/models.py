@@ -4,43 +4,43 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+import pytz
 
 class UserProfile(models.Model):
+    COUNTRIES_CHOICES = (
+        ('US', 'United States'),
+        ('AT', 'Austria'),
+        ('DE', 'Germany'),
+        ('FR', 'France'),
+        ('ES', 'Spain'),
+        ('IT', 'Italy'),
+        ('JP', 'Japan'),
+        ('CN', 'China'),
+        ('IN', 'India'),
+        ('BR', 'Brazil'),
+    )
+
+    LANGUAGES_CHOICES = (
+        ('en', 'English'),
+        ('de', 'German'),
+        ('fr', 'French'),
+        ('es', 'Spanish'),
+        ('it', 'Italian'),
+        ('jp', 'Japanese'),
+        ('cn', 'Chinese'),
+        ('hi', 'Hindi'),
+        ('pt', 'Portuguese'),
+    )
+
+    TIMEZONES_CHOICES = tuple(zip(pytz.all_timezones, pytz.all_timezones))
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='user_images', null=True, blank=True)
+    country = models.CharField(max_length=2, choices=COUNTRIES_CHOICES, default='US', null=False)
+    language = models.CharField(max_length=2, choices=LANGUAGES_CHOICES, default='en')
+    timezone = models.CharField(max_length=32, choices=TIMEZONES_CHOICES, default='UTC')
 
     def __str__(self):
         return self.user.username
-    @property
-    def first_name(self):
-        return self.user.first_name
-
-    @property
-    def last_name(self):
-        return self.user.last_name
-
-    def save(self, *args, **kwargs):
-        super(UserProfile, self).save(*args, **kwargs)
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    if not UserProfile.objects.filter(user=instance).exists():
-        instance.profile.save()
-
-@login_required
-def upload_profile_picture(request):
-    if request.method == 'POST':
-        profile = UserProfile.objects.get(user=request.user)
-        profile.profile_picture = request.FILES['profile_picture']
-        profile.save()
-        return redirect('accounts:profile')
-    else:
-        return redirect('accounts:profile')
-
