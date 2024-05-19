@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
+from PIL import Image
+from io import BytesIO
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -31,6 +32,11 @@ class ProfilePictureForm(forms.ModelForm):
                 # check file type
                 if not picture.content_type in ['image/jpeg', 'image/png', 'image/webp']:
                     raise ValidationError(_('File type must be .jpg, .png, or .webp.'))
+
+                # check image dimensions
+                image = Image.open(BytesIO(picture.read()))
+                if image.width < 140:
+                    raise ValidationError(_('Image width must be at least 140px.'))
 
         except AttributeError:
             pass

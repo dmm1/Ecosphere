@@ -10,14 +10,14 @@
                 </div>
                 <div class="card-body">
                     <div class="alert alert-info">
-                        {% trans "Please note: The maximum file size is 2MB. Only .jpg, .jpeg, and .png files are allowed." %}
+                        {% trans "Please note: The maximum file size is 2MB, minimum width is 140px. Only .jpg, .jpeg, and .png files are allowed." %}
                     </div>
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
                             <label class="form-label">{% trans "Current Profile Picture" %}</label>
                             {% if form.instance.profile_picture %}
-                                <img src="{{ form.instance.profile_picture.url }}" alt="Profile Picture" class="img-thumbnail">
+                                <img src="{{ form.instance.profile_picture.url }}" style="width:140px" alt="{% trans "Profile Picture" %}" class="img-thumbnail">
                             {% else %}
                                 <p>{% trans "No profile picture uploaded." %}</p>
                             {% endif %}
