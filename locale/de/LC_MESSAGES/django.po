@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-20 20:27+0200\n"
+"POT-Creation-Date: 2024-05-19 08:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,129 +18,456 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\accounts\login.html:30
+#: .\apps\accounts\forms.py:30
+msgid "File size must be at most 1MB."
+msgstr "Die maximale Dateigröße ist 1MB"
+
+#: .\apps\accounts\forms.py:34
+msgid "File type must be .jpg, .png, or .webp."
+msgstr "Die erlaubten Dateiendungen sind .jpg . png oder .webp"
+
+#: .\apps\accounts\forms.py:39
+msgid "Image width must be at least 140px."
+msgstr "Das Bild muss mindestens 140px breit sein."
+
+#: .\templates\apps\accounts\change_profile_picture.html:9
+#: .\templates\apps\accounts\profile.html:43
+msgid "Change Profile Picture"
+msgstr "Ändere Profilbild"
+
+#: .\templates\apps\accounts\change_profile_picture.html:13
+msgid ""
+"Please note: The maximum file size is 2MB, minimum width is 140px. Only ."
+"jpg, .jpeg, and .png files are allowed."
+msgstr ""
+
+#: .\templates\apps\accounts\change_profile_picture.html:18
+msgid "Current Profile Picture"
+msgstr ""
+
+#: .\templates\apps\accounts\change_profile_picture.html:20
+#: .\templates\apps\accounts\profile.html:38
+#: .\templates\apps\accounts\profile.html:42
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile Picture"
+msgstr "Profil"
+
+#: .\templates\apps\accounts\change_profile_picture.html:22
+msgid "No profile picture uploaded."
+msgstr ""
+
+#: .\templates\apps\accounts\change_profile_picture.html:27
+msgid "New Profile Picture"
+msgstr ""
+
+#: .\templates\apps\accounts\change_profile_picture.html:36
+#: .\templates\apps\accounts\edit_profile.html:59
+#, fuzzy
+#| msgid "Updated at:"
+msgid "Update"
+msgstr "aktualisiert am:"
+
+#: .\templates\apps\accounts\change_profile_picture.html:41
+#: .\templates\apps\accounts\edit_profile.html:64
+#, fuzzy
+#| msgid "Profile"
+msgid "Back to Profile"
+msgstr "Profil"
+
+#: .\templates\apps\accounts\edit_profile.html:9
+#: .\templates\apps\accounts\profile.html:23
+#, fuzzy
+#| msgid "Profile"
+msgid "Edit Profile"
+msgstr "Profil"
+
+#: .\templates\apps\accounts\edit_profile.html:15
+#, fuzzy
+#| msgid "First"
+msgid "First Name"
+msgstr "Erste"
+
+#: .\templates\apps\accounts\edit_profile.html:19
+#, fuzzy
+#| msgid "Name"
+msgid "Last Name"
+msgstr "Name"
+
+#: .\templates\apps\accounts\edit_profile.html:23
+#: .\templates\apps\business_partner\businesspartner_list.html:24
+msgid "Email"
+msgstr "Email"
+
+#: .\templates\apps\accounts\edit_profile.html:27
+msgid "Bio"
+msgstr ""
+
+#: .\templates\apps\accounts\edit_profile.html:31
+msgid "Phone Number"
+msgstr ""
+
+#: .\templates\apps\accounts\edit_profile.html:35
+#, fuzzy
+#| msgid "Amount"
+msgid "Country"
+msgstr "Potenzial"
+
+#: .\templates\apps\accounts\edit_profile.html:43
+msgid "Language"
+msgstr ""
+
+#: .\templates\apps\accounts\edit_profile.html:51
+msgid "Timezone"
+msgstr ""
+
+#: .\templates\apps\accounts\login.html:27
 msgid "Welcome to Ecosphere CRM"
 msgstr "Willkommen im Ecosphere CRM"
 
-#: .\templates\accounts\login.html:31
+#: .\templates\apps\accounts\login.html:28
 msgid "Your journey starts here. Log in to discover more."
 msgstr "Deine Reise beginnt hier. Melde dich an, um mehr zu entdecken."
 
-#: .\templates\accounts\login.html:35
+#: .\templates\apps\accounts\login.html:32
 msgid "Username"
 msgstr "Benutzername"
 
-#: .\templates\accounts\login.html:38
+#: .\templates\apps\accounts\login.html:35
 msgid "Password"
 msgstr "Passwort"
 
-#: .\templates\accounts\login.html:40
+#: .\templates\apps\accounts\login.html:37
 msgid "Log In"
 msgstr "anmelden"
 
-#: .\templates\accounts\login.html:42
+#: .\templates\apps\accounts\login.html:39
 msgid "Forgot password?"
 msgstr "Passwort vergessen?"
 
-#: .\templates\accounts\login.html:43
+#: .\templates\apps\accounts\login.html:40
 msgid "Don't have an account?"
 msgstr "Du hast noch keinen Account?"
 
-#: .\templates\accounts\login.html:43
+#: .\templates\apps\accounts\login.html:40
 msgid "Register here"
 msgstr "Registriere dich hier"
 
-#: .\templates\crm\businesspartner_confirm_delete.html:8
+#: .\templates\apps\accounts\profile.html:9
+msgid "Account Information"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:12
+#, fuzzy
+#| msgid "Username"
+msgid "Username:"
+msgstr "Benutzername"
+
+#: .\templates\apps\accounts\profile.html:13
+msgid "Groups:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:14
+#, fuzzy
+#| msgid "First"
+msgid "First Name:"
+msgstr "Erste"
+
+#: .\templates\apps\accounts\profile.html:15
+msgid "Last Name:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:16
+#, fuzzy
+#| msgid "Email"
+msgid "Email:"
+msgstr "Email"
+
+#: .\templates\apps\accounts\profile.html:17
+msgid "Bio:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:18
+msgid "Phone Number:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:19
+#, fuzzy
+#| msgid "Amount:"
+msgid "Country:"
+msgstr "Potenzial:"
+
+#: .\templates\apps\accounts\profile.html:20
+msgid "Language:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:21
+msgid "Timezone:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:29
+msgid "Login Information"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:32
+msgid "Last Login:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:33
+msgid "Member Since:"
+msgstr ""
+
+#: .\templates\apps\accounts\profile.html:49
+msgid "Upload"
+msgstr ""
+
+#: .\templates\apps\business_partner\businesspartner_confirm_delete.html:8
 msgid "Delete Customer"
 msgstr "Kunden löschen"
 
-#: .\templates\crm\businesspartner_confirm_delete.html:9
+#: .\templates\apps\business_partner\businesspartner_confirm_delete.html:9
 msgid "Are you sure you want to delete the customer?"
 msgstr "Bist du sicher, dass du den Kunden löschen möchtest?"
 
-#: .\templates\crm\businesspartner_confirm_delete.html:12
-#: .\templates\crm\businesspartner_list.html:41
+#: .\templates\apps\business_partner\businesspartner_confirm_delete.html:12
+#: .\templates\apps\business_partner\businesspartner_list.html:41
+#: .\templates\apps\tasks\comment_confirm_delete.html:17
+#: .\templates\apps\tasks\task_confirm_delete.html:16
+#: .\templates\apps\tasks\task_detail.html:21
+#: .\templates\apps\tasks\task_detail.html:33
+#: .\templates\apps\tasks\task_detail.html:57
+#: .\templates\apps\tasks\task_list.html:53
 #: .\templates\crm\opportunity_confirm_delete.html:12
 #: .\templates\crm\opportunity_detail.html:20
-#: .\templates\crm\opportunity_list.html:30
+#: .\templates\crm\opportunity_list.html:40
 #: .\venv\Lib\site-packages\django\forms\formsets.py:499
 msgid "Delete"
 msgstr "löschen"
 
-#: .\templates\crm\businesspartner_confirm_delete.html:13
+#: .\templates\apps\business_partner\businesspartner_confirm_delete.html:13
+#: .\templates\apps\tasks\comment_confirm_delete.html:18
+#: .\templates\apps\tasks\task_confirm_delete.html:17
 #: .\templates\crm\opportunity_confirm_delete.html:13
 msgid "Cancel"
 msgstr "abbrechen"
 
-#: .\templates\crm\businesspartner_list.html:9 .\templates\dashboard.html:16
+#: .\templates\apps\business_partner\businesspartner_list.html:7
+#: .\templates\dashboard.html:49
 msgid "Businesspartner"
 msgstr "Geschäftspartner"
 
-#: .\templates\crm\businesspartner_list.html:11
+#: .\templates\apps\business_partner\businesspartner_list.html:9
 #, fuzzy
 #| msgid "Create Customer"
 msgid "Create Businesspartner"
 msgstr "Kunden erstellen"
 
-#: .\templates\crm\businesspartner_list.html:15
+#: .\templates\apps\business_partner\businesspartner_list.html:14
 msgid "Show only my Businesspartners"
 msgstr "Zeige nur meine Geschäftspartner"
 
-#: .\templates\crm\businesspartner_list.html:17
+#: .\templates\apps\business_partner\businesspartner_list.html:16
 msgid "Show All Businesspartners"
 msgstr "Zeige alle Geschäftspartner"
 
-#: .\templates\crm\businesspartner_list.html:22
-#: .\templates\crm\opportunity_list.html:12
+#: .\templates\apps\business_partner\businesspartner_list.html:23
+#: .\templates\crm\opportunity_list.html:22
 msgid "Name"
 msgstr "Name"
 
-#: .\templates\crm\businesspartner_list.html:23
-msgid "Email"
-msgstr "Email"
-
-#: .\templates\crm\businesspartner_list.html:24
+#: .\templates\apps\business_partner\businesspartner_list.html:25
 msgid "Phone"
 msgstr "Telefon"
 
-#: .\templates\crm\businesspartner_list.html:27
-#: .\templates\crm\opportunity_list.html:17
+#: .\templates\apps\business_partner\businesspartner_list.html:28
+#: .\templates\apps\tasks\task_list.html:41
+#: .\templates\crm\opportunity_list.html:27
 msgid "Actions"
 msgstr "Aktionen"
 
-#: .\templates\crm\businesspartner_list.html:40
+#: .\templates\apps\business_partner\businesspartner_list.html:40
+#: .\templates\apps\tasks\task_detail.html:20
+#: .\templates\apps\tasks\task_detail.html:32
+#: .\templates\apps\tasks\task_detail.html:56
+#: .\templates\apps\tasks\task_list.html:52
 #: .\templates\crm\opportunity_detail.html:19
-#: .\templates\crm\opportunity_list.html:29
+#: .\templates\crm\opportunity_list.html:39
 msgid "Edit"
 msgstr "bearbeiten"
 
-#: .\templates\crm\businesspartner_list.html:46
+#: .\templates\apps\business_partner\businesspartner_list.html:46
 msgid "No Businesspartner found."
 msgstr "Keine Geschäftspartner gefunden."
 
-#: .\templates\crm\businesspartner_list.html:55
-msgid "First"
-msgstr "Erste"
+#: .\templates\apps\search\search_results.html:9
+msgid "Search Results"
+msgstr ""
 
-#: .\templates\crm\businesspartner_list.html:56
-msgid "Previous"
-msgstr "Vorherige"
+#: .\templates\apps\search\search_results.html:21 .\templates\dashboard.html:73
+#: .\templates\navigation.html:225
+msgid "Contacts"
+msgstr "Kontakte"
 
-#: .\templates\crm\businesspartner_list.html:61
-msgid "Page"
-msgstr "Seite"
+#: .\templates\apps\search\search_results.html:42
+#: .\templates\navigation.html:200
+#, fuzzy
+#| msgid "Businesspartners"
+msgid "Business Partners"
+msgstr "Geschäftspartner"
 
-#: .\templates\crm\businesspartner_list.html:61
-msgid "of"
-msgstr "von"
+#: .\templates\apps\search\search_results.html:63
+#: .\templates\apps\tasks\task_list.html:8
+msgid "Tasks"
+msgstr ""
 
-#: .\templates\crm\businesspartner_list.html:66
-msgid "Next"
-msgstr "nächste"
+#: .\templates\apps\search\search_results.html:84
+#: .\templates\navigation.html:277
+msgid "Leads"
+msgstr ""
 
-#: .\templates\crm\businesspartner_list.html:67
-msgid "Last"
-msgstr "letzte"
+#: .\templates\apps\search\search_results.html:105
+#: .\templates\crm\opportunity_list.html:9 .\templates\dashboard.html:59
+#: .\templates\navigation.html:254
+msgid "Opportunities"
+msgstr ""
+
+#: .\templates\apps\search\search_results.html:126
+#, fuzzy
+#| msgid "No Businesspartner found."
+msgid "No results found."
+msgstr "Keine Geschäftspartner gefunden."
+
+#: .\templates\apps\tasks\comment_confirm_delete.html:10
+msgid "Confirm Task Deletion"
+msgstr ""
+
+#: .\templates\apps\tasks\comment_confirm_delete.html:13
+#, fuzzy
+#| msgid "Are you sure you want to delete the customer?"
+msgid "Are you sure you want to delete this task?"
+msgstr "Bist du sicher, dass du den Kunden löschen möchtest?"
+
+#: .\templates\apps\tasks\comment_confirm_delete.html:14
+msgid "Task"
+msgstr ""
+
+#: .\templates\apps\tasks\comment_form.html:10
+#, fuzzy
+#| msgid "Edit Customer"
+msgid "Edit Comment"
+msgstr "Kunden bearbeiten"
+
+#: .\templates\apps\tasks\comment_form.html:16
+msgid "Save Changes"
+msgstr ""
+
+#: .\templates\apps\tasks\new_task.html:10
+msgid "New Task"
+msgstr ""
+
+#: .\templates\apps\tasks\new_task.html:16
+msgid "Add Task"
+msgstr ""
+
+#: .\templates\apps\tasks\task_confirm_delete.html:10
+#, fuzzy
+#| msgid "Delete"
+msgid "Delete Task"
+msgstr "löschen"
+
+#: .\templates\apps\tasks\task_confirm_delete.html:13
+#, fuzzy
+#| msgid "Are you sure you want to delete the customer?"
+msgid "Are you sure you want to delete the task"
+msgstr "Bist du sicher, dass du den Kunden löschen möchtest?"
+
+#: .\templates\apps\tasks\task_detail.html:16
+#: .\templates\apps\tasks\task_list.html:33
+#: .\templates\crm\opportunity_list.html:26 .\templates\navigation.html:75
+msgid "Status"
+msgstr "Status"
+
+#: .\templates\apps\tasks\task_detail.html:17
+#: .\templates\apps\tasks\task_list.html:36
+msgid "Due Date"
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:18
+#: .\templates\apps\tasks\task_list.html:39
+#, fuzzy
+#| msgid "Assigned to:"
+msgid "Assigned To"
+msgstr "zugewiesen an:"
+
+#: .\templates\apps\tasks\task_detail.html:24
+msgid "Comments"
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:37
+msgid "Reply"
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:43
+msgid "Write your reply..."
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:45
+msgid "Submit Reply"
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:66
+msgid "No comments yet."
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:69
+msgid "Add a comment"
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:70
+msgid "Add Comment"
+msgstr ""
+
+#: .\templates\apps\tasks\task_detail.html:75
+msgid "Submit Comment"
+msgstr ""
+
+#: .\templates\apps\tasks\task_form.html:10
+#, fuzzy
+#| msgid "Edit"
+msgid "Edit Task"
+msgstr "bearbeiten"
+
+#: .\templates\apps\tasks\task_form.html:10
+#: .\templates\apps\tasks\task_list.html:21
+#, fuzzy
+#| msgid "Created at:"
+msgid "Create Task"
+msgstr "erstellt am:"
+
+#: .\templates\apps\tasks\task_form.html:16
+#: .\templates\crm\opportunity_form.html:12
+msgid "Save"
+msgstr "speichern"
+
+#: .\templates\apps\tasks\task_list.html:15
+#, fuzzy
+#| msgid "Show only my Businesspartners"
+msgid "Show only my Tasks"
+msgstr "Zeige nur meine Geschäftspartner"
+
+#: .\templates\apps\tasks\task_list.html:17
+msgid "Show All Tasks"
+msgstr ""
+
+#: .\templates\apps\tasks\task_list.html:30 .\templates\dashboard.html:97
+msgid "Title"
+msgstr ""
+
+#: .\templates\apps\tasks\task_list.html:58
+#, fuzzy
+#| msgid "No Businesspartner found."
+msgid "No tasks found."
+msgstr "Keine Geschäftspartner gefunden."
 
 #: .\templates\crm\opportunity_confirm_delete.html:8
 msgid "Delete Opportunity"
@@ -187,86 +514,216 @@ msgid "Edit Opportunity"
 msgstr "Opportunity bearbeiten"
 
 #: .\templates\crm\opportunity_form.html:8
-#: .\templates\crm\opportunity_list.html:36
+#: .\templates\crm\opportunity_list.html:11
 msgid "Create Opportunity"
 msgstr "Opportunity erstellen"
 
-#: .\templates\crm\opportunity_form.html:12
-msgid "Save"
-msgstr "speichern"
+#: .\templates\crm\opportunity_list.html:15
+#, fuzzy
+#| msgid "Go to Opportunities"
+msgid "Show only my Opportunities"
+msgstr "gehe zu Opportunities"
 
-#: .\templates\crm\opportunity_list.html:8 .\templates\dashboard.html:25
-#: .\templates\navigation.html:23
-msgid "Opportunities"
-msgstr ""
+#: .\templates\crm\opportunity_list.html:17
+#, fuzzy
+#| msgid "Go to Opportunities"
+msgid "Show All Opportunities"
+msgstr "gehe zu Opportunities"
 
-#: .\templates\crm\opportunity_list.html:13
+#: .\templates\crm\opportunity_list.html:23
 msgid "Customer"
 msgstr "Geschäftspartner"
 
-#: .\templates\crm\opportunity_list.html:14
+#: .\templates\crm\opportunity_list.html:24
 msgid "Amount"
 msgstr "Potenzial"
 
-#: .\templates\crm\opportunity_list.html:15
+#: .\templates\crm\opportunity_list.html:25
 msgid "Probability"
 msgstr "Chance"
 
-#: .\templates\crm\opportunity_list.html:16
-msgid "Status"
-msgstr "Status"
-
-#: .\templates\dashboard.html:8 .\templates\navigation.html:11
-msgid "Dashboard"
-msgstr "Dashboard"
-
-#: .\templates\dashboard.html:9
-msgid "Quicklinks"
-msgstr "Quicklinks"
-
-#: .\templates\dashboard.html:17
+#: .\templates\dashboard.html:50
 msgid "View and manage your Businesspartners."
 msgstr "Betrachten und verwalten Sie Ihre Geschäftspartner."
 
-#: .\templates\dashboard.html:18
+#: .\templates\dashboard.html:51
 msgid "Go to Businesspartners"
 msgstr "gehe zu Geschäftspartnern"
 
-#: .\templates\dashboard.html:26
+#: .\templates\dashboard.html:60
 msgid "View and manage your sales opportunities."
 msgstr "betrachten und verwalten Sie Ihre Verkaufschancen."
 
-#: .\templates\dashboard.html:27
+#: .\templates\dashboard.html:64
 msgid "Go to Opportunities"
 msgstr "gehe zu Opportunities"
 
-#: .\templates\dashboard.html:36
-msgid "Contacts"
-msgstr "Kontakte"
-
-#: .\templates\dashboard.html:37
+#: .\templates\dashboard.html:74
 msgid "View and manage your Contacts."
 msgstr "Kontakte anzeigen und verwalten."
 
-#: .\templates\dashboard.html:38
+#: .\templates\dashboard.html:75
 msgid "Go to Contacts"
 msgstr "gehe zu Kontakten"
 
-#: .\templates\navigation.html:14
-msgid "Businesspartners"
-msgstr "Geschäftspartner"
+#: .\templates\dashboard.html:86
+msgid "View Leads"
+msgstr ""
 
-#: .\templates\navigation.html:26
-msgid "Profile"
+#: .\templates\dashboard.html:93 .\templates\navigation.html:218
+msgid "Tasks and Activities"
+msgstr ""
+
+#: .\templates\footer.html:13 .\templates\navigation.html:292
+msgid "Documentation"
+msgstr ""
+
+#: .\templates\footer.html:14 .\templates\navigation.html:298
+msgid "Source code"
+msgstr ""
+
+#: .\templates\navigation.html:13
+msgid "Ecosphere"
+msgstr ""
+
+#: .\templates\navigation.html:35
+#, fuzzy
+#| msgid "Syndication"
+msgid "Show notifications"
+msgstr "Syndication"
+
+#: .\templates\navigation.html:66
+msgid "Open user menu"
+msgstr ""
+
+#: .\templates\navigation.html:70
+#, fuzzy
+#| msgid "Admin"
+msgid "Admin Admin"
+msgstr "Admin"
+
+#: .\templates\navigation.html:70
+msgid "Admin Admin Area"
+msgstr ""
+
+#: .\templates\navigation.html:73
+msgid "Country Admin Area"
+msgstr ""
+
+#: .\templates\navigation.html:76
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile Settings"
 msgstr "Profil"
 
-#: .\templates\navigation.html:29
-msgid "Logout"
-msgstr "logout"
+#: .\templates\navigation.html:78
+msgid "Site Settings"
+msgstr ""
 
-#: .\templates\navigation.html:33
-msgid "Admin"
-msgstr "Admin"
+#: .\templates\navigation.html:80
+#, fuzzy
+#| msgid "Log In"
+msgid "Log Out"
+msgstr "anmelden"
+
+#: .\templates\navigation.html:86
+msgid "Switch to dark mode"
+msgstr ""
+
+#: .\templates\navigation.html:93
+msgid "Switch to fancy mode"
+msgstr ""
+
+#: .\templates\navigation.html:97
+msgid "Switch to light mode"
+msgstr ""
+
+#: .\templates\navigation.html:109
+msgid "Change Language"
+msgstr ""
+
+#: .\templates\navigation.html:174
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\templates\navigation.html:182
+msgid "Admin Settings"
+msgstr ""
+
+#: .\templates\navigation.html:191
+msgid "Country Settings"
+msgstr ""
+
+#: .\templates\navigation.html:207
+#, fuzzy
+#| msgid "Show All Businesspartners"
+msgid "All Businesspartners"
+msgstr "Zeige alle Geschäftspartner"
+
+#: .\templates\navigation.html:232
+#, fuzzy
+#| msgid "Contacts"
+msgid "All Contacts"
+msgstr "Kontakte"
+
+#: .\templates\navigation.html:238
+#, fuzzy
+#| msgid "Contacts"
+msgid "My Contacts"
+msgstr "Kontakte"
+
+#: .\templates\navigation.html:243
+#, fuzzy
+#| msgid "Created at:"
+msgid "Create Contact"
+msgstr "erstellt am:"
+
+#: .\templates\navigation.html:244
+msgid "NEW"
+msgstr ""
+
+#: .\templates\navigation.html:261
+#, fuzzy
+#| msgid "Go to Opportunities"
+msgid "All Opportunities"
+msgstr "gehe zu Opportunities"
+
+#: .\templates\navigation.html:267
+#, fuzzy
+#| msgid "Go to Opportunities"
+msgid "My Opportunities"
+msgstr "gehe zu Opportunities"
+
+#: .\templates\navigation.html:287
+msgid "Help"
+msgstr ""
+
+#: .\templates\navigation.html:295
+msgid "Changelog"
+msgstr ""
+
+#: .\templates\navigation.html:303
+msgid "Sponsor Project"
+msgstr ""
+
+#: .\templates\navigation.html:318
+msgid "Search..."
+msgstr ""
+
+#: .\templates\navigation.html:318
+msgid "Search the website"
+msgstr ""
+
+#: .\templates\navigation.html:319
+msgid "Search"
+msgstr ""
+
+#: .\venv\Lib\site-packages\bootstrap5\components.py:17
+#: .\venv\Lib\site-packages\bootstrap5\templates\bootstrap5\form_errors.html:3
+#: .\venv\Lib\site-packages\bootstrap5\templates\bootstrap5\messages.html:4
+#: .\venv\Lib\site-packages\django_bootstrap5\components.py:26
+msgid "close"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
 msgid "Messages"
@@ -323,13 +780,17 @@ msgstr "gültige Email-Adresse eingeben."
 #: .\venv\Lib\site-packages\django\core\validators.py:259
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
-msgstr "gültigen „Slug“ eingeben, bestehend aus Buchstaben, Zahlen, Unterstrichen oder Bindestrichen."
+msgstr ""
+"gültigen „Slug“ eingeben, bestehend aus Buchstaben, Zahlen, Unterstrichen "
+"oder Bindestrichen."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:267
 msgid ""
 "Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
 "hyphens."
-msgstr "gültigen „Slug“ eingeben, bestehend aus Unicode-Buchstaben, Zahlen, Unterstrichen oder Bindestrichen."
+msgstr ""
+"gültigen „Slug“ eingeben, bestehend aus Unicode-Buchstaben, Zahlen, "
+"Unterstrichen oder Bindestrichen."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:279
 #: .\venv\Lib\site-packages\django\core\validators.py:306
@@ -1478,11 +1939,33 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
+#: .\venv\Lib\site-packages\modeltranslation\widgets.py:24
+msgid "None"
+msgstr ""
+
+#~ msgid "Previous"
+#~ msgstr "Vorherige"
+
+#~ msgid "Page"
+#~ msgstr "Seite"
+
+#~ msgid "of"
+#~ msgstr "von"
+
+#~ msgid "Next"
+#~ msgstr "nächste"
+
+#~ msgid "Last"
+#~ msgstr "letzte"
+
+#~ msgid "Quicklinks"
+#~ msgstr "Quicklinks"
+
+#~ msgid "Logout"
+#~ msgstr "logout"
+
 #~ msgid "Customer Details"
 #~ msgstr "Kundendetails"
-
-#~ msgid "Edit Customer"
-#~ msgstr "Kunden bearbeiten"
 
 #~ msgid "Customers"
 #~ msgstr "Kunden"
