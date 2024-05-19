@@ -64,12 +64,11 @@ def edit_profile(request):
 @login_required
 def upload_profile_picture(request):
     if request.method == 'POST':
-        profile = UserProfile.objects.get(user=request.user)
-        profile.profile_picture = request.FILES['profile_picture']
-        profile.save()
-        return redirect('accounts:profile')
-    else:
-        return redirect('accounts:profile')
+        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:profile')
+    return redirect('accounts:profile')
 
 @login_required
 def change_profile_picture(request):

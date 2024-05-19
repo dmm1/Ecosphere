@@ -1,52 +1,52 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h2>Account Information</h2>
+                    <h2>{% trans "Account Information" %}</h2>
                 </div>
                 <div class="card-body">
-                    <p><strong>Username:</strong> {{ user.username }}</p>
-                    <p><strong>Groups:</strong> {% for group in user.groups.all %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                    <p><strong>First Name:</strong> {{ user.first_name }}</p>
-                    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
-                    <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
-                    <p><strong>Country:</strong> {{ user.profile.get_country_display }}</p>
-                    <p><strong>Language:</strong> {{ user.profile.get_language_display }}</p>
-                    <p><strong>Timezone:</strong> {{ user.profile.timezone }}</p>
+                    <p><strong>{% trans "Username:" %}</strong> {{ user.username }}</p>
+                    <p><strong>{% trans "Groups:" %}</strong> {% for group in user.groups.all %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                    <p><strong>{% trans "First Name:" %}</strong> {{ user.first_name }}</p>
+                    <p><strong>{% trans "Last Name:" %}</strong> {{ user.last_name }}</p>
+                    <p><strong>{% trans "Email:" %}</strong> {{ user.email }}</p>
+                    <p><strong>{% trans "Bio:" %}</strong> {{ user.profile.bio }}</p>
+                    <p><strong>{% trans "Phone Number:" %}</strong> {{ user.profile.phone_number }}</p>
+                    <p><strong>{% trans "Country:" %}</strong> {{ user.profile.get_country_display }}</p>
+                    <p><strong>{% trans "Language:" %}</strong> {{ user.profile.get_language_display }}</p>
+                    <p><strong>{% trans "Timezone:" %}</strong> {{ user.profile.timezone }}</p>
                 </div>
-                <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary mt-2">Edit Profile</a>
+                <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary mt-2">{% trans "Edit Profile" %}</a>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h2>Login Information</h2>
+                    <h2>{% trans "Login Information" %}</h2>
                 </div>
                 <div class="card-body">
-                    <p><strong>Last Login:</strong> {{ user.last_login }}</p>
-                    <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
+                    <p><strong>{% trans "Last Login:" %}</strong> {{ user.last_login }}</p>
+                    <p><strong>{% trans "Member Since:" %}</strong> {{ user.date_joined }}</p>
                 </div>
             </div>
             <div class="card mt-3">
                 <div class="card-header">
-                    <h2>Profile Picture</h2>
+                    <h2>{% trans "Profile Picture" %}</h2>
                 </div>
                 <div class="card-body d-flex flex-column align-items-center justify-content-center">
                  {% if user.profile.profile_picture %}
-                <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="img-thumbnail mb-3 profile-picture-profile">
-                <a href="{% url 'accounts:change_profile_picture' %}" class="btn btn-primary mt-2">Change Profile Picture</a>
+                <img src="{{ user.profile.profile_picture.url }}" alt="{% trans 'Profile Picture' %}" style="width:140px" class="img-thumbnail mb-3 profile-picture-profile">
+                <a href="{% url 'accounts:change_profile_picture' %}" class="btn btn-primary mt-2">{% trans "Change Profile Picture" %}</a>
                 {% else %}
                 <form method="post" action="{% url 'accounts:upload_profile_picture' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="file" name="profile_picture" id="profile_picture" class="form-control-file">
-                        <button type="submit" class="btn btn-primary mt-2" id="upload_button" disabled>Upload</button>
+                        <button type="submit" class="btn btn-primary mt-2" id="upload_button" disabled>{% trans "Upload" %}</button>
                     </div>
                 </form>
                 {% endif %}

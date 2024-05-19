@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -14,7 +17,25 @@ class LoginForm(AuthenticationForm):
 class ProfilePictureForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('profile_picture',)
+        fields = ['profile_picture']
+
+    def clean_profile_picture(self):
+        picture = self.cleaned_data.get('profile_picture')
+
+        try:
+            # check file size
+            if picture:
+                if picture.size > 2*1024*1024:  # 2MB
+                    raise ValidationError(_('File size must be at most 1MB.'))
+
+                # check file type
+                if not picture.content_type in ['image/jpeg', 'image/png', 'image/webp']:
+                    raise ValidationError(_('File type must be .jpg, .png, or .webp.'))
+
+        except AttributeError:
+            pass
+
+        return picture
 
 class UserProfileUpdateForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=True)
