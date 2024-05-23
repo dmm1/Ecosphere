@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">{% trans "Employee List" %}</h3>
+    </div>
+    <div class="card-body">
+        <form method="get" class="input-icon my-3 my-lg-0 d-flex">
+            <input type="search" class="form-control header-search" placeholder="{% trans 'Search…' %}" tabindex="1" name="search" value="{{ request.GET.search }}" style="width: 200px;">
+            <button type="submit" style="margin-left:6px;"class="btn btn-primary ml-2"> Search</button>
+        </form>
+        <br />
+        <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap">
+                <thead>
+                    <tr>
+                        <th>{% trans "First name" %}</th>
+                        <th>{% trans "Last name" %}</th>
+                        <th>{% trans "Email" %}</th>
+                        <th>{% trans "Department" %}</th>
+                        <th>{% trans "Position" %}</th>
+                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.user.first_name }}</td>
+                        <td>{{ employee.user.last_name }}</td>
+                        <td>{{ employee.user.email }}</td>
+                        <td>{{ employee.department.name }}</td>
+                        <td>{{ employee.position.title }}</td>
+                        <td>
+                            <a href="{% url 'employees:employee_detail' employee.pk %}" class="btn btn-secondary btn-sm">{% trans "View" %}</a>
+                            <a href="{% url 'employees:edit_employee' employee.pk %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

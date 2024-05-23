@@ -32,7 +32,9 @@ INSTALLED_APPS = [
     'apps.contact.apps.ContactConfig',
     'apps.tasks.apps.TasksConfig',
     'apps.search.apps.SearchConfig',
+    'apps.hr.apps.HrConfig',
     'rest_framework',
+    'widget_tweaks',
 
 
 

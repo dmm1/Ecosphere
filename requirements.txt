@@ -6,4 +6,5 @@ mysqlclient==2.2.0
 pillow==10.3.0
 pytz==2024.1
 faker
+django-widget-tweaks==1.5.0
 
