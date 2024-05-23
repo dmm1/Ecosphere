@@ -186,3 +186,4 @@ ecosphere/migrations/0004_alter_customer_id.py
 media/user_images/343625_o0LqdiA.png
 apps/accounts/migrations/0002_userprofile_country.py
 apps/accounts/migrations/0003_remove_userprofile_country.py
+.idx/dev.nix
