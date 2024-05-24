@@ -25,7 +25,7 @@ urlpatterns += i18n_patterns(
     path('', include(('apps.tasks.urls', 'tasks'), namespace='tasks')),
     path('', include(('apps.contact.urls', 'contact'), namespace='contact')),
     path('search/', include(('apps.search.urls', 'search'), namespace='search')),
-    path('hr/', include(('apps.hr.urls', 'hr'), namespace='hr')),
+    path('company/', include(('apps.company.urls', 'company'), namespace='company')),
 
 )
 

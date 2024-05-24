@@ -54,7 +54,7 @@ class EmployeeForm(forms.ModelForm):
 class DepartmentForm(forms.ModelForm):
     class Meta:
         model = Department
-        fields = ['name']
+        fields = ['name', 'description']
 
 class PositionForm(forms.ModelForm):
     class Meta:

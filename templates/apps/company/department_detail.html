@@ -1,0 +1,82 @@
+<!-- apps/hr/department_detail.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-header d-print-none">
+    <div class="container-xl" style="margin-top:-14px;">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                    Company Management
+                </div>
+                <h2 class="page-title">
+                    Department Details
+                </h2>
+            </div>
+                <!-- Page title actions -->
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <span class="d-none d-sm-inline">
+                            <a class="btn" onclick="window.history.back(); return false;">
+                                Back
+                            </a>
+                        </span>
+                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-department">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                            Edit Department
+                        </a>
+                        <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal" data-bs-target="#modal-department" aria-label="Create new department">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="page-body">
+    <div class="container-xl">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ department.name }}</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>ID:</strong> {{ department.id }}</p>
+            <p><strong>Name:</strong> {{ department.name }}</p>
+            <p><strong>Description:</strong> {{ department.description }}</p>
+            <!-- Add more department details here -->
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="modal-department" tabindex="-1" aria-labelledby="modal-department-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-department-label">Create New Department</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- Add your form fields here -->
+                    <div class="mb-3">
+                        <label for="department-name" class="form-label">Department Name</label>
+                        <input type="text" class="form-control" id="department-name" name="department-name" required>
+                    </div>
+                    <!-- Add more form fields as needed -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create Department</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

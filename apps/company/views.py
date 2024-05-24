@@ -28,7 +28,7 @@ def index(request):
         'page_obj_position': page_obj_position,
     }
 
-    return render(request, 'apps/hr/dashboard.html', context)
+    return render(request, 'apps/company/dashboard.html', context)
 
 def create_employee(request):
     if request.method == 'POST':
@@ -38,7 +38,7 @@ def create_employee(request):
             return redirect('employees:employee_list')
     else:
         form = EmployeeForm()
-    return render(request, 'apps/hr/create_employee.html', {'form': form})
+    return render(request, 'apps/company/create_employee.html', {'form': form})
 
 def edit_employee(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
@@ -49,7 +49,7 @@ def edit_employee(request, pk):
             return redirect('employees:employee_detail', pk=employee.pk)  
     else:
         form = EmployeeForm(instance=employee)
-    return render(request, 'apps/hr/edit_employee.html', {'form': form})
+    return render(request, 'apps/company/edit_employee.html', {'form': form})
 
 def employee_list(request):
     search_query = request.GET.get('search', '')
@@ -61,12 +61,12 @@ def employee_list(request):
     paginator = Paginator(employees, 10)  # Show 10 employees per page
     page_number = request.GET.get('page')
     page_obj_employee = paginator.get_page(page_number)  # Changed from page_obj to page_obj_employee
-    return render(request, 'apps/hr/employee_list.html', {'page_obj_employee': page_obj_employee})  # Changed from page_obj to page_obj_employee
+    return render(request, 'apps/company/employee_list.html', {'page_obj_employee': page_obj_employee})  # Changed from page_obj to page_obj_employee
 
 
 def employee_detail(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
-    return render(request, 'apps/hr/employee_detail.html', {'employee': employee})
+    return render(request, 'apps/company/employee_detail.html', {'employee': employee})
 
 def create_department(request):
     if request.method == 'POST':
@@ -76,7 +76,7 @@ def create_department(request):
             return redirect('employees:department_list')
     else:
         form = DepartmentForm()
-    return render(request, 'apps/hr/create_department.html', {'form': form})
+    return render(request, 'apps/company/create_department.html', {'form': form})
 
 def create_position(request):
     if request.method == 'POST':
@@ -86,7 +86,7 @@ def create_position(request):
             return redirect('employees:position_list')
     else:
         form = PositionForm()
-    return render(request, 'apps/hr/create_position.html', {'form': form})
+    return render(request, 'apps/company/create_position.html', {'form': form})
 
 def edit_department(request, pk):
     department = get_object_or_404(Department, pk=pk)
@@ -97,7 +97,7 @@ def edit_department(request, pk):
             return redirect('employees:department_detail', pk=department.pk)  
     else:
         form = DepartmentForm(instance=department)
-    return render(request, 'apps/hr/edit_department.html', {'form': form})
+    return render(request, 'apps/company/edit_department.html', {'form': form})
 
 
 def department_list(request):
@@ -108,11 +108,11 @@ def department_list(request):
     paginator = Paginator(departments, 10)  # Show 10 departments per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'apps/hr/department_list.html', {'page_obj': page_obj})
+    return render(request, 'apps/company/department_list.html', {'page_obj': page_obj})
 
 def department_detail(request, pk):
     department = get_object_or_404(Department, pk=pk)
-    return render(request, 'apps/hr/department_detail.html', {'department': department})
+    return render(request, 'apps/company/department_detail.html', {'department': department})
 
 def edit_position(request, pk):
     position = get_object_or_404(Position, pk=pk)
@@ -123,7 +123,7 @@ def edit_position(request, pk):
             return redirect('employees:position_detail', pk=position.pk)  
     else:
         form = PositionForm(instance=position)
-    return render(request, 'apps/hr/edit_position.html', {'form': form})
+    return render(request, 'apps/company/edit_position.html', {'form': form})
 
 def position_list(request):
     search_query = request.GET.get('search', '')
@@ -133,8 +133,8 @@ def position_list(request):
     paginator = Paginator(positions, 10)  # Show 10 positions per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'apps/hr/position_list.html', {'page_obj': page_obj})
+    return render(request, 'apps/company/position_list.html', {'page_obj': page_obj})
 
 def position_detail(request, pk):
     position = get_object_or_404(Position, pk=pk)
-    return render(request, 'apps/hr/position_detail.html', {'position': position})
+    return render(request, 'apps/company/position_detail.html', {'position': position})

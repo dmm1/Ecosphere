@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <th>{% trans "Department Name" %}</th>
+                <th>{% trans "Department Description" %}</th>
                 <th>{% trans "Actions" %}</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             {% for department in page_obj_department %}
             <tr>
                 <td>{{ department.name }}</td>
+                <td>{{ department.description }}</td>
                 <td>
                     <a href="{% url 'employees:department_detail' department.pk %}" class="btn btn-secondary btn-sm">{% trans "View" %}</a>
                     <a href="{% url 'employees:edit_department' department.pk %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>

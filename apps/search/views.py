@@ -7,7 +7,7 @@ from apps.business_partner.models import BusinessPartner
 from apps.tasks.models import Task
 from crm.models import Lead
 from crm.models import Opportunity
-from apps.hr.models import Employee, Department, Position
+from apps.company.models import Employee, Department, Position
 from .forms import SearchForm
 
 def search(request):

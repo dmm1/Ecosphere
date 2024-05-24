@@ -52,21 +52,21 @@
                         <div class="card-body">
                                 <div class="tab-content">
                                         <div class="tab-pane active" id="employees">
-                                                {% include "apps/hr/employee_list.html" %}
+                                                {% include "apps/company/employee_list.html" %}
                                         </div>
                                         <div class="tab-pane" id="departments">
                                                 <h2>Departments</h2>
                                                 <a href="{% url 'employees:create_department' %}" class="btn btn-primary">
                                                         {% trans "Add Department" %}
                                                 </a>
-                                                {% include "apps/hr/department_list.html" %}
+                                                {% include "apps/company/department_list.html" %}
                                         </div>
                                         <div class="tab-pane" id="positions">
                                                 <h2>Positions</h2>
                                                 <a href="{% url 'employees:create_position' %}" class="btn btn-primary">
                                                         {% trans "Add Position" %}
                                                 </a>
-                                                {% include "apps/hr/position_list.html" %}
+                                                {% include "apps/company/position_list.html" %}
                                         </div>
                                 </div>
                         </div>

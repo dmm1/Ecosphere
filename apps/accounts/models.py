@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import pytz
-from apps.hr.models import Employee
+from apps.company.models import Employee
 
 class UserProfile(models.Model):
     COUNTRIES_CHOICES = (

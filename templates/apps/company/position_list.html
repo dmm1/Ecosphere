@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <th>{% trans "Position Title" %}</th>
+                <th>{% trans "Position Description" %}</th>
                 <th>{% trans "Actions" %}</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             {% for position in page_obj_position %}
             <tr>
                 <td>{{ position.title }}</td>
+                <td>{{ position.description }}</td>
                 <td>
                     <a href="{% url 'employees:position_detail' position.pk %}" class="btn btn-secondary btn-sm">{% trans "View" %}</a>
                     <a href="{% url 'employees:edit_position' position.pk %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>

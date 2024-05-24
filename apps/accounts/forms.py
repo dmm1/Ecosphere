@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 from io import BytesIO
-from apps.hr.models import Employee, Position, Department
+from apps.company.models import Employee, Position, Department
 
 
 class LoginForm(AuthenticationForm):

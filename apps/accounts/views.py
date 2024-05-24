@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .forms import ProfilePictureForm, UserProfileUpdateForm
-from apps.hr.models import Employee, Department, Position
+from apps.company.models import Employee, Department, Position
 
 
 def login_view(request):

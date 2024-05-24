@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'apps.contact.apps.ContactConfig',
     'apps.tasks.apps.TasksConfig',
     'apps.search.apps.SearchConfig',
-    'apps.hr.apps.HrConfig',
+    'apps.company.apps.CompanyConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'widget_tweaks',
@@ -78,12 +78,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ecosphere',
-        'USER': 'dmm',
-        'PASSWORD': 'dmm',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
