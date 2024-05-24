@@ -399,8 +399,23 @@
             </div>
           </li>
         </ul>
+        {% block extra_styles %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.css" />
+        <style>
+          .awesomplete > ul {
+            border-color: #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+          }
+          
+          .awesomplete > ul > li[aria-selected="true"] {
+            background-color: #bde4ff;
+          }
+        </style>
+        {% endblock %}
+        
         <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-          <form id="search-form" action="{% url 'search:search' %}" method="get" autocomplete="on" novalidate>
+          <form id="search-form" action="{% url 'search:search' %}" method="get" autocomplete="off" novalidate>
             <div class="input-group">
               <span class="input-group-text">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
@@ -416,6 +431,43 @@
             </div>
           </form>
         </div>
+        
+        {% block extra_js %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var searchInput = document.getElementById('search-input');
+          var searchForm = document.getElementById('search-form');
+          var awesomplete = new Awesomplete(searchInput);
+
+          searchInput.addEventListener('input', function() {
+            if (this.value.length < 3) {
+              return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/search/autocomplete/?q=' + this.value + '&models=contact.Contact,business_partner.BusinessPartner,company.Employee', true);
+            xhr.onload = function() {
+              if (this.status == 200) {
+                var results = JSON.parse(this.responseText).results;
+                console.log('Received results:', results);
+                var names = results.map(function(result) { 
+                  return result.first_name ? result.first_name + ' ' + result.last_name : result.user__first_name + ' ' + result.user__last_name;
+                });
+                console.log('Setting list to:', names);
+                awesomplete.list = names;
+              }
+            };
+            xhr.send();
+          });
+
+          searchInput.addEventListener('awesomplete-selectcomplete', function() {
+            // Submit the form when a user selects an option
+            searchForm.submit();
+          });
+        });
+        </script>
+        {% endblock %}
 
       </div>
     </div>
