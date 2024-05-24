@@ -1,73 +1,114 @@
-<!-- apps/hr/hr_dashboard.html -->
+<!-- apps/hr/dashboard.html -->
+
 {% extends "base.html" %}
+{% load i18n %}
+
 {% block content %}
-<div class="container">
-    <h1>HR Dashboard</h1>
-    <div class="card">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <a class="nav-link tab-link" href="#employees" data-toggle="tab">Employees</a>
-                <a class="nav-link tab-link" href="#departments" data-toggle="tab">Departments</a>
-                <a class="nav-link tab-link" href="#positions" data-toggle="tab">Positions</a>
-            </ul>
-        </div>
-        <div class="card-body">
-            <div class="tab-content">
-                <div class="tab-pane active" id="employees">
-                    <h2>Employees</h2>
-                    <a href="{% url 'employees:create_employee' %}">Add Employee</a>
-                    {% include "apps/hr/employee_list.html" %}
+
+<div class="page-header d-print-none">
+        <div class="container-xl" style="margin-top:-14px;">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                    <div class="page-pretitle">
+                        Overview
+                    </div>
+                    <h2 class="page-title">
+                        Dashboard
+                    </h2>
                 </div>
-                <div class="tab-pane" id="departments">
-                    <h2>Departments</h2>
-                    <a href="{% url 'employees:create_department' %}">Add Department</a>
-                    {% include "apps/hr/department_list.html" %}
-                </div>
-                <div class="tab-pane" id="positions">
-                    <h2>Positions</h2>
-                    <a href="{% url 'employees:create_position' %}">Add Position</a>
-                    {% include "apps/hr/position_list.html" %}
+                    <!-- Page title actions -->
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                            <span class="d-none d-sm-inline">
+                                <a href="#" class="btn">
+                                    New view
+                                </a>
+                            </span>
+                            <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                Create new report
+                            </a>
+                            <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal" data-bs-target="#modal-report" aria-label="Create new report">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+<div class="page-body">
+        <div class="container-xl">
+                <div class="card">
+                        <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                        <a class="nav-link tab-link" href="#employees" data-toggle="tab">Employees</a>
+                                        <a class="nav-link tab-link" href="#departments" data-toggle="tab">Departments</a>
+                                        <a class="nav-link tab-link" href="#positions" data-toggle="tab">Positions</a>
+                                </ul>
+                        </div>
+                        <div class="card-body">
+                                <div class="tab-content">
+                                        <div class="tab-pane active" id="employees">
+                                                {% include "apps/hr/employee_list.html" %}
+                                        </div>
+                                        <div class="tab-pane" id="departments">
+                                                <h2>Departments</h2>
+                                                <a href="{% url 'employees:create_department' %}" class="btn btn-primary">
+                                                        {% trans "Add Department" %}
+                                                </a>
+                                                {% include "apps/hr/department_list.html" %}
+                                        </div>
+                                        <div class="tab-pane" id="positions">
+                                                <h2>Positions</h2>
+                                                <a href="{% url 'employees:create_position' %}" class="btn btn-primary">
+                                                        {% trans "Add Position" %}
+                                                </a>
+                                                {% include "apps/hr/position_list.html" %}
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div> 
 {% endblock %}
 
 {% block extra_js %}
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-    var tabs = document.querySelectorAll('.tab-link')
-    var tabPanes = document.querySelectorAll('.tab-pane')
+        var tabs = document.querySelectorAll('.tab-link')
+        var tabPanes = document.querySelectorAll('.tab-pane')
 
-    tabs.forEach(function(tab, tab_index){
-        tab.addEventListener('click', function(){
-            tabs.forEach(function(tab){
-                tab.classList.remove('active')
-            })
-
-            tab.classList.add('active')
-
-            tabPanes.forEach(function(content, content_index){
-                if(content_index == tab_index){
-                    content.classList.add('active')
-                }else{
-                    content.classList.remove('active')
-                }
-            })
-        })
-    })
-
-    // New code to activate tab based on URL fragment identifier
-    var url = location.href.replace(/\/$/, "");
-    if (location.hash) {
-        var hash = url.split("#");
         tabs.forEach(function(tab, tab_index){
-            if (tab.getAttribute('href') === '#' + hash[1]) {
-                tab.click();
-            }
-        });
-    }
+                tab.addEventListener('click', function(){
+                        tabs.forEach(function(tab){
+                                tab.classList.remove('active')
+                        })
+
+                        tab.classList.add('active')
+
+                        tabPanes.forEach(function(content, content_index){
+                                if(content_index == tab_index){
+                                        content.classList.add('active')
+                                }else{
+                                        content.classList.remove('active')
+                                }
+                        })
+                })
+        })
+
+        // New code to activate tab based on URL fragment identifier
+        var url = location.href.replace(/\/$/, "");
+        if (location.hash) {
+                var hash = url.split("#");
+                tabs.forEach(function(tab, tab_index){
+                        if (tab.getAttribute('href') === '#' + hash[1]) {
+                                tab.click();
+                        }
+                });
+        }
 })
 </script>
 {% endblock %}

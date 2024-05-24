@@ -60,8 +60,8 @@ def employee_list(request):
     )
     paginator = Paginator(employees, 10)  # Show 10 employees per page
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'apps/hr/employee_list.html', {'page_obj': page_obj})
+    page_obj_employee = paginator.get_page(page_number)  # Changed from page_obj to page_obj_employee
+    return render(request, 'apps/hr/employee_list.html', {'page_obj_employee': page_obj_employee})  # Changed from page_obj to page_obj_employee
 
 
 def employee_detail(request, pk):

@@ -1,5 +1,17 @@
 {% load i18n %}
 {% block content %}
+<div class="d-flex justify-content-between align-items-center">
+    <form method="GET" action="{% url 'employees:employee_list' %}" class="input-icon my-3 my-lg-0">
+        <input type="text" class="form-control" name="search" placeholder="{% trans 'Search employees' %}">
+        <div class="input-icon-addon">
+            <button type="submit" class="btn btn-primary">{% trans 'Search' %}</button>
+        </div>
+    </form>
+    <a href="{% url 'employees:create_employee' %}" class="btn btn-success">
+        {% trans "Add Employee" %}
+    </a>
+</div>
+<br />
 <div class="table-responsive">
     <table class="table card-table table-vcenter text-nowrap">
         <thead>

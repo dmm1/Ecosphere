@@ -184,11 +184,11 @@
               </a>
             </li>
                     {% endif %}
-                    {% if request.user.is_staff or perms.organization.change_group or perms.organization.change_team %}
+                    {% if request.user.is_staff or perms.hr.change_employee%}
              <li class="nav-item">
-              <a class="nav-link" href="#" >
+              <a class="nav-link" href="/hr" >
                 <span class="nav-link-title">
-                  {% trans "Country Settings" %}
+                  {% trans "Human Resources" %}
                 </span>
               </a>
             </li>
