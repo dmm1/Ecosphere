@@ -1,5 +1,17 @@
 {% load i18n %}
 {% block content %}
+<div class="d-flex justify-content-between align-items-center">
+    <form method="GET" action="{% url 'employees:position_list' %}" class="input-icon my-3 my-lg-0">
+        <input type="text" class="form-control" name="search" placeholder="{% trans 'Search position' %}">
+        <div class="input-icon-addon">
+            <button type="submit" class="btn btn-primary">{% trans 'Search' %}</button>
+        </div>
+    </form>
+    <a href="{% url 'employees:create_position' %}" class="btn btn-success">
+        {% trans "Add Position" %}
+    </a>
+</div>
+<br />
 <div class="table-responsive">
     <table class="table card-table table-vcenter text-nowrap">
         <thead>
@@ -10,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for position in page_obj_position %}
+            {% for position in page_obj %}
             <tr>
                 <td>{{ position.title }}</td>
                 <td>{{ position.description }}</td>
@@ -25,17 +37,17 @@
 </div>
 <div class="card-footer d-flex">
     <ul class="pagination">
-        {% if page_obj_position.has_previous %}
+        {% if page_obj.has_previous %}
             <li class="page-item">
                 <a class="page-link" href="?position_page={{ page_obj_position.previous_page_number }}#positions">{% trans "Previous" %}</a>
             </li>
         {% endif %}
-        {% for i in page_obj_position.paginator.page_range %}
+        {% for i in page_obj.paginator.page_range %}
             <li class="page-item {% if page_obj_position.number == i %}active{% endif %}">
                 <a class="page-link" href="?position_page={{ i }}#positions">{{ i }}</a>
             </li>
         {% endfor %}
-        {% if page_obj_position.has_next %}
+        {% if page_obj.has_next %}
             <li class="page-item">
                 <a class="page-link" href="?position_page={{ page_obj_position.next_page_number }}#positions">{% trans "Next" %}</a>
             </li>
