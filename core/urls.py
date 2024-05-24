@@ -5,10 +5,9 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth.decorators import login_required
 from apps.accounts.views import login_view, profile_view
 from crm.views import dashboard
-
-
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

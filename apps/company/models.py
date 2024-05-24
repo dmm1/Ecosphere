@@ -22,6 +22,15 @@ class Employee(models.Model):
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
     date_of_birth = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
-  
+
     def __str__(self):
-        return f"{self.user.username} - {self.department.name} - {self.position.title}- {self.position.description}"
+        return f"{self.user.username} - {self.department.name} - {self.position.title} - {self.position.description}"
+
+class Team(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    members = models.ManyToManyField(Employee)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
