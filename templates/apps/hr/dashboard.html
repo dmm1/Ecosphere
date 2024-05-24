@@ -1,0 +1,73 @@
+<!-- apps/hr/hr_dashboard.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>HR Dashboard</h1>
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <a class="nav-link tab-link" href="#employees" data-toggle="tab">Employees</a>
+                <a class="nav-link tab-link" href="#departments" data-toggle="tab">Departments</a>
+                <a class="nav-link tab-link" href="#positions" data-toggle="tab">Positions</a>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="employees">
+                    <h2>Employees</h2>
+                    <a href="{% url 'employees:create_employee' %}">Add Employee</a>
+                    {% include "apps/hr/employee_list.html" %}
+                </div>
+                <div class="tab-pane" id="departments">
+                    <h2>Departments</h2>
+                    <a href="{% url 'employees:create_department' %}">Add Department</a>
+                    {% include "apps/hr/department_list.html" %}
+                </div>
+                <div class="tab-pane" id="positions">
+                    <h2>Positions</h2>
+                    <a href="{% url 'employees:create_position' %}">Add Position</a>
+                    {% include "apps/hr/position_list.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    var tabs = document.querySelectorAll('.tab-link')
+    var tabPanes = document.querySelectorAll('.tab-pane')
+
+    tabs.forEach(function(tab, tab_index){
+        tab.addEventListener('click', function(){
+            tabs.forEach(function(tab){
+                tab.classList.remove('active')
+            })
+
+            tab.classList.add('active')
+
+            tabPanes.forEach(function(content, content_index){
+                if(content_index == tab_index){
+                    content.classList.add('active')
+                }else{
+                    content.classList.remove('active')
+                }
+            })
+        })
+    })
+
+    // New code to activate tab based on URL fragment identifier
+    var url = location.href.replace(/\/$/, "");
+    if (location.hash) {
+        var hash = url.split("#");
+        tabs.forEach(function(tab, tab_index){
+            if (tab.getAttribute('href') === '#' + hash[1]) {
+                tab.click();
+            }
+        });
+    }
+})
+</script>
+{% endblock %}

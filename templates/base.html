@@ -11,10 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Ecosphere{% endblock %}</title>  
     {% load static %}
+    
     <link href="{% static 'css/ui/tabler.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/ui/tabler-flags.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/ui/tabler-vendors.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/ui/ecosphere.css' %}" rel="stylesheet"/>
+    
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -49,7 +51,11 @@
             <line x1="6" y1="12" x2="12" y2="6" />
         </svg>
     </a>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/ui/tabler.min.js' %}"></script>
+    <script src="{% static 'js/ui/ecosphere.js' %}"></script>
+    {% block extra_js %}{% endblock %}
     <script>
         var btn = document.getElementById('back-to-top');
     

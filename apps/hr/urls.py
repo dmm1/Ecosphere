@@ -1,11 +1,21 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from . import views  
 
 app_name = 'employees'
 
 urlpatterns = [
-    path('', views.employee_list, name='employee_list'),
-    path('employee/', views.employee_list, name='employee_list'),
-    path('employee/<int:pk>/edit/', views.edit_employee, name='edit_employee'),
+    path('', views.index, name='hr_index'),
+    path('employee/', views.index, name='hr_index'),
+    path('employee/create', views.create_employee, name='create_employee'),
+    path('employee/list', views.employee_list, name='employee_list'),
+    path('employee/<int:pk>/update/', views.edit_employee, name='edit_employee'),
     path('employee/<int:pk>/', views.employee_detail, name='employee_detail'),
+    path('department/create', views.create_department, name='create_department'),
+    path('department/list', views.department_list, name='department_list'),
+    path('department/<int:pk>/edit/', views.edit_department, name='edit_department'),
+    path('department/<int:pk>/', views.department_detail, name='department_detail'),
+    path('position/create', views.create_position, name='create_position'),
+    path('position/list', views.position_list, name='position_list'),
+    path('position/<int:pk>/edit/', views.edit_position, name='edit_position'),
+    path('position/<int:pk>/', views.position_detail, name='position_detail'),
 ]

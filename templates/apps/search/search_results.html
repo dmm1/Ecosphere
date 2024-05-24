@@ -14,7 +14,7 @@
 
 <div class="page-body">
     <div class="container-xl">
-        {% if contacts or business_partners or tasks or leads or opportunities %}
+        {% if contacts or business_partners or tasks or leads or opportunities or departments or positions or employees %}
         {% if contacts %}
         <div class="card">
             <div class="card-header">
@@ -119,6 +119,70 @@
             </div>
         </div>
         {% endif %}
+
+        {% if employees %}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans "Employees" %}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row row-cards">
+                        {% for employee in employees %}
+                        <div class="col-md-4 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="{% url 'employees:employee_detail' employee.id %}">{{ employee.user.first_name }} {{ employee.user.last_name }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if departments %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">{% trans "Departments" %}</h3>
+    </div>
+    <div class="card-body">
+        <div class="row row-cards">
+            {% for department in departments %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{% url 'employees:department_detail' department.id %}">{{ department.name }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if positions %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">{% trans "Positions" %}</h3>
+    </div>
+    <div class="card-body">
+        <div class="row row-cards">
+            {% for position in positions %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{% url 'employees:position_detail' position.id %}">{{ position.title }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
         {% else %}
         <div class="row">
             <div class="col-md-6">
@@ -130,4 +194,6 @@
         {% endif %}
     </div>
 </div>
+
 {% endblock %}
+

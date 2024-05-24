@@ -20,3 +20,13 @@ class EmployeeForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.fields['description'].initial = self.instance.position.description
             self.fields['description'].disabled = True
+
+class DepartmentForm(forms.ModelForm):
+    class Meta:
+        model = Department
+        fields = ['name']
+
+class PositionForm(forms.ModelForm):
+    class Meta:
+        model = Position
+        fields = ['title', 'description']            

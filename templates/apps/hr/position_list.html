@@ -1,0 +1,43 @@
+{% load i18n %}
+{% block content %}
+<div class="table-responsive">
+    <table class="table card-table table-vcenter text-nowrap">
+        <thead>
+            <tr>
+                <th>{% trans "Position Title" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for position in page_obj_position %}
+            <tr>
+                <td>{{ position.title }}</td>
+                <td>
+                    <a href="{% url 'employees:position_detail' position.pk %}" class="btn btn-secondary btn-sm">{% trans "View" %}</a>
+                    <a href="{% url 'employees:edit_position' position.pk %}" class="btn btn-primary btn-sm">{% trans "Edit" %}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="card-footer d-flex">
+    <ul class="pagination">
+        {% if page_obj_position.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?position_page={{ page_obj_position.previous_page_number }}#positions">{% trans "Previous" %}</a>
+            </li>
+        {% endif %}
+        {% for i in page_obj_position.paginator.page_range %}
+            <li class="page-item {% if page_obj_position.number == i %}active{% endif %}">
+                <a class="page-link" href="?position_page={{ i }}#positions">{{ i }}</a>
+            </li>
+        {% endfor %}
+        {% if page_obj_position.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?position_page={{ page_obj_position.next_page_number }}#positions">{% trans "Next" %}</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
