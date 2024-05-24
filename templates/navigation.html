@@ -145,17 +145,22 @@
 
 
 
-        <div class="nav-item">
-            <a href="{% url 'accounts:profile' %}" class="nav-link d-flex lh-1 text-reset p-0" >
-
-           <span class="avatar avatar-sm" style="background-image: url({% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}https://via.placeholder.com/150{% endif %})"></span>
-            <div class="d-none d-xl-block ps-2">
-              <div>{{ user.first_name }} {{ user.last_name }}</div>
-              <div class="mt-1 small text-muted">#jobdescription</div>
-            </div>
-        </a>
-
-      </div>
+<div class="nav-item">
+  <a href="{% url 'accounts:profile' %}" class="nav-link d-flex lh-1 text-reset p-0">
+    {% if user.profile.profile_picture %}
+        <span class="avatar avatar-sm" style="background-image: url('{{ user.profile.profile_picture.url }}');"></span>
+        <div class="d-none d-xl-block ps-2">
+        <div>{{ user.first_name }} {{ user.last_name }}</div>
+        <div class="mt-1 small text-muted">#jobdescription</div>
+        </div>
+        {% else %}
+        <span class="avatar avatar-sm" style="background-image: url(https://via.placeholder.com/150)"></span>
+        <div class="d-none d-xl-block ps-2">
+        <div>{{ user.first_name }} {{ user.last_name }}</div>
+        <div class="mt-1 small text-muted">#jobdescription</div>
+        </div>
+    {% endif %}
+  </a>
 
 
 

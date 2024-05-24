@@ -6,6 +6,8 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 from io import BytesIO
+from apps.hr.models import Employee, Position, Department
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -65,7 +67,8 @@ class UserProfileUpdateForm(forms.ModelForm):
             self.fields['last_name'].initial = user.last_name
             self.fields['email'].initial = user.email
             self.fields['bio'].initial = user.profile.bio
-            self.fields['phone_number'].initial = user.profile.phone_number
+            if user.profile.employee:
+                self.fields['phone_number'].initial = user.profile.employee.phone_number
             self.fields['country'].initial = user.profile.country
             self.fields['language'].initial = user.profile.language
             self.fields['timezone'].initial = user.profile.timezone

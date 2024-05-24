@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .forms import ProfilePictureForm, UserProfileUpdateForm
+from apps.hr.models import Employee, Department, Position
 
 
 def login_view(request):
@@ -21,11 +22,16 @@ def login_view(request):
 
 @login_required
 def profile_view(request):
-    user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    if created or not user_profile.employee:
+        default_department, _ = Department.objects.get_or_create(name='Default')
+        default_position, _ = Position.objects.get_or_create(title='Default')
+        employee, _ = Employee.objects.get_or_create(user=request.user, defaults={'department': default_department, 'position': default_position})
+        user_profile.employee = employee
+        user_profile.save()
 
     if request.method == 'POST':
         user_profile.bio = request.POST.get('bio')
-        user_profile.phone_number = request.POST.get('phone_number')
         user_profile.profile_picture = request.FILES.get('profile_picture')
         user_profile.country = request.POST.get('country')
         user_profile.language = request.POST.get('language')
@@ -34,15 +40,29 @@ def profile_view(request):
         user_profile.user.last_name = request.POST.get('last_name')
         user_profile.user.email = request.POST.get('email')
         user_profile.user.save()
+        print(f"POST phone_number: {request.POST.get('phone_number')}")
+        if user_profile.employee:
+            user_profile.employee.phone_number = request.POST.get('phone_number')
+            user_profile.employee.save()
+            print(f"Employee phone_number after save: {user_profile.employee.phone_number}")
         user_profile.save()
         return redirect('accounts:profile')
 
-    return render(request, 'apps/accounts/profile.html', {'user_profile': user_profile})
+    print(f"Employee phone_number: {user_profile.employee.phone_number if user_profile.employee else 'No employee'}")
+    context = {
+        'user_profile': user_profile,
+        'phone_number': user_profile.employee.phone_number if user_profile.employee else ''
+    }
+    return render(request, 'apps/accounts/profile.html', context)
 
 @login_required
 def edit_profile(request):
     user = request.user
     profile = UserProfile.objects.get(user=user)
+    if not profile.employee:
+        profile.employee, _ = Employee.objects.get_or_create(user=user, defaults={'department_id': user.department_id})  # Set the department_id
+        profile.save()
+
     if request.method == 'POST':
         form = UserProfileUpdateForm(request.POST, request.FILES, instance=profile, user=user)
         if form.is_valid():
@@ -51,15 +71,20 @@ def edit_profile(request):
             user.email = form.cleaned_data['email']
             user.save()
             profile.bio = form.cleaned_data['bio']
-            profile.phone_number = form.cleaned_data['phone_number']
+            profile.employee.phone_number = form.cleaned_data['phone_number']
             profile.country = form.cleaned_data['country']
             profile.language = form.cleaned_data['language']
             profile.timezone = form.cleaned_data['timezone']
+            profile.employee.save()  # Save the employee object
             profile.save()
             return redirect('accounts:profile')
     else:
         form = UserProfileUpdateForm(instance=profile, user=user)
-    return render(request, 'apps/accounts/edit_profile.html', {'form': form})
+    context = {
+        'form': form,
+        'phone_number': profile.employee.phone_number if profile.employee else None
+    }
+    return render(request, 'apps/accounts/edit_profile.html', context)
 
 @login_required
 def upload_profile_picture(request):
