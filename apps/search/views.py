@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.apps import apps
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from apps.contact.models import Contact
 from apps.business_partner.models import BusinessPartner
 from apps.tasks.models import Task
@@ -10,6 +11,7 @@ from crm.models import Opportunity
 from apps.company.models import Employee, Department, Position, Team
 from .forms import SearchForm
 
+@login_required
 def search(request):
     form = SearchForm(request.GET)
     if form.is_valid():
@@ -47,6 +49,7 @@ def search(request):
 
 import logging
 
+@login_required
 def autocomplete(request):
     q = request.GET.get('q', '').lower() 
     if len(q) < 3:
@@ -80,6 +83,7 @@ def autocomplete(request):
     logger.info(f"Autocomplete results: {results}")
     return JsonResponse({'results': results})
 
+@login_required
 def search_results(request):
     query = request.GET.get('q', '')
     model_name = request.GET.get('model', '')

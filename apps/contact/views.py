@@ -25,6 +25,8 @@ def contact_list(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'apps/contact/contact_list.html', {'page_obj': page_obj, 'show_all': show_all})
+
+@login_required
 def contact_create(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -40,10 +42,12 @@ def contact_create(request):
         form = ContactForm()
     return render(request, 'apps/contact/contact_form.html', {'form': form})
 
+@login_required
 def contact_detail(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
     return render(request, 'apps/contact/contact_detail.html', {'contact': contact})
 
+@login_required
 def contact_update(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
     if request.method == 'POST':
@@ -60,6 +64,7 @@ def contact_update(request, pk):
         form = ContactForm(instance=contact)
     return render(request, 'apps/contact/contact_form.html', {'form': form})
 
+@login_required
 def contact_delete(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
     if request.method == 'POST':
