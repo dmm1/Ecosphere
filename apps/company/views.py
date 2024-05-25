@@ -1,11 +1,13 @@
 # /apps/company/views.py
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import EmployeeForm, DepartmentForm, PositionForm
 from .models import Employee, Department, Position
 from django.db.models import Q
 from django.core.paginator import Paginator
 
+@login_required
 def index(request):
     """
     Renders the dashboard page with paginated lists of employees, departments, and positions.
@@ -40,6 +42,7 @@ def index(request):
 
     return render(request, 'apps/company/dashboard.html', context)
 
+@login_required
 def create_employee(request):
         """
         Create a new employee.
@@ -68,6 +71,7 @@ def create_employee(request):
                 form = EmployeeForm()
         return render(request, 'apps/company/create_employee.html', {'form': form})
 
+@login_required
 def edit_employee(request, pk):
     """
     Edit an existing employee.
@@ -92,6 +96,7 @@ def edit_employee(request, pk):
         form = EmployeeForm(instance=employee)
     return render(request, 'apps/company/edit_employee.html', {'form': form})
 
+@login_required
 def employee_list(request):
     """
     View function to display a list of employees.
@@ -119,7 +124,7 @@ def employee_list(request):
     page_obj_employee = paginator.get_page(page_number)  
     return render(request, 'apps/company/employee_list.html', {'page_obj_employee': page_obj_employee})
 
-
+@login_required
 def employee_detail(request, pk):
     """
     View function to display the details of an employee.
@@ -134,6 +139,7 @@ def employee_detail(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
     return render(request, 'apps/company/employee_detail.html', {'employee': employee})
 
+@login_required
 def create_department(request):
     if request.method == 'POST':
         form = DepartmentForm(request.POST)
@@ -144,6 +150,7 @@ def create_department(request):
         form = DepartmentForm()
     return render(request, 'apps/company/create_department.html', {'form': form})
 
+@login_required
 def create_position(request):
     if request.method == 'POST':
         form = PositionForm(request.POST)
@@ -154,6 +161,7 @@ def create_position(request):
         form = PositionForm()
     return render(request, 'apps/company/create_position.html', {'form': form})
 
+@login_required
 def edit_department(request, pk):
     department = get_object_or_404(Department, pk=pk)
     if request.method == 'POST':
@@ -165,7 +173,7 @@ def edit_department(request, pk):
         form = DepartmentForm(instance=department)
     return render(request, 'apps/company/edit_department.html', {'form': form})
 
-
+@login_required
 def department_list(request):
     search_query = request.GET.get('search', '')
     departments = Department.objects.filter(
@@ -176,10 +184,12 @@ def department_list(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'apps/company/department_list.html', {'page_obj': page_obj})
 
+@login_required
 def department_detail(request, pk):
     department = get_object_or_404(Department, pk=pk)
     return render(request, 'apps/company/department_detail.html', {'department': department})
 
+@login_required
 def edit_position(request, pk):
     position = get_object_or_404(Position, pk=pk)
     if request.method == 'POST':
@@ -191,6 +201,7 @@ def edit_position(request, pk):
         form = PositionForm(instance=position)
     return render(request, 'apps/company/edit_position.html', {'form': form})
 
+@login_required
 def position_list(request):
     search_query = request.GET.get('search', '')
     positions = Position.objects.filter(
@@ -201,6 +212,7 @@ def position_list(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'apps/company/position_list.html', {'page_obj': page_obj})
 
+@login_required
 def position_detail(request, pk):
     position = get_object_or_404(Position, pk=pk)
     return render(request, 'apps/company/position_detail.html', {'position': position})
