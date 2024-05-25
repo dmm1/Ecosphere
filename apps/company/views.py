@@ -1,11 +1,21 @@
+# /apps/company/views.py
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import EmployeeForm, DepartmentForm, PositionForm
 from .models import Employee, Department, Position
 from django.db.models import Q
 from django.core.paginator import Paginator
 
-
 def index(request):
+    """
+    Renders the dashboard page with paginated lists of employees, departments, and positions.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A rendered HTML template with the paginated lists of employees, departments, and positions.
+    """
     employee_list = Employee.objects.all().order_by('id')
     department_list = Department.objects.all().order_by('id')
     position_list = Position.objects.all().order_by('id')
@@ -31,16 +41,47 @@ def index(request):
     return render(request, 'apps/company/dashboard.html', context)
 
 def create_employee(request):
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('employees:employee_list')
-    else:
-        form = EmployeeForm()
-    return render(request, 'apps/company/create_employee.html', {'form': form})
+        """
+        Create a new employee.
+
+        This function handles the creation of a new employee. It expects a POST request
+        with the employee data in the request body. If the form is valid, the employee
+        is saved and the user is redirected to the employee list page. If the request
+        method is not POST, a blank form is rendered.
+
+        Parameters:
+        - request: The HTTP request object.
+
+        Returns:
+        - If the request method is POST and the form is valid, the function redirects
+            the user to the employee list page.
+        - If the request method is not POST, the function renders the create employee
+            template with a blank form.
+
+        """
+        if request.method == 'POST':
+                form = EmployeeForm(request.POST)
+                if form.is_valid():
+                        form.save()
+                        return redirect('employees:employee_list')
+        else:
+                form = EmployeeForm()
+        return render(request, 'apps/company/create_employee.html', {'form': form})
 
 def edit_employee(request, pk):
+    """
+    Edit an existing employee.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        pk (int): The primary key of the employee to be edited.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+
+    Raises:
+        Http404: If the employee with the given primary key does not exist.
+    """
     employee = get_object_or_404(Employee, pk=pk)
     if request.method == 'POST':
         form = EmployeeForm(request.POST, instance=employee)
@@ -52,6 +93,21 @@ def edit_employee(request, pk):
     return render(request, 'apps/company/edit_employee.html', {'form': form})
 
 def employee_list(request):
+    """
+    View function to display a list of employees.
+
+    This function retrieves a search query from the request's GET parameters,
+    filters the employees based on the search query, and paginates the results.
+    The paginated results are then passed to the 'employee_list.html' template
+    for rendering.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        HttpResponse: The response object containing the rendered template.
+
+    """
     search_query = request.GET.get('search', '')
     employees = Employee.objects.filter(
         Q(user__first_name__icontains=search_query) |
@@ -60,11 +116,21 @@ def employee_list(request):
     ).order_by('id')
     paginator = Paginator(employees, 10)  # Show 10 employees per page
     page_number = request.GET.get('page')
-    page_obj_employee = paginator.get_page(page_number)  # Changed from page_obj to page_obj_employee
-    return render(request, 'apps/company/employee_list.html', {'page_obj_employee': page_obj_employee})  # Changed from page_obj to page_obj_employee
+    page_obj_employee = paginator.get_page(page_number)  
+    return render(request, 'apps/company/employee_list.html', {'page_obj_employee': page_obj_employee})
 
 
 def employee_detail(request, pk):
+    """
+    View function to display the details of an employee.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        pk (int): The primary key of the employee.
+
+    Returns:
+        HttpResponse: The HTTP response object containing the rendered employee detail template.
+    """
     employee = get_object_or_404(Employee, pk=pk)
     return render(request, 'apps/company/employee_detail.html', {'employee': employee})
 
