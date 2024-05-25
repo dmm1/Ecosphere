@@ -1,23 +1,37 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
-from .forms import ProfilePictureForm, UserProfileUpdateForm
+from.models import UserProfile
+from.forms import ProfilePictureForm, UserProfileUpdateForm
 from apps.company.models import Employee, Department, Position
-
+from django.http import JsonResponse
 
 def login_view(request):
-    error_message = None
+    error_message = ''  # Define error_message here or generate it dynamically based on some condition
+
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
-            login(request, user)
-            return redirect('crm:dashboard')
+            login(request, user)  # Log the user in
+            refresh = RefreshToken.for_user(user)
+            # Store the refresh token in a cookie
+            response = redirect('crm:dashboard')
+            response.set_cookie('refresh', str(refresh))
+            # Store the access token in a cookie
+            response.set_cookie('access', str(refresh.access_token))
+            return response
         else:
-            error_message = 'Invalid username or password'
+            error_message = 'Invalid Credentials'
+            return JsonResponse({'error': error_message}, status=401)
+
     return render(request, 'apps/accounts/login.html', {'error_message': error_message})
 
 @login_required
@@ -31,24 +45,11 @@ def profile_view(request):
         user_profile.save()
 
     if request.method == 'POST':
-        user_profile.bio = request.POST.get('bio')
-        user_profile.profile_picture = request.FILES.get('profile_picture')
-        user_profile.country = request.POST.get('country')
-        user_profile.language = request.POST.get('language')
-        user_profile.timezone = request.POST.get('timezone')
-        user_profile.user.first_name = request.POST.get('first_name')
-        user_profile.user.last_name = request.POST.get('last_name')
-        user_profile.user.email = request.POST.get('email')
-        user_profile.user.save()
-        print(f"POST phone_number: {request.POST.get('phone_number')}")
-        if user_profile.employee:
-            user_profile.employee.phone_number = request.POST.get('phone_number')
-            user_profile.employee.save()
-            print(f"Employee phone_number after save: {user_profile.employee.phone_number}")
-        user_profile.save()
-        return redirect('accounts:profile')
+        form = UserProfileUpdateForm(request.POST, request.FILES, instance=user_profile, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:profile')
 
-    print(f"Employee phone_number: {user_profile.employee.phone_number if user_profile.employee else 'No employee'}")
     context = {
         'user_profile': user_profile,
         'phone_number': user_profile.employee.phone_number if user_profile.employee else ''
@@ -66,17 +67,7 @@ def edit_profile(request):
     if request.method == 'POST':
         form = UserProfileUpdateForm(request.POST, request.FILES, instance=profile, user=user)
         if form.is_valid():
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
-            user.email = form.cleaned_data['email']
-            user.save()
-            profile.bio = form.cleaned_data['bio']
-            profile.employee.phone_number = form.cleaned_data['phone_number']
-            profile.country = form.cleaned_data['country']
-            profile.language = form.cleaned_data['language']
-            profile.timezone = form.cleaned_data['timezone']
-            profile.employee.save()  # Save the employee object
-            profile.save()
+            form.save()
             return redirect('accounts:profile')
     else:
         form = UserProfileUpdateForm(instance=profile, user=user)
@@ -87,7 +78,7 @@ def edit_profile(request):
     return render(request, 'apps/accounts/edit_profile.html', context)
 
 @login_required
-def upload_profile_picture(request):
+def handle_profile_picture(request):
     if request.method == 'POST':
         form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
@@ -96,12 +87,13 @@ def upload_profile_picture(request):
     return redirect('accounts:profile')
 
 @login_required
+def upload_profile_picture(request):
+    return handle_profile_picture(request)
+
+@login_required
 def change_profile_picture(request):
     if request.method == 'POST':
-        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            return redirect('accounts:profile')
+        return handle_profile_picture(request)
     else:
         form = ProfilePictureForm(instance=request.user.profile)
     return render(request, 'apps/accounts/change_profile_picture.html', {'form': form})

@@ -1,10 +1,13 @@
 from django.urls import path, include
 from . import views  
+from .views import Home, test_auth
 
 app_name = 'employees'
 
 urlpatterns = [
     path('', views.index, name='hr_index'),
+    path('api/', Home.as_view()),
+    path('test-auth/', test_auth, name='test-auth'),
     path('employee/', views.index, name='hr_index'),
     path('employee/create', views.create_employee, name='create_employee'),
     path('employee/list', views.employee_list, name='employee_list'),

@@ -6,7 +6,27 @@ from .forms import EmployeeForm, DepartmentForm, PositionForm
 from .models import Employee, Department, Position
 from django.db.models import Q
 from django.core.paginator import Paginator
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.http import JsonResponse
 
+def test_auth(request):
+    auth_header = request.META.get('HTTP_AUTHORIZATION')
+    if auth_header:
+        return JsonResponse({'message': 'Authorization header received'}, status=200)
+    else:
+        return JsonResponse({'message': 'Authorization header NOT received.'}, status=403)
+    
+class Home(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
+    
 @login_required
 def index(request):
     """
