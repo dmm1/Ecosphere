@@ -57,7 +57,7 @@ def employee_list(request):
         Q(user__first_name__icontains=search_query) |
         Q(user__last_name__icontains=search_query) |
         Q(user__email__icontains=search_query)
-    )
+    ).order_by('id')
     paginator = Paginator(employees, 10)  # Show 10 employees per page
     page_number = request.GET.get('page')
     page_obj_employee = paginator.get_page(page_number)  # Changed from page_obj to page_obj_employee
@@ -104,7 +104,7 @@ def department_list(request):
     search_query = request.GET.get('search', '')
     departments = Department.objects.filter(
         Q(name__icontains=search_query)
-    )
+    ).order_by('id')
     paginator = Paginator(departments, 10)  # Show 10 departments per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -129,7 +129,7 @@ def position_list(request):
     search_query = request.GET.get('search', '')
     positions = Position.objects.filter(
         Q(title__icontains=search_query)
-    )
+    ).order_by('id')  
     paginator = Paginator(positions, 10)  # Show 10 positions per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
