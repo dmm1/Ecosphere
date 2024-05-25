@@ -105,44 +105,51 @@ fetch('api/', {
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-                var tabs = document.querySelectorAll('.tab-link')
-                var tabPanes = document.querySelectorAll('.tab-pane')
+        var tabs = document.querySelectorAll('.tab-link');
+        var tabPanes = document.querySelectorAll('.tab-pane');
 
-                tabs.forEach(function(tab, tab_index){
-                                tab.addEventListener('click', function(){
-                                                tabs.forEach(function(tab){
-                                                                tab.classList.remove('active')
-                                                })
-
-                                                tab.classList.add('active')
-
-                                                tabPanes.forEach(function(content, content_index){
-                                                                if(content_index == tab_index){
-                                                                                content.classList.add('active')
-                                                                }else{
-                                                                                content.classList.remove('active')
-                                                                }
-                                                })
-
-                                                // Adjust the height of the .card element
-                                                adjustElementHeight();
-                                })
-                })
-
-                // New code to activate tab based on URL fragment identifier
-                var url = location.href.replace(/\/$/, "");
-                if (location.hash) {
-                                var hash = url.split("#");
-                                tabs.forEach(function(tab, tab_index){
-                                                if (tab.getAttribute('href') === '#' + hash[1]) {
-                                                                tab.click();
-                                                }
-                                });
-                } else {
-                                // If there's no fragment identifier in the URL, click the first tab
-                                tabs[0].click();
+        function adjustElementHeight() {
+                var activePane = document.querySelector('.tab-pane.active');
+                var card = document.querySelector('.card');
+                if (activePane && card) {
+                        card.style.height = getComputedStyle(activePane).height;
                 }
-})
+        }
 
+        tabs.forEach(function(tab, tab_index){
+                tab.addEventListener('click', function(){
+                        tabs.forEach(function(tab){
+                                tab.classList.remove('active');
+                        });
+
+                        tab.classList.add('active');
+
+                        tabPanes.forEach(function(content, content_index){
+                                if(content_index == tab_index){
+                                        content.classList.add('active');
+                                }else{
+                                        content.classList.remove('active');
+                                }
+                        });
+
+                        // Adjust the height of the .card element
+                        adjustElementHeight();
+                });
+        });
+
+        // New code to activate tab based on URL fragment identifier
+        var url = location.href.replace(/\/$/, "");
+        if (location.hash) {
+                var hash = url.split("#");
+                tabs.forEach(function(tab, tab_index){
+                        if (tab.getAttribute('href') === '#' + hash[1]) {
+                                tab.click();
+                        }
+                });
+        } else {
+                // If there's no fragment identifier in the URL, click the first tab
+                tabs[0].click();
+        }
+});
 </script>
 {% endblock %}
