@@ -177,7 +177,7 @@ ecosphere/migrations/0004_alter_customer_id.py
 /profile_pictures/343625.png
 /media/user_images/343625_hKrEMvB.png
 /apps/accounts/migrations/0001_initial.py
-/apps/accounts/migrations/000002_remove_userprofile_phone_number_userprofile_employee.py
+/apps/accounts/migrations/0002_remove_userprofile_phone_number_userprofile_employee.py
 /crm/migrations/0001_initial.py
 /crm/migrations/0002_alter_customer_primary_role_and_more.py
 /crm/migrations/0003_alter_customer_secondary_role.py

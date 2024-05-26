@@ -3,9 +3,10 @@ djangorestframework==3.15.1
 djangorestframework-simplejwt==5.3.1
 django-phonenumber-field[phonenumbers]
 django-select2==8.1.2
+django-widget-tweaks==1.5.0
 mysqlclient==2.2.0
 pillow==10.3.0
 pytz==2024.1
 faker
-django-widget-tweaks==1.5.0
+
 
