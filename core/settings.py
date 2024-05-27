@@ -15,7 +15,11 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)
+
+SECURE_PROXY_SSL_HEADER = tuple(config('SECURE_PROXY_SSL_HEADER', cast=Csv()))
 
 CACHE_MIDDLEWARE_SECONDS = 0
 
