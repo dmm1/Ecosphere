@@ -187,3 +187,8 @@ media/user_images/343625_o0LqdiA.png
 apps/accounts/migrations/0002_userprofile_country.py
 apps/accounts/migrations/0003_remove_userprofile_country.py
 .idx/dev.nix
+apps/business_partner/migrations/0001_initial.py
+apps/business_partner/migrations/0002_initial.py
+apps/company/migrations/0001_initial.py
+apps/tasks/migrations/0001_initial.py
+apps/contact/migrations/0001_initial.py

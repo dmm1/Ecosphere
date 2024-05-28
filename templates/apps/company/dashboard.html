@@ -65,8 +65,7 @@
                                         </div>
                                 </div>
                         </div> 
-                        <button id="testAuthButton" hx-get="test-auth/" hx-trigger="click" hx-indicator="#indicator">Test Auth</button>
-                        <div id="indicator" style="display:none;">Testing...</div>
+                        <button id="testAuthButton" hx-get="test-auth/" hx-trigger="click" hx-target="#apiResponse" hx-indicator="#indicator" hx-headers='{"Authorization": "Bearer ' + accessToken + '"}'>Test Auth</button>
                         <div id="apiResponse">
                                 <!-- The API response will be loaded here -->
                         </div>
@@ -75,6 +74,26 @@
 {% block extra_js %}
 <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 <script>
+        document.getElementById('testAuthButton').addEventListener('click', function() {
+    fetch('test-auth/', {
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('apiResponse').textContent = JSON.stringify(data);
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+});
+
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`;`);
