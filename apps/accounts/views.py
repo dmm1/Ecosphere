@@ -68,6 +68,10 @@ def edit_profile(request):
         form = UserProfileUpdateForm(request.POST, request.FILES, instance=profile, user=user)
         if form.is_valid():
             form.save()
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.email = form.cleaned_data['email']
+            user.save()
             return redirect('accounts:profile')
     else:
         form = UserProfileUpdateForm(instance=profile, user=user)

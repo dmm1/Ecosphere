@@ -57,7 +57,7 @@ class UserProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('bio', 'phone_number', 'country', 'language', 'timezone')  # removed 'profile_picture'
+        fields = ('first_name', 'last_name', 'email', 'bio', 'phone_number', 'country', 'language', 'timezone')  # added 'first_name', 'last_name', 'email'
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
