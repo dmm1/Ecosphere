@@ -3,6 +3,7 @@
 <!-- * This code is part of the Ecosphere project, available at https://github.com/dmm1/ecosphere-->
 <!-- * path: /templates/base.html-->
 <!-- */-->
+{% load static %}
 {% load i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -10,8 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Ecosphere{% endblock %}</title>  
-    {% load static %}
-    
+ 
     <link href="{% static 'css/ui/tabler.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/ui/tabler-flags.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/ui/tabler-vendors.css' %}" rel="stylesheet"/>

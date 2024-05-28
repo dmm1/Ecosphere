@@ -12,7 +12,6 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
@@ -31,11 +30,7 @@ urlpatterns += i18n_patterns(
     path('', include(('apps.contact.urls', 'contact'), namespace='contact')),
     path('search/', include(('apps.search.urls', 'search'), namespace='search')),
     path('company/', include(('apps.company.urls', 'company'), namespace='company')),
-
-    
-
 )
 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
