@@ -1,13 +1,16 @@
 import os
+from importlib import reload
 from pathlib import Path
 from datetime import timedelta
 
 from dotenv import load_dotenv
 # Load environment variables from .env file
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -16,7 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
@@ -24,7 +28,15 @@ SECURE_SSL_REDIRECT = bool(os.getenv('SECURE_SSL_REDIRECT', 'False') == 'True')
 
 SECURE_PROXY_SSL_HEADER = tuple(os.getenv('SECURE_PROXY_SSL_HEADER', '').split(','))
 
+reload(os)
+
 CACHE_MIDDLEWARE_SECONDS = 0
+
+print("DEBUG:", DEBUG)
+print("SECRET_KEY:", SECRET_KEY)
+print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
+print("SECURE_SSL_REDIRECT:", SECURE_SSL_REDIRECT)
+print("SECURE_PROXY_SSL_HEADER:", SECURE_PROXY_SSL_HEADER)
 
 # Application definition
 
@@ -88,8 +100,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db'),
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.getenv('DB_NAME', os.path.join(BASE_DIR, 'db')),
     }
 }
 
