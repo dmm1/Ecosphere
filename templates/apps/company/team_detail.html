@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ team.name }}</h3>
+        </div>
+        <div class="card-body">
+            <h4>Description</h4>
+            <p>{{ team.title }}</p>
+            <h4>Members</h4>
+            <ul>
+                {% for member in team.members.all %}
+                    <li>{{ member }}</li>
+                {% endfor %}
+            </ul>
+            <h4>Department</h4>
+            <p>{{ team.department }}</p>
+        </div>
+    </div>
+{% endblock %}

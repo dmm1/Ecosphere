@@ -2,8 +2,8 @@
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmployeeForm, DepartmentForm, PositionForm
-from .models import Employee, Department, Position
+from .forms import EmployeeForm, DepartmentForm, PositionForm, TeamForm
+from .models import Employee, Department, Position, Team
 from django.db.models import Q
 from django.core.paginator import Paginator
 from rest_framework.views import APIView
@@ -32,38 +32,43 @@ class Home(APIView):
 @login_required
 def index(request):
     """
-    Renders the dashboard page with paginated lists of employees, departments, and positions.
+    Renders the dashboard page with paginated lists of employees, departments, positions, and teams.
 
     Args:
         request: The HTTP request object.
 
     Returns:
-        A rendered HTML template with the paginated lists of employees, departments, and positions.
+        A rendered HTML template with the paginated lists of employees, departments, positions, and teams.
     """
     employee_list = Employee.objects.all().order_by('id')
     department_list = Department.objects.all().order_by('id')
     position_list = Position.objects.all().order_by('id')
+    team_list = Team.objects.all().order_by('id')  # Add this line
 
-    paginator = Paginator(employee_list, 10) # Show 10 employees per page
+    paginator = Paginator(employee_list, 10)  # Show 10 employees per page
     page_number = request.GET.get('employee_page')
     page_obj_employee = paginator.get_page(page_number)
 
-    paginator = Paginator(department_list, 10) # Show 10 departments per page
+    paginator = Paginator(department_list, 10)  # Show 10 departments per page
     page_number = request.GET.get('department_page')
     page_obj_department = paginator.get_page(page_number)
 
-    paginator = Paginator(position_list, 10) # Show 10 positions per page
+    paginator = Paginator(position_list, 10)  # Show 10 positions per page
     page_number = request.GET.get('position_page')
     page_obj_position = paginator.get_page(page_number)
+
+    paginator = Paginator(team_list, 10)  # Show 10 teams per page
+    page_number = request.GET.get('team_page')  # Add this line
+    page_obj_team = paginator.get_page(page_number)  # Add this line
 
     context = {
         'page_obj_employee': page_obj_employee,
         'page_obj_department': page_obj_department,
         'page_obj_position': page_obj_position,
+        'page_obj_team': page_obj_team,  # Add this line
     }
 
     return render(request, 'apps/company/dashboard.html', context)
-
 @login_required
 def create_employee(request):
         """
@@ -255,3 +260,42 @@ def position_list(request):
 def position_detail(request, pk):
     position = get_object_or_404(Position, pk=pk)
     return render(request, 'apps/company/position_detail.html', {'position': position})
+
+@login_required
+def create_team(request):
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('employees:team_list')
+    else:
+        form = TeamForm()
+    return render(request, 'apps/company/create_team.html', {'form': form})
+
+@login_required
+def edit_team(request, pk):
+    team = get_object_or_404(Team, pk=pk)
+    if request.method == 'POST':
+        form = TeamForm(request.POST, instance=team)
+        if form.is_valid():
+            form.save()
+            return redirect('employees:team_detail', pk=team.pk)  
+    else:
+        form = TeamForm(instance=team)
+    return render(request, 'apps/company/edit_team.html', {'form': form})
+
+@login_required
+def team_list(request):
+    search_query = request.GET.get('search', '')
+    teams = Team.objects.filter(
+        Q(title__icontains=search_query)
+    ).order_by('id') 
+    paginator = Paginator(teams, 10)  # Show 10 teams per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'apps/company/team_list.html', {'page_obj': page_obj})
+
+@login_required
+def team_detail(request, pk):
+    team = get_object_or_404(Team, pk=pk)
+    return render(request, 'apps/company/team_detail.html', {'team': team})

@@ -1,10 +1,12 @@
 {% load i18n %}
 {% block content %}
 <div class="d-flex justify-content-between align-items-center">
-    <form method="GET" action="{% url 'employees:position_list' %}" class="input-icon my-3 my-lg-0">
-        <input type="text" class="form-control" name="search" placeholder="{% trans 'Search position' %}">
-        <div class="input-icon-addon">
-            <button type="submit" class="btn btn-primary">{% trans 'Search' %}</button>
+    <form method="GET" action="{% url 'employees:position_list' %}" class="my-3 my-lg-0">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="{% trans 'Search position' %}">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">{% trans 'Search' %}</button>
+            </div>
         </div>
     </form>
     <a href="{% url 'employees:create_position' %}" class="btn btn-success">
@@ -39,17 +41,17 @@
     <ul class="pagination">
         {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?position_page={{ page_obj_position.previous_page_number }}#positions">{% trans "Previous" %}</a>
+                <a class="page-link" href="?team_page={{ page_obj.previous_page_number }}#position">{% trans "Previous" %}</a>
             </li>
         {% endif %}
         {% for i in page_obj.paginator.page_range %}
-            <li class="page-item {% if page_obj_position.number == i %}active{% endif %}">
-                <a class="page-link" href="?position_page={{ i }}#positions">{{ i }}</a>
+            <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                <a class="page-link" href="?team_page={{ i }}#position">{{ i }}</a>
             </li>
         {% endfor %}
         {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?position_page={{ page_obj_position.next_page_number }}#positions">{% trans "Next" %}</a>
+                <a class="page-link" href="?team_page={{ page_obj.next_page_number }}#position">{% trans "Next" %}</a>
             </li>
         {% endif %}
     </ul>

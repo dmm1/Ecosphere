@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 import re
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
-from .models import Employee, Department, Position
+from .models import Employee, Department, Position, Team
 
 class UserForm(UserChangeForm):
     class Meta:
@@ -51,4 +51,9 @@ class DepartmentForm(forms.ModelForm):
 class PositionForm(forms.ModelForm):
     class Meta:
         model = Position
-        fields = ['title', 'description']            
+        fields = ['title', 'description']           
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ['title', 'description', 'members', 'department']       

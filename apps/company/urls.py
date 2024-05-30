@@ -24,4 +24,9 @@ urlpatterns = [
     path('position/list', views.position_list, name='position_list'),
     path('position/<int:pk>/edit/', views.edit_position, name='edit_position'),
     path('position/<int:pk>/', views.position_detail, name='position_detail'),
+    path('team/', views.team_list, name='team_list'),
+    path('team/create', views.create_team, name='create_team'),
+    path('team/list', views.team_list, name='team_list'),
+    path('team/<int:pk>/edit/', views.edit_team, name='edit_team'),
+    path('team/<int:pk>/', views.team_detail, name='team_detail'),
 ]
