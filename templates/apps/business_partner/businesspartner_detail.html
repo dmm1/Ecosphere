@@ -49,6 +49,21 @@
                     </tbody>
                 </table>
             </div>
+            {% if contacts.has_other_pages %}
+            <div class="pagination" style="background-color: yellow; padding: 10px;">
+                {% if contacts.has_previous %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ contacts.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span class="current-page">Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}</span>
+
+                {% if contacts.has_next %}
+                <a href="?page={{ contacts.next_page_number }}">Next</a>
+                <a href="?page={{ contacts.paginator.num_pages }}">Last</a>
+                {% endif %}
+            </div>
+            {% endif %}
             {% else %}
             <p>No associated contacts found.</p>
             {% endif %}

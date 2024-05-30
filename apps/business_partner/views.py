@@ -9,10 +9,10 @@ from django.urls import reverse
 
 @login_required
 def businesspartner_list(request):
-    show_all = str(request.session.get('show_all', False)).lower()
+    show_all = request.session.get('show_all', 'false') == 'true'
     if 'show_all' in request.GET:
-        show_all = str(request.GET.get('show_all', 'false')).lower() == 'true'
-        request.session['show_all'] = show_all
+        show_all = request.GET.get('show_all', 'false') == 'true'
+        request.session['show_all'] = 'true' if show_all else 'false'
 
     if show_all:
         businesspartner = BusinessPartner.objects.all().order_by('name')  # Order by name
@@ -28,8 +28,13 @@ def businesspartner_list(request):
 @login_required
 def businesspartner_detail(request, pk):
     businesspartner = get_object_or_404(BusinessPartner, pk=pk)
-    return render(request, 'apps/business_partner/businesspartner_detail.html', {'businesspartner': businesspartner})
+    contacts_list = Contact.objects.filter(business_partner=businesspartner)
+    
+    paginator = Paginator(contacts_list, 10)  # Show 10 contacts per page
+    page_number = request.GET.get('page')
+    contacts = paginator.get_page(page_number)
 
+    return render(request, 'apps/business_partner/businesspartner_detail.html', {'businesspartner': businesspartner, 'contacts': contacts})
 @login_required
 def businesspartner_create(request):
     if request.method == 'POST':
@@ -70,6 +75,7 @@ def businesspartner_update(request, pk):
     else:
         form = BusinessPartnerForm(instance=businesspartner)
     return render(request, 'apps/business_partner/businesspartner_form.html', {'form': form, 'businesspartner': businesspartner})
+
 @login_required
 def businesspartner_delete(request, pk):
     businesspartner = get_object_or_404(BusinessPartner, pk=pk)
