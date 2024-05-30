@@ -11,6 +11,12 @@
                 <div class="card-body">
                     <p><strong>{% trans "Username:" %}</strong> {{ user.username }}</p>
                     <p><strong>{% trans "Groups:" %}</strong> {% for group in user.groups.all %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                    {% if user.profile.employee %}
+                    <p><strong>{% trans "Company:" %}</strong> {{ user.profile.employee.company.name }}</p>
+                    <p><strong>{% trans "Department:" %}</strong> {{ user.profile.employee.department.name }}</p>
+                    <p><strong>{% trans "Position:" %}</strong> {{ user.profile.employee.position.title }}</p>
+                    <p><strong>{% trans "Team:" %}</strong> {{ user.profile.employee.team.name }}</p>
+                    {% endif %}
                     <p><strong>{% trans "First Name:" %}</strong> {{ user.first_name }}</p>
                     <p><strong>{% trans "Last Name:" %}</strong> {{ user.last_name }}</p>
                     <p><strong>{% trans "Email:" %}</strong> {{ user.email }}</p>

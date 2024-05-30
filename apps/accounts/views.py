@@ -8,7 +8,7 @@ from rest_framework import status
 from django.contrib.auth.decorators import login_required
 from.models import UserProfile
 from.forms import ProfilePictureForm, UserProfileUpdateForm
-from apps.company.models import Employee, Department, Position
+from apps.company.models import Employee, Department, Position, Company, Team 
 from django.http import JsonResponse
 
 def login_view(request):
@@ -38,9 +38,11 @@ def login_view(request):
 def profile_view(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
     if created or not user_profile.employee:
-        default_department, _ = Department.objects.get_or_create(name='Default')
-        default_position, _ = Position.objects.get_or_create(title='Default')
-        employee, _ = Employee.objects.get_or_create(user=request.user, defaults={'department': default_department, 'position': default_position})
+        default_company, _ = Company.objects.get_or_create(name='Default')  # Create a Company object first
+        default_department, _ = Department.objects.get_or_create(name='Default', company=default_company)  # Provide the Company object when creating a Department object
+        default_position, _ = Position.objects.get_or_create(title='Default', company=default_company)  # Provide the Company object when creating a Position object
+        default_team, _ = Team.objects.get_or_create(title='Default', department=default_department, company=default_company)  # Provide the Department and Company objects when creating a Team object
+        employee, _ = Employee.objects.get_or_create(user=request.user, defaults={'department': default_department, 'position': default_position, 'company': default_company, 'team': default_team})
         user_profile.employee = employee
         user_profile.save()
 
@@ -61,7 +63,11 @@ def edit_profile(request):
     user = request.user
     profile = UserProfile.objects.get(user=user)
     if not profile.employee:
-        profile.employee, _ = Employee.objects.get_or_create(user=user, defaults={'department_id': user.department_id})  # Set the department_id
+        default_company, _ = Company.objects.get_or_create(name='Default')
+        default_department, _ = Department.objects.get_or_create(name='Default', company=default_company)
+        default_position, _ = Position.objects.get_or_create(title='Default', company=default_company)
+        default_team, _ = Team.objects.get_or_create(name='Default', department=default_department, company=default_company)
+        profile.employee, _ = Employee.objects.get_or_create(user=user, defaults={'department': default_department, 'position': default_position, 'company': default_company, 'team': default_team})
         profile.save()
 
     if request.method == 'POST':

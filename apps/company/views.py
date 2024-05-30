@@ -299,3 +299,4 @@ def team_list(request):
 def team_detail(request, pk):
     team = get_object_or_404(Team, pk=pk)
     return render(request, 'apps/company/team_detail.html', {'team': team})
+
