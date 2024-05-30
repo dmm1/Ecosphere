@@ -11,6 +11,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.views.decorators.http import require_GET
 
 def test_auth(request):
     auth_header = request.META.get('HTTP_AUTHORIZATION')
@@ -160,6 +162,22 @@ def employee_detail(request, pk):
     return render(request, 'apps/company/employee_detail.html', {'employee': employee})
 
 @login_required
+@require_GET
+def get_user_details(request):
+    user_id = request.GET.get('user')
+    if user_id is not None:
+        try:
+            user = User.objects.get(pk=user_id)
+            return JsonResponse({
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+            })
+        except User.DoesNotExist:
+            pass
+    return JsonResponse({}, status=404)
+
+@login_required
 def create_department(request):
     if request.method == 'POST':
         form = DepartmentForm(request.POST)
@@ -169,6 +187,7 @@ def create_department(request):
     else:
         form = DepartmentForm()
     return render(request, 'apps/company/create_department.html', {'form': form})
+
 
 @login_required
 def create_position(request):

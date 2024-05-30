@@ -1,6 +1,6 @@
-from django.urls import path, include
+from django.urls import include, path
 from . import views  
-from .views import Home, test_auth
+from .views import Home, test_auth, get_user_details
 
 app_name = 'employees'
 
@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.index, name='hr_index'),
     path('api/', Home.as_view()),
     path('test-auth/', test_auth, name='test-auth'),
+    path('employee/get_user_details/', get_user_details, name='get_user_details'),
     path('employee/', views.index, name='hr_index'),
     path('employee/create', views.create_employee, name='create_employee'),
     path('employee/list', views.employee_list, name='employee_list'),

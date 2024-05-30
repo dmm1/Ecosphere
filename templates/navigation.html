@@ -88,13 +88,10 @@
             </svg></a>
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
             {% if request.user.is_staff %}
-            <a class="dropdown-item" href="{% url 'admin:index' %}" aria-label="{% trans 'Admin Admin' %}"
-              title="{% trans 'Admin Admin' %}">{% trans 'Admin Admin Area' %}</a>
+            <a class="dropdown-item" href="{% url 'admin:index' %}" aria-label="{% trans 'Admin' %}"
+              title="{% trans 'Admin' %}">{% trans 'Admin' %}</a>
             {% endif %}
-            {% if request.user.is_staff or perms.organization.change_group or perms.organization.change_team %}
-            <a class="dropdown-item" href="#" aria-label="{% trans 'Country Admin Area' %}"
-              title="{% trans 'Country Admin Area' %}">{% trans 'Country Admin Area' %}</a>
-            {% endif %}
+        
             <a href="#" class="dropdown-item">{% trans "Status" %}</a>
             <a href="{% url 'accounts:profile' %}" class="dropdown-item">{% trans "Profile Settings" %}</a>
             <div class="dropdown-divider"></div>
@@ -231,7 +228,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'admin:index' %}">
               <span class="nav-link-title">
-                {% trans "Admin Settings" %}
+                {% trans "Admin" %}
               </span>
             </a>
           </li>
@@ -241,7 +238,7 @@
             <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown"
               data-bs-auto-close="outside" role="button" aria-expanded="false">
               <span class="nav-link-title">
-                {% trans "Company Management" %}
+                {% trans "Company" %}
               </span>
             </a>
             <div class="dropdown-menu">

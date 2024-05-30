@@ -2,10 +2,37 @@
 {% block content %}
 <div class="container">
     <h1>Add Employee</h1>
+  
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save</button>
+        <p>Email: <span id="email"></span></p>
+        <p>First name: <span id="first_name"></span></p>
+        <p>Last name: <span id="last_name"></span></p>
+        <button type="submit">Save</button>
     </form>
+    
 </div>
 {% endblock %}
+{% block extra_js %}
+    <script>
+    $(document).ready(function() {
+        $('#id_user').change(function() {
+            var selectedUser = $(this).val();
+            if (selectedUser) {
+                $.ajax({
+                    url: 'get_user_details/',  // Update with the URL of your view that returns user details
+                    data: {
+                        'user': selectedUser
+                    },
+                    success: function(data) {
+                        $('#email').text(data.email);
+                        $('#first_name').text(data.first_name);
+                        $('#last_name').text(data.last_name);
+                    }
+                });
+            }
+        });
+    });
+    </script>
+    {% endblock %}
