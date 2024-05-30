@@ -197,3 +197,5 @@ media/user_images/343625_Td22Mm3.png
 apps/company/migrations/0002_company_department_company_employee_company_and_more.py
 apps/company/migrations/0003_alter_department_company_alter_employee_company_and_more.py
 apps/company/migrations/0004_alter_company_country.py
+apps/company/migrations/0005_employee_team_alter_team_members.py
+apps/company/migrations/0006_alter_employee_team.py

@@ -41,7 +41,7 @@ def profile_view(request):
         default_company, _ = Company.objects.get_or_create(name='Default')  # Create a Company object first
         default_department, _ = Department.objects.get_or_create(name='Default', company=default_company)  # Provide the Company object when creating a Department object
         default_position, _ = Position.objects.get_or_create(title='Default', company=default_company)  # Provide the Company object when creating a Position object
-        default_team, _ = Team.objects.get_or_create(title='Default', department=default_department, company=default_company)  # Provide the Department and Company objects when creating a Team object
+        default_team, _ = Team.objects.get_or_create(title='Default', company=default_company)
         employee, _ = Employee.objects.get_or_create(user=request.user, defaults={'department': default_department, 'position': default_position, 'company': default_company, 'team': default_team})
         user_profile.employee = employee
         user_profile.save()
@@ -66,7 +66,7 @@ def edit_profile(request):
         default_company, _ = Company.objects.get_or_create(name='Default')
         default_department, _ = Department.objects.get_or_create(name='Default', company=default_company)
         default_position, _ = Position.objects.get_or_create(title='Default', company=default_company)
-        default_team, _ = Team.objects.get_or_create(name='Default', department=default_department, company=default_company)
+        default_team, _ = Team.objects.get_or_create(title='Default', company=default_company)
         profile.employee, _ = Employee.objects.get_or_create(user=user, defaults={'department': default_department, 'position': default_position, 'company': default_company, 'team': default_team})
         profile.save()
 
