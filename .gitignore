@@ -199,3 +199,4 @@ apps/company/migrations/0003_alter_department_company_alter_employee_company_and
 apps/company/migrations/0004_alter_company_country.py
 apps/company/migrations/0005_employee_team_alter_team_members.py
 apps/company/migrations/0006_alter_employee_team.py
+crm/migrations/0002_lead_source.py

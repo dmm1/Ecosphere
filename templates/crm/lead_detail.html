@@ -10,6 +10,7 @@
                     <p class="card-text"><strong>Email:</strong> {{ lead.email }}</p>
                     <p class="card-text"><strong>Phone:</strong> {{ lead.phone }}</p>
                     <p class="card-text"><strong>Status:</strong> {{ lead.get_status_display }}</p>
+                    <p class="card-text"><strong>Source:</strong> {{ lead.get_source_display }}</p>  <!-- Add this line -->
                     <p class="card-text"><strong>Notes:</strong> {{ lead.notes }}</p>
                     <p class="card-text"><strong>Created:</strong> {{ lead.created_at }}</p>
                     <p class="card-text"><strong>Updated:</strong> {{ lead.updated_at }}</p>

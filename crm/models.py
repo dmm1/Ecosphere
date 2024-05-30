@@ -33,6 +33,13 @@ LEAD_STATUS_CHOICES = [
     ('Lost', 'Lost'),
 ]
 
+LEAD_SOURCE_CHOICES = [
+    ('Web', 'Web'),
+    ('Phone', 'Phone'),
+    ('Email', 'Email'),
+    ('Other', 'Other'),
+]
+
 class Lead(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -40,6 +47,7 @@ class Lead(models.Model):
     business_partner = models.ForeignKey('business_partner.BusinessPartner', on_delete=models.CASCADE, related_name='leads', blank=True, null=True)
     contact = models.ForeignKey('contact.Contact', on_delete=models.CASCADE, related_name='leads', blank=True, null=True)
     status = models.CharField(max_length=50, choices=LEAD_STATUS_CHOICES, default='New')
+    source = models.CharField(max_length=50, choices=LEAD_SOURCE_CHOICES, default='Web')  # Add this line
     notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

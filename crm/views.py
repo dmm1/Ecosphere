@@ -149,6 +149,7 @@ def lead_update(request, pk):
     else:
         form = LeadForm(instance=lead)
     return render(request, 'crm/lead_update.html', {'form': form, 'lead': lead})
+
 @login_required
 def lead_delete(request, pk):
     lead = get_object_or_404(Lead, pk=pk, user=request.user)

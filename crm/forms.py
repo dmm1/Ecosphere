@@ -12,4 +12,4 @@ class OpportunityForm(forms.ModelForm):
 class LeadForm(forms.ModelForm):
     class Meta:
         model = Lead
-        fields = ['name', 'email', 'phone', 'business_partner', 'contact', 'status', 'notes']
+        fields = ['name', 'email', 'phone', 'business_partner', 'contact', 'status', 'notes', 'source']
