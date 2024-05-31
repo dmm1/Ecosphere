@@ -12,11 +12,11 @@ class Opportunity(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     probability = models.IntegerField(default=50)
     status = models.CharField(max_length=50, choices=[
-        ('open', 'Open'),
-        ('won', 'Won'),
-        ('lost', 'Lost'),
-        ('finished', 'Finished'),
-        ('in_progress', 'In Progress'),
+        ('open', _('Open')),
+        ('won', _('Won')),
+        ('lost', _('Lost')),
+        ('finished', _('Finished')),
+        ('in_progress', _('In Progress')),
     ])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -25,19 +25,19 @@ class Opportunity(models.Model):
         return self.name
 
 LEAD_STATUS_CHOICES = [
-    ('New', 'New'),
-    ('Open', 'Open'),
-    ('Contacted', 'Contacted'),
-    ('Qualified', 'Qualified'),
-    ('Won', 'Won'),
-    ('Lost', 'Lost'),
+    ('New', _('New')),
+    ('Open', _('Open')),
+    ('Contacted', _('Contacted')),
+    ('Qualified', _('Qualified')),
+    ('Won', _('Won')),
+    ('Lost', _('Lost')),
 ]
 
 LEAD_SOURCE_CHOICES = [
-    ('Web', 'Web'),
-    ('Phone', 'Phone'),
-    ('Email', 'Email'),
-    ('Other', 'Other'),
+    ('Web', _('Web')),
+    ('Phone', _('Phone')),
+    ('Email', _('Email')),
+    ('Other', _('Other')),
 ]
 
 class Lead(models.Model):
@@ -47,7 +47,7 @@ class Lead(models.Model):
     business_partner = models.ForeignKey('business_partner.BusinessPartner', on_delete=models.CASCADE, related_name='leads', blank=True, null=True)
     contact = models.ForeignKey('contact.Contact', on_delete=models.CASCADE, related_name='leads', blank=True, null=True)
     status = models.CharField(max_length=50, choices=LEAD_STATUS_CHOICES, default='New')
-    source = models.CharField(max_length=50, choices=LEAD_SOURCE_CHOICES, default='Web')  # Add this line
+    source = models.CharField(max_length=50, choices=LEAD_SOURCE_CHOICES, default='Web')  
     notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

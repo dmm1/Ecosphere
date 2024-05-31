@@ -6,31 +6,32 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import pytz
 from apps.company.models import Employee, Company
+from django.utils.translation import gettext_lazy as _
 
 class UserProfile(models.Model):
     COUNTRIES_CHOICES = (
-        ('US', 'United States'),
-        ('AT', 'Austria'),
-        ('DE', 'Germany'),
-        ('FR', 'France'),
-        ('ES', 'Spain'),
-        ('IT', 'Italy'),
-        ('JP', 'Japan'),
-        ('CN', 'China'),
-        ('IN', 'India'),
-        ('BR', 'Brazil'),
+        ('US', _('United States')),
+        ('AT', _('Austria')),
+        ('DE', _('Germany')),
+        ('FR', _('France')),
+        ('ES', _('Spain')),
+        ('IT', _('Italy')),
+        ('JP', _('Japan')),
+        ('CN', _('China')),
+        ('IN', _('India')),
+        ('BR', _('Brazil')),
     )
-
+    
     LANGUAGES_CHOICES = (
-        ('en', 'English'),
-        ('de', 'German'),
-        ('fr', 'French'),
-        ('es', 'Spanish'),
-        ('it', 'Italian'),
-        ('jp', 'Japanese'),
-        ('cn', 'Chinese'),
-        ('hi', 'Hindi'),
-        ('pt', 'Portuguese'),
+        ('en', _('English')),
+        ('de', _('German')),
+        ('fr', _('French')),
+        ('es', _('Spanish')),
+        ('it', _('Italian')),
+        ('jp', _('Japanese')),
+        ('cn', _('Chinese')),
+        ('hi', _('Hindi')),
+        ('pt', _('Portuguese')),
     )
 
     TIMEZONES_CHOICES = tuple(zip(pytz.all_timezones, pytz.all_timezones))

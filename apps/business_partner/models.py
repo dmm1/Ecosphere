@@ -1,31 +1,32 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 class BusinessPartner(models.Model):
     INDUSTRY_CHOICES = [
-        ('Manufacturing', 'Manufacturing'),
-        ('Retail', 'Retail'),
-        ('Healthcare', 'Healthcare'),
-        ('Technology', 'Technology'),
-        ('Finance', 'Finance'),
-        ('Education', 'Education'),
-        ('Construction', 'Construction'),
-        ('Transportation', 'Transportation'),
-        ('Agriculture', 'Agriculture'),
-        ('Energy', 'Energy'),
+        ('Manufacturing', _('Manufacturing')),
+        ('Retail', _('Retail')),
+        ('Healthcare', _('Healthcare')),
+        ('Technology', _('Technology')),
+        ('Finance', _('Finance')),
+        ('Education', _('Education')),
+        ('Construction', _('Construction')),
+        ('Transportation', _('Transportation')),
+        ('Agriculture', _('Agriculture')),
+        ('Energy', _('Energy')),
     ]
-
+    
     PRIMARY_ROLE_CHOICES = [
-        ('customer', 'Customer'),
-        ('merchant', 'Merchant'),
-        ('partner', 'Partner'),
+        ('customer', _('Customer')),
+        ('merchant', _('Merchant')),
+        ('partner', _('Partner')),
     ]
-
+    
     SECONDARY_ROLE_CHOICES = [
-        ('customer', 'Customer'),
-        ('merchant', 'Merchant'),
-        ('partner', 'Partner'),
-        ('-', '-'),
+        ('customer', _('Customer')),
+        ('merchant', _('Merchant')),
+        ('partner', _('Partner')),
+        ('-', _('-')),
     ]
 
     name = models.CharField(max_length=100, default='')

@@ -5,26 +5,26 @@ from django.utils.translation import gettext_lazy as _
 
 class Contact(models.Model):
     TITLE_CHOICES = [
-        ('Manager', 'Manager'),
-        ('Director', 'Director'),
-        ('Executive', 'Executive'),
-        ('Other', 'Other'),
+        ('Manager', _('Manager')),
+        ('Director', _('Director')),
+        ('Executive', _('Executive')),
+        ('Other', _('Other')),
     ]
 
     DEPARTMENT_CHOICES = [
-        ('Sales', 'Sales'),
-        ('Marketing', 'Marketing'),
-        ('IT', 'IT'),
-        ('Finance', 'Finance'),
-        ('HR', 'HR'),
-        ('Other', 'Other'),
+        ('Sales', _('Sales')),
+        ('Marketing', _('Marketing')),
+        ('IT', _('IT')),
+        ('Finance', _('Finance')),
+        ('HR', _('HR')),
+        ('Other', _('Other')),
     ]
 
     PREFERRED_COMMUNICATION_CHOICES = [
-        ('Email', 'Email'),
-        ('Phone', 'Phone'),
-        ('Text', 'Text'),
-        ('In-Person', 'In-Person'),
+        ('Email', _('Email')),
+        ('Phone', _('Phone')),
+        ('Text', _('Text')),
+        ('In-Person', _('In-Person')),
     ]
 
     first_name = models.CharField(max_length=50, default='')

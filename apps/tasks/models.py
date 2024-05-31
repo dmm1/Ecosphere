@@ -2,12 +2,14 @@
 from django.db import models
 from datetime import date
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
+
 class Task(models.Model):
     TASK_STATUS_CHOICES = [
-        ('todo', 'To Do'),
-        ('in_progress', 'In Progress'),
-        ('completed', 'Completed'),
-        ('cancelled', 'Cancelled'),
+        ('todo', _('To Do')),
+        ('in_progress', _('In Progress')),
+        ('completed', _('Completed')),
+        ('cancelled', _('Cancelled')),
     ]
     title = models.CharField(max_length=100, default='New Task')
     description = models.TextField()
