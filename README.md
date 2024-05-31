@@ -36,8 +36,8 @@ Please see the /docs for more information and getting started on the project.
 - **Tasks and Activities**: Basic Implementation, related to Users and Opportunities
  
 - **Search**: Search for most Models, including Users, Opportunities, Leads, Contacts, and Activities.
-- 
-- - **Sample Data Import**: Import for the apps via seeds view docs/
+
+- **Sample Data Import**: Import for the apps via seeds view docs/
 
 ## Screenshots**
 
