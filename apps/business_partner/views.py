@@ -28,13 +28,12 @@ def businesspartner_list(request):
 @login_required
 def businesspartner_detail(request, pk):
     businesspartner = get_object_or_404(BusinessPartner, pk=pk)
-    contacts_list = Contact.objects.filter(business_partner=businesspartner)
-    
-    paginator = Paginator(contacts_list, 10)  # Show 10 contacts per page
+    contacts_list = Contact.objects.filter(business_partner=businesspartner).order_by('first_name', 'last_name')
+    paginator = Paginator(contacts_list.order_by('first_name', 'last_name'), 10)  # Show 10 contacts per page
     page_number = request.GET.get('page')
     contacts = paginator.get_page(page_number)
-
     return render(request, 'apps/business_partner/businesspartner_detail.html', {'businesspartner': businesspartner, 'contacts': contacts})
+
 @login_required
 def businesspartner_create(request):
     if request.method == 'POST':
@@ -56,8 +55,16 @@ def businesspartner_create(request):
 @login_required
 def businesspartner_detail(request, pk):
     businesspartner = get_object_or_404(BusinessPartner, pk=pk)
-    contacts = Contact.objects.filter(business_partner=businesspartner)
-    return render(request, 'apps/business_partner/businesspartner_detail.html', {'businesspartner': businesspartner, 'contacts': contacts})
+    contacts_list = Contact.objects.filter(business_partner=businesspartner)
+
+    paginator = Paginator(contacts_list, 10)  # Show 10 contacts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'apps/business_partner/businesspartner_detail.html', {
+        'businesspartner': businesspartner,
+        'page_obj': page_obj,
+    })
 
 @login_required
 def businesspartner_update(request, pk):

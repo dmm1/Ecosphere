@@ -2,7 +2,7 @@ import os
 from importlib import reload
 from pathlib import Path
 from datetime import timedelta
-
+import logging
 from dotenv import load_dotenv
 # Load environment variables from .env file
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -37,6 +37,52 @@ print("SECRET_KEY:", SECRET_KEY)
 print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
 print("SECURE_SSL_REDIRECT:", SECURE_SSL_REDIRECT)
 print("SECURE_PROXY_SSL_HEADER:", SECURE_PROXY_SSL_HEADER)
+
+class MaxBytesFilter(logging.Filter):
+    def __init__(self, max_bytes):
+        self.max_bytes = max_bytes
+        self.current_bytes = 0
+
+    def filter(self, record):
+        self.current_bytes += len(record.msg)
+        if self.current_bytes >= self.max_bytes:
+            self.current_bytes = 0
+            return False
+        return True
+    
+# LOGGING = {
+#     'version': 1,
+#     'formatters': {
+#         'verbose': {
+#             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+#         },
+#         'simple': {
+#             'format': '%(levelname)s %(message)s'
+#         },
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple'
+#         },
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': os.path.join('logs', 'mylog.log'),
+#             'formatter': 'simple',
+#             'maxBytes': 1 * 1024 * 1024,  # 5 MB
+#             'backupCount': 5,  # Keep the last 5 log files
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     }
+# }
 
 # Application definition
 

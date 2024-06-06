@@ -23,7 +23,7 @@
     <div class="row mt-4">
         <div class="col-12">
             <h3>Associated Contacts</h3>
-            {% if contacts %}
+          
             <div class="card">
                 <table class="table card-table table-vcenter">
                     <thead>
@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for contact in contacts %}
+{% for contact in page_obj.object_list %}
 <tr>
     <td><a href="{% url 'contact:contact_detail' contact.pk %}">{{ contact.first_name }} {{ contact.last_name }}</a></td>
     <td>{{ contact.email }}</td>
@@ -49,24 +49,37 @@
                     </tbody>
                 </table>
             </div>
-            {% if contacts.has_other_pages %}
-            <div class="pagination" style="background-color: yellow; padding: 10px;">
-                {% if contacts.has_previous %}
-                <a href="?page=1">First</a>
-                <a href="?page={{ contacts.previous_page_number }}">Previous</a>
-                {% endif %}
-
-                <span class="current-page">Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}</span>
-
-                {% if contacts.has_next %}
-                <a href="?page={{ contacts.next_page_number }}">Next</a>
-                <a href="?page={{ contacts.paginator.num_pages }}">Last</a>
-                {% endif %}
-            </div>
+            {% if page_obj.has_other_pages %}
+            <br />
+<div class="pagination justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="First">&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">&lsaquo;</a>
+            </li>
             {% endif %}
-            {% else %}
-            <p>No associated contacts found.</p>
+
+            <li class="page-item active">
+                <a class="page-link" href="#">{{ page_obj.number }}</a>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">&rsaquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">&raquo;</a>
+            </li>
             {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endif %}
+          
         </div>
     </div>
 </div>
